@@ -1,3 +1,4 @@
+// NOIR visual regression audit — includes return-to-top state validation
 import { chromium } from "playwright";
 import fs from "node:fs/promises";
 
