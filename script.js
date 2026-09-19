@@ -69,6 +69,10 @@ window.addEventListener("load", () => {
   gsap.set(".presence-atmosphere-a", { x: 0, y: 0, scale: 1, opacity: .74 });
   gsap.set(".presence-atmosphere-b", { x: 0, y: 0, scale: 1, opacity: .52 });
 
+  gsap.set(".manifest-background-layer", { x: 0, y: 0, scale: 1.04, opacity: .98 });
+  gsap.set(".manifest-atmosphere-a", { x: 0, y: 0, scale: 1, opacity: .78 });
+  gsap.set(".manifest-atmosphere-b", { x: 0, y: 0, scale: 1, opacity: .56 });
+
   gsap.set(".night-title", { x: -90 });
   gsap.set(".night-product", { x: 95, scale: .9 });
   gsap.set(".night-text", { y: 60, opacity: .35 });
@@ -205,6 +209,9 @@ window.addEventListener("load", () => {
     .to(".presence-background-layer", { x: -42, y: -22, scale: 1.14, opacity: .24, duration: .72 }, 6.02)
     .to(".presence-atmosphere-a", { x: 44, y: -24, scale: 1.2, opacity: .12, duration: .72 }, 6.02)
     .to(".presence-atmosphere-b", { x: -38, y: -16, scale: 1.16, opacity: .08, duration: .72 }, 6.02)
+    .to(".manifest-background-layer", { x: -12, y: -8, scale: 1.08, opacity: 1, duration: .86 }, 6.02)
+    .to(".manifest-atmosphere-a", { x: 28, y: -18, scale: 1.12, opacity: .96, duration: .86 }, 6.02)
+    .to(".manifest-atmosphere-b", { x: -24, y: 10, scale: 1.10, opacity: .72, duration: .86 }, 6.02)
     .to(".manifest-copy", { scale: 1, opacity: 1, duration: .86 }, 6.14)
     .to(".manifest-noir", { scale: 1, opacity: 1, duration: .88 }, 6.12)
     .to([".mc1", ".mc2", ".mc3"], { scale: 1, opacity: 1, stagger: .05, duration: .82 }, 6.14)
@@ -216,6 +223,9 @@ window.addEventListener("load", () => {
   /* 06 -> 07: collection slides over the manifesto and continues horizontally in the same master timeline. */
   master
     .to("#s7", { clipPath: "inset(0% 0% 0% 0%)", duration: 1.05 }, 7.38)
+    .to(".manifest-background-layer", { x: -38, y: -18, scale: 1.14, opacity: .28, duration: .76 }, 7.38)
+    .to(".manifest-atmosphere-a", { x: 42, y: -24, scale: 1.18, opacity: .12, duration: .76 }, 7.38)
+    .to(".manifest-atmosphere-b", { x: -34, y: -14, scale: 1.16, opacity: .08, duration: .76 }, 7.38)
     .to(".collection-heading", { x: 0, opacity: 1, duration: .78 }, 7.48)
     .addLabel("s7", 8.12)
     .to(".collection-heading", { opacity: 0, y: -24, duration: .35 }, 8.42)

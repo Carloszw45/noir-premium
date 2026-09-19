@@ -1,0 +1,115 @@
+/* NOIR V17 — Act 06 / MANIFESTE: a dedicated wine-red declaration field. */
+
+.manifesto {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  color: #f8e9df !important;
+  background: #3a090d !important;
+  background-image: none !important;
+}
+
+.manifest-background-layer {
+  position: absolute;
+  z-index: 0;
+  inset: -5%;
+  background:
+    radial-gradient(circle at 53% 44%, rgba(182,61,42,.80), transparent 24%),
+    radial-gradient(circle at 16% 70%, rgba(92,11,16,.72), transparent 32%),
+    radial-gradient(circle at 87% 24%, rgba(40,2,7,.72), transparent 34%),
+    linear-gradient(132deg, #250307 0%, #691218 46%, #1b0205 100%);
+  filter: saturate(.94) contrast(1.06);
+  will-change: transform, opacity;
+}
+
+.manifest-background-layer::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  opacity: .32;
+  background:
+    repeating-linear-gradient(108deg, transparent 0 19px, rgba(255,221,195,.045) 20px, transparent 21px 43px),
+    linear-gradient(180deg, rgba(255,255,255,.08), transparent 36%, rgba(0,0,0,.50));
+  mix-blend-mode: soft-light;
+}
+
+.manifest-atmosphere {
+  position: absolute;
+  z-index: 2;
+  border-radius: 50%;
+  pointer-events: none;
+  mix-blend-mode: screen;
+  will-change: transform, opacity;
+}
+
+.manifest-atmosphere-a {
+  left: 24%;
+  top: 4%;
+  width: 52vw;
+  height: 72vh;
+  background: radial-gradient(ellipse, rgba(255,128,83,.28), rgba(220,68,47,.10) 38%, transparent 72%);
+  filter: blur(48px);
+}
+
+.manifest-atmosphere-b {
+  right: -10%;
+  bottom: -24%;
+  width: 47vw;
+  height: 46vh;
+  background: radial-gradient(ellipse, rgba(244,155,89,.19), transparent 70%);
+  filter: blur(42px);
+}
+
+.manifest-circle {
+  z-index: 6;
+  border-color: rgba(255,237,221,.18);
+  box-shadow: 0 0 70px rgba(244,96,63,.06);
+}
+
+.manifest-copy,
+.manifest-noir,
+.manifest-bottom,
+.manifesto .chapter {
+  z-index: 20 !important;
+}
+
+.manifest-copy > span,
+.manifest-bottom {
+  color: rgba(255,237,225,.72);
+}
+
+.manifest-copy h2 {
+  color: #fff0e4;
+  text-shadow: 0 12px 42px rgba(32,0,3,.46);
+}
+
+.manifest-noir {
+  color: rgba(255,233,215,.055);
+  text-shadow: 0 16px 50px rgba(14,0,2,.22);
+}
+
+@media (max-width: 650px) {
+  .manifest-background-layer { inset: -8% -22%; }
+
+  .manifest-atmosphere-a {
+    left: -22%;
+    top: 10%;
+    width: 120vw;
+    height: 56vh;
+    filter: blur(36px);
+  }
+
+  .manifest-atmosphere-b {
+    right: -32%;
+    bottom: -12%;
+    width: 115vw;
+    height: 34vh;
+  }
+
+  .manifest-circle { border-color: rgba(255,237,221,.16); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .manifest-background-layer,
+  .manifest-atmosphere { will-change: auto; }
+}
