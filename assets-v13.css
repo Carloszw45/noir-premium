@@ -1,0 +1,213 @@
+/* NOIR V13 — Act 02 / LA NUIT: wine-red environment with an independent object. */
+
+.night {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  color: #f8e9df !important;
+  background: #260708 !important;
+  background-image: none !important;
+}
+
+.night-background-layer {
+  position: absolute;
+  z-index: 0;
+  inset: -4%;
+  background: url("assets/backgrounds/night-v12.webp") center / cover no-repeat;
+  filter: saturate(.94) contrast(1.08);
+  will-change: transform, opacity;
+}
+
+.night-background-layer::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(90deg, rgba(18,2,3,.62), rgba(18,2,3,.16) 50%, rgba(8,1,2,.46)),
+    linear-gradient(180deg, rgba(10,1,2,.18), transparent 46%, rgba(8,1,1,.54));
+}
+
+.night-atmosphere {
+  position: absolute;
+  z-index: 2;
+  pointer-events: none;
+  border-radius: 50%;
+  mix-blend-mode: screen;
+  will-change: transform, opacity;
+}
+
+.night-atmosphere-a {
+  left: 39%;
+  top: 12%;
+  width: 35vw;
+  height: 55vh;
+  background: radial-gradient(ellipse, rgba(224,65,43,.24), rgba(121,18,19,.10) 42%, transparent 72%);
+  filter: blur(46px);
+}
+
+.night-atmosphere-b {
+  right: 6%;
+  bottom: -18%;
+  width: 42vw;
+  height: 38vh;
+  background: radial-gradient(ellipse, rgba(169,39,28,.22), transparent 70%);
+  filter: blur(34px);
+}
+
+.night-glow {
+  z-index: 3;
+  opacity: .46;
+}
+
+.night-circle {
+  z-index: 4;
+  opacity: .9;
+}
+
+.night-title,
+.night-text,
+.night-small,
+.night .chapter,
+.night .number {
+  z-index: 20 !important;
+}
+
+.night-title h2 {
+  color: #f7e8dd;
+  text-shadow: 0 10px 36px rgba(0,0,0,.38);
+}
+
+.night-product {
+  z-index: 12 !important;
+  right: 10% !important;
+  top: 52% !important;
+  width: min(28vw, 420px) !important;
+  height: min(68vh, 620px) !important;
+  translate: none !important;
+  transform: translateY(-50%);
+  pointer-events: none;
+  will-change: transform, opacity;
+}
+
+.night-product .bottle { display: none !important; }
+
+.night-product-shadow {
+  position: absolute;
+  z-index: 1;
+  left: 50%;
+  bottom: 5%;
+  width: 58%;
+  height: 6%;
+  transform: translateX(-50%);
+  border-radius: 50%;
+  background: rgba(0,0,0,.68);
+  filter: blur(24px);
+}
+
+.night-bottle-asset {
+  position: absolute;
+  z-index: 2;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  filter: drop-shadow(0 42px 38px rgba(0,0,0,.58));
+  will-change: transform, opacity;
+}
+
+.night-label-overlay {
+  position: absolute;
+  z-index: 4;
+  left: 31.5%;
+  top: 42.4%;
+  width: 37%;
+  height: 26.6%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: #ead2c2;
+  text-align: center;
+  text-shadow: 0 2px 12px rgba(0,0,0,.86);
+}
+
+.night-label-overlay small,
+.night-label-overlay span,
+.night-label-overlay em {
+  font-size: clamp(5px, .42vw, 7px);
+  letter-spacing: .30em;
+  font-style: normal;
+}
+
+.night-label-overlay small { margin-bottom: 6px; }
+
+.night-label-overlay strong {
+  font-family: "Italiana", serif;
+  font-size: clamp(21px, 2.25vw, 34px);
+  font-weight: 400;
+  letter-spacing: .08em;
+}
+
+.night-label-overlay span { margin-top: 6px; }
+.night-label-overlay em { margin-top: 10px; opacity: .72; }
+
+.night-text p {
+  color: #f4e3d8;
+  text-shadow: 0 6px 24px rgba(0,0,0,.48);
+}
+
+.night-text span,
+.night-small {
+  color: rgba(255,239,229,.72);
+}
+
+@media (max-width: 650px) {
+  .night-background-layer {
+    inset: -7% -22%;
+    background-position: 61% center;
+  }
+
+  .night-atmosphere-a {
+    left: 22%;
+    top: 12%;
+    width: 76vw;
+    height: 48vh;
+    filter: blur(34px);
+  }
+
+  .night-atmosphere-b {
+    right: -18%;
+    bottom: -6%;
+    width: 84vw;
+    height: 30vh;
+  }
+
+  .night-product {
+    right: -14% !important;
+    top: 65% !important;
+    width: 68vw !important;
+    height: 52svh !important;
+  }
+
+  .night-title { left: 20px; top: 17%; width: 68vw; }
+  .night-title h2 {
+    font-size: 13.2vw;
+    letter-spacing: -.065em;
+  }
+
+  .night-text { width: 48%; }
+
+  .night-label-overlay strong { font-size: 7.2vw; }
+  .night-label-overlay small,
+  .night-label-overlay span,
+  .night-label-overlay em { font-size: 1.25vw; }
+
+  .night-title h2 { text-shadow: 0 8px 24px rgba(0,0,0,.5); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .night-background-layer,
+  .night-atmosphere,
+  .night-bottle-asset { will-change: auto; }
+}

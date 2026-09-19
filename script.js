@@ -50,6 +50,11 @@ window.addEventListener("load", () => {
   gsap.set(".hero-atmosphere-b", { x: 0, y: 0, scale: 1, opacity: .86 });
   gsap.set(".hero-reflection", { x: 0, y: 0, scale: 1, opacity: .78 });
 
+  gsap.set(".night-background-layer", { x: 0, y: 0, scale: 1.04, opacity: .96 });
+  gsap.set(".night-atmosphere-a", { x: 0, y: 0, scale: 1, opacity: .92 });
+  gsap.set(".night-atmosphere-b", { x: 0, y: 0, scale: 1, opacity: .78 });
+  gsap.set(".night-bottle-asset", { scale: 1, opacity: 1 });
+
   gsap.set(".night-title", { x: -90 });
   gsap.set(".night-product", { x: 95, scale: .9 });
   gsap.set(".night-text", { y: 60, opacity: .35 });
@@ -106,17 +111,25 @@ window.addEventListener("load", () => {
     .to(".hero-product", { y: -35, scale: 1.08, rotation: .8, duration: 1.05 }, .35)
     .to(".hero-title", { y: -44, scale: 1.06, duration: 1.05 }, .35)
     .to([".hero-copy", ".hero-notes", ".hero-bottom"], { opacity: .18, duration: .55 }, .55)
+    .to(".night-background-layer", { x: -8, y: -6, scale: 1.07, opacity: 1, duration: 1.05 }, .72)
+    .to(".night-atmosphere-a", { x: -24, y: -12, scale: 1.12, opacity: 1, duration: 1.05 }, .72)
+    .to(".night-atmosphere-b", { x: 20, y: 10, scale: 1.10, opacity: .88, duration: 1.05 }, .72)
     .to("#s2", { clipPath: "circle(150% at 50% 78%)", duration: 1.12 }, .72)
     .to(".night-title", { x: 0, duration: .9 }, .84)
     .to(".night-product", { x: 0, scale: 1, duration: .92 }, .84)
+    .to(".night-bottle-asset", { scale: 1.02, duration: .92 }, .84)
     .to(".night-text", { y: 0, opacity: 1, duration: .82 }, .9)
     .to(".night-circle", { scale: 1, rotation: 0, opacity: 1, duration: .88 }, .9)
     .addLabel("s2", 1.62);
 
   /* 02 -> 03: ivory rises while the night remains visible underneath. */
   master
+    .to(".night-background-layer", { x: -34, y: -22, scale: 1.12, opacity: .34, duration: .7 }, 1.8)
+    .to(".night-atmosphere-a", { x: 28, y: -20, scale: 1.22, opacity: .18, duration: .7 }, 1.8)
+    .to(".night-atmosphere-b", { x: -24, y: -14, scale: 1.24, opacity: .12, duration: .7 }, 1.8)
     .to(".night-title", { y: -45, scale: 1.03, duration: .7 }, 1.8)
     .to(".night-product", { x: -35, y: -20, scale: 1.05, duration: .7 }, 1.8)
+    .to(".night-bottle-asset", { scale: 1.08, duration: .7 }, 1.8)
     .to("#s3", { clipPath: "inset(0% 0% 0% 0%)", duration: 1.05 }, 2.05)
     .to(".materials-title", { y: 0, opacity: 1, duration: .78 }, 2.18)
     .to([".material-one", ".material-two", ".material-three"], { y: 0, scale: 1, opacity: 1, stagger: .07, duration: .72 }, 2.2)
