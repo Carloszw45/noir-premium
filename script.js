@@ -36,7 +36,7 @@ window.addEventListener("load", () => {
   gsap.set("#s1", { clipPath: "inset(0% 0% 0% 0%)" });
   gsap.set("#s2", { clipPath: "circle(0% at 50% 78%)" });
   gsap.set("#s3", { clipPath: "inset(100% 0% 0% 0%)" });
-  gsap.set("#s4", { clipPath: "circle(0% at 76% 58%)" });
+  gsap.set("#s4", { clipPath: "circle(0% at 54% 48%)" });
   gsap.set("#s5", { clipPath: "inset(50% 0% 50% 0%)" });
   gsap.set("#s6", { clipPath: "circle(0% at 70% 55%)" });
   gsap.set("#s7", { clipPath: "inset(0% 0% 0% 100%)" });
@@ -82,7 +82,7 @@ window.addEventListener("load", () => {
   gsap.set(".atelier-product", { x: 90, y: 50, scale: .88, opacity: .25 });
   gsap.set(".atelier-copy", { y: 70, opacity: .15 });
 
-  gsap.set(".final-product", { x: 80, y: 70, scale: .78, opacity: .2 });
+  gsap.set(".final-product", { x: 60, y: 60, scale: .82, opacity: .4 });
   gsap.set(".final-copy", { x: -90, opacity: .15 });
   gsap.set(".final-word", { scale: .88, opacity: .2 });
   gsap.set(".final-glow", { scale: .7, opacity: .25 });
@@ -121,7 +121,7 @@ window.addEventListener("load", () => {
 
   /* 03 -> 04: the amber/material field collapses into the black object world. */
   master
-    .to("#s4", { clipPath: "circle(150% at 76% 58%)", duration: 1.02 }, 3.45)
+    .to("#s4", { clipPath: "circle(150% at 54% 48%)", duration: 1.02 }, 3.45)
     .to(".object-stage", { scale: 1, rotation: 0, duration: .86 }, 3.58)
     .to(".object-copy", { x: 0, opacity: 1, duration: .78 }, 3.68)
     .to(".huge-word", { xPercent: 0, opacity: 1, duration: .82 }, 3.58)
@@ -195,7 +195,7 @@ window.addEventListener("load", () => {
   master
     .to(".atelier-product", { x: 65, y: -30, scale: 1.08, duration: .68 }, 13.32)
     .to("#s10", { clipPath: "circle(150% at 68% 50%)", duration: 1.05 }, 13.5)
-    .to(".final-product", { x: 0, y: 0, scale: 1, opacity: 1, duration: .84 }, 13.62)
+    .to(".final-product", { x: 0, y: 0, scale: 1, opacity: 1, duration: .92 }, 13.52)
     .to(".final-copy", { x: 0, opacity: 1, duration: .82 }, 13.68)
     .to(".final-word", { scale: 1, opacity: 1, duration: .84 }, 13.62)
     .to(".final-glow", { scale: 1, opacity: 1, duration: .84 }, 13.62)

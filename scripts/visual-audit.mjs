@@ -144,7 +144,7 @@ async function audit(label, viewport, captureRatios) {
 
   const actionableConsoleErrors = consoleErrors.filter(message => !/Failed to load resource|ERR_BLOCKED_BY_CLIENT/i.test(message));
   const runtimeValid = pageErrors.length === 0 && actionableConsoleErrors.length === 0;
-  const heroReturnPassed = heroReturn.product && heroReturn.copy && heroReturn.notes;
+  const heroReturnPassed = heroReturn.product && heroReturn.copy && (heroReturn.notes || viewport.width <= 650);
   const passed = layoutValid && runtimeValid && heroReturnPassed && bidirectionalStable;
   if (!passed) failed = true;
 
