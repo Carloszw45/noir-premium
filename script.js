@@ -45,6 +45,11 @@ window.addEventListener("load", () => {
   gsap.set("#s10", { clipPath: "circle(0% at 68% 50%)" });
 
   /* Initial poses for the incoming layers. All are deterministic and reversible. */
+  gsap.set(".hero-background-layer", { scale: 1.03, x: 0, y: 0, opacity: .98 });
+  gsap.set(".hero-atmosphere-a", { x: 0, y: 0, scale: 1, opacity: .92 });
+  gsap.set(".hero-atmosphere-b", { x: 0, y: 0, scale: 1, opacity: .86 });
+  gsap.set(".hero-reflection", { x: 0, y: 0, scale: 1, opacity: .78 });
+
   gsap.set(".night-title", { x: -90 });
   gsap.set(".night-product", { x: 95, scale: .9 });
   gsap.set(".night-text", { y: 60, opacity: .35 });
@@ -93,6 +98,11 @@ window.addEventListener("load", () => {
 
   /* 01 -> 02: the red world grows through the hero instead of replacing it. */
   master
+    .to(".hero-background-layer", { x: -28, y: -18, scale: 1.10, duration: 1.05 }, .35)
+    .to(".hero-atmosphere-a", { x: 44, y: -24, scale: 1.16, opacity: .12, duration: 1.05 }, .35)
+    .to(".hero-atmosphere-b", { x: -38, y: -18, scale: 1.22, opacity: .08, duration: 1.05 }, .35)
+    .to(".hero-reflection", { x: -32, y: -22, scale: 1.18, opacity: .10, duration: 1.05 }, .35)
+    .to(".hero-bottle-asset", { scale: 1.035, duration: 1.05 }, .35)
     .to(".hero-product", { y: -35, scale: 1.08, rotation: .8, duration: 1.05 }, .35)
     .to(".hero-title", { y: -44, scale: 1.06, duration: 1.05 }, .35)
     .to([".hero-copy", ".hero-notes", ".hero-bottom"], { opacity: .18, duration: .55 }, .55)
@@ -243,7 +253,7 @@ window.addEventListener("load", () => {
   gsap.timeline({ defaults: { ease: "power3.out" } })
     .from(".nav", { opacity: 0, y: -16, duration: .7 })
     .from(".hero-title span", { opacity: 0, yPercent: 100, duration: .95, stagger: .045 }, "-=.42")
-    .from(".hero-product .bottle, .hero-product .shadow", { opacity: 0, duration: .9, stagger: .06 }, "-=.66")
+    .from(".hero-bottle-asset, .hero-label-overlay, .hero-product .shadow", { opacity: 0, duration: .9, stagger: .06 }, "-=.66")
     .from(".hero-copy p", { opacity: 0, duration: .55 }, "-=.5")
     .from(".hero-notes span", { opacity: 0, duration: .45, stagger: .05 }, "-=.38");
 

@@ -1,0 +1,226 @@
+/* NOIR V12 — Hero art direction: independent scene, atmosphere and object. */
+
+.hero {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  color: #f2e5d4 !important;
+  background: #080808 !important;
+  background-image: none !important;
+}
+
+/* The plate is its own layer so the bottle never becomes part of the scenery. */
+.hero-background-layer {
+  position: absolute;
+  z-index: 0;
+  inset: -3%;
+  background: url("assets/backgrounds/hero-v12.webp") center / cover no-repeat;
+  transform: scale(1.03);
+  filter: saturate(.86) contrast(1.06);
+  will-change: transform;
+}
+
+.hero-background-layer::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(90deg, rgba(4,4,4,.78) 0%, rgba(4,4,4,.30) 40%, rgba(4,4,4,.08) 68%, rgba(4,4,4,.30) 100%),
+    linear-gradient(180deg, rgba(4,4,4,.18), transparent 42%, rgba(4,4,4,.62));
+}
+
+.hero-atmosphere {
+  position: absolute;
+  z-index: 2;
+  pointer-events: none;
+  border-radius: 50%;
+  mix-blend-mode: screen;
+  will-change: transform, opacity;
+}
+
+.hero-atmosphere-a {
+  left: 32%;
+  top: 5%;
+  width: 33vw;
+  height: 78vh;
+  background: radial-gradient(ellipse, rgba(238,190,117,.28), rgba(155,88,38,.10) 37%, transparent 72%);
+  filter: blur(42px);
+}
+
+.hero-atmosphere-b {
+  left: 49%;
+  bottom: -14%;
+  width: 46vw;
+  height: 39vh;
+  background: radial-gradient(ellipse, rgba(240,176,79,.25), transparent 68%);
+  filter: blur(34px);
+}
+
+.hero-reflection {
+  position: absolute;
+  z-index: 3;
+  left: 44%;
+  bottom: -15%;
+  width: 30vw;
+  height: 25vh;
+  border-radius: 50%;
+  background: radial-gradient(ellipse, rgba(221,162,84,.25), transparent 68%);
+  filter: blur(28px);
+  mix-blend-mode: screen;
+  pointer-events: none;
+  will-change: transform, opacity;
+}
+
+.hero::after {
+  content: "";
+  position: absolute;
+  z-index: 4;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(90deg, rgba(4,4,4,.18), transparent 42%, rgba(4,4,4,.18));
+}
+
+.hero-title {
+  z-index: 5 !important;
+  color: rgba(229,195,149,.88) !important;
+  opacity: .66;
+  text-shadow: 0 10px 50px rgba(0,0,0,.48);
+}
+
+.hero-product {
+  z-index: 12 !important;
+  left: 68% !important;
+  top: 52% !important;
+  width: min(31vw, 470px) !important;
+  height: min(76vh, 690px) !important;
+  /* Keep one centering transform; GSAP owns the animated transform after load. */
+  translate: none !important;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  will-change: transform, opacity;
+}
+
+.hero-product::before {
+  content: none !important;
+}
+
+.hero-product .bottle { display: none !important; }
+
+.hero-bottle-asset {
+  position: absolute;
+  z-index: 2;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  filter: drop-shadow(0 42px 38px rgba(0,0,0,.56));
+  will-change: transform;
+}
+
+.hero-product .shadow {
+  position: absolute;
+  z-index: 1;
+  left: 50%;
+  bottom: 5%;
+  width: 55%;
+  height: 6%;
+  transform: translateX(-50%);
+  border-radius: 50%;
+  background: rgba(0,0,0,.60);
+  filter: blur(22px);
+}
+
+.hero-label-overlay {
+  position: absolute;
+  z-index: 4;
+  left: 31.5%;
+  top: 42.4%;
+  width: 37%;
+  height: 26.6%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: #e9d4b2;
+  text-align: center;
+  text-shadow: 0 2px 12px rgba(0,0,0,.8);
+}
+
+.hero-label-overlay small,
+.hero-label-overlay span,
+.hero-label-overlay em {
+  font-size: clamp(5px, .42vw, 7px);
+  letter-spacing: .30em;
+  font-style: normal;
+}
+
+.hero-label-overlay small { margin-bottom: 6px; }
+.hero-label-overlay strong {
+  font-family: "Italiana", serif;
+  font-size: clamp(21px, 2.25vw, 34px);
+  font-weight: 400;
+  letter-spacing: .08em;
+}
+.hero-label-overlay span { margin-top: 6px; }
+.hero-label-overlay em { margin-top: 10px; opacity: .72; }
+
+.hero-copy,
+.hero-notes,
+.hero-bottom,
+.hero .chapter {
+  z-index: 20 !important;
+  color: #f2e5d4 !important;
+  text-shadow: 0 5px 24px rgba(0,0,0,.62);
+}
+
+.hero-copy { will-change: transform, opacity; }
+
+@media (max-width: 650px) {
+  .hero-background-layer {
+    inset: -5% -22%;
+    background-position: 58% center;
+  }
+
+  .hero-atmosphere-a {
+    left: 15%;
+    top: 6%;
+    width: 80vw;
+    height: 62vh;
+    filter: blur(34px);
+  }
+
+  .hero-atmosphere-b {
+    left: 28%;
+    bottom: -4%;
+    width: 85vw;
+    height: 27vh;
+  }
+
+  .hero-reflection {
+    left: 38%;
+    bottom: 0;
+    width: 80vw;
+    height: 22vh;
+  }
+
+  .hero-title { opacity: .38; }
+  .hero-product {
+    left: 68% !important;
+    top: 48% !important;
+    width: 76vw !important;
+    height: 64svh !important;
+  }
+
+  .hero-label-overlay strong { font-size: 7.2vw; }
+  .hero-label-overlay small,
+  .hero-label-overlay span,
+  .hero-label-overlay em { font-size: 1.25vw; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-background-layer,
+  .hero-atmosphere,
+  .hero-reflection,
+  .hero-bottle-asset { will-change: auto; }
+}

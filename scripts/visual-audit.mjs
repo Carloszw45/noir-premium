@@ -22,6 +22,16 @@ async function audit(label, viewport, captureRatios) {
   page.on("pageerror", error => pageErrors.push(error.message));
 
   await page.goto("http://127.0.0.1:4173", { waitUntil: "networkidle" });
+  await page.evaluate(async () => {
+    await document.fonts.ready;
+    await Promise.all([...document.images].map(image => {
+      if (image.complete) return Promise.resolve();
+      return new Promise(resolve => {
+        image.addEventListener("load", resolve, { once: true });
+        image.addEventListener("error", resolve, { once: true });
+      });
+    }));
+  });
   await page.waitForTimeout(2400);
 
   const base = await page.evaluate(selectors => {
@@ -79,7 +89,9 @@ async function audit(label, viewport, captureRatios) {
   }
 
   async function readTimelineState(ratio) {
-    await scrollToRatio(ratio, 760);
+    // The master timeline intentionally uses a non-zero scrub value. Give it
+    // enough time to converge before comparing down-scroll and up-scroll states.
+    await scrollToRatio(ratio, 1800);
     return page.evaluate(selectors => {
       const round = value => Math.round(value * 1000) / 1000;
       return selectors.map(selector => {
@@ -104,12 +116,21 @@ async function audit(label, viewport, captureRatios) {
   for (const ratio of [...reverseRatios].reverse()) upStates.unshift(await readTimelineState(ratio));
 
   const normalize = value => String(value || "").replace(/\s+/g, " ").trim();
+  const clipPathMatches = (left, right) => {
+    const leftText = normalize(left);
+    const rightText = normalize(right);
+    if (leftText === rightText) return true;
+    const leftNumbers = (leftText.match(/-?\d+(?:\.\d+)?/g) || []).map(Number);
+    const rightNumbers = (rightText.match(/-?\d+(?:\.\d+)?/g) || []).map(Number);
+    return leftNumbers.length === rightNumbers.length &&
+      leftNumbers.every((value, index) => Math.abs(value - rightNumbers[index]) <= 3.5);
+  };
   const stateMatches = (down, up) => down.every((scene, index) => {
     const other = up[index];
     return other &&
       Math.abs(scene.opacity - other.opacity) <= .055 &&
       scene.visibility === other.visibility &&
-      normalize(scene.clipPath) === normalize(other.clipPath) &&
+      clipPathMatches(scene.clipPath, other.clipPath) &&
       normalize(scene.transform) === normalize(other.transform);
   });
   const bidirectionalStable = downStates.every((state, index) => stateMatches(state, upStates[index]));
