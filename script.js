@@ -65,6 +65,10 @@ window.addEventListener("load", () => {
   gsap.set(".object-atmosphere-b", { x: 0, y: 0, scale: 1, opacity: .58 });
   gsap.set(".object-bottle-asset", { scale: 1, opacity: 1 });
 
+  gsap.set(".presence-background-layer", { x: 0, y: 0, scale: 1.04, opacity: .98 });
+  gsap.set(".presence-atmosphere-a", { x: 0, y: 0, scale: 1, opacity: .74 });
+  gsap.set(".presence-atmosphere-b", { x: 0, y: 0, scale: 1, opacity: .52 });
+
   gsap.set(".night-title", { x: -90 });
   gsap.set(".night-product", { x: 95, scale: .9 });
   gsap.set(".night-text", { y: 60, opacity: .35 });
@@ -183,6 +187,9 @@ window.addEventListener("load", () => {
     .to(".object-bottle-asset", { scale: 1.09, duration: .68 }, 4.48)
     .to(".object-stage", { scale: 1.08, rotation: 2, duration: .68 }, 4.48)
     .to(".huge-word", { xPercent: 4, duration: .68 }, 4.48)
+    .to(".presence-background-layer", { x: -16, y: -10, scale: 1.08, opacity: 1, duration: .86 }, 4.62)
+    .to(".presence-atmosphere-a", { x: 30, y: -18, scale: 1.12, opacity: .9, duration: .86 }, 4.62)
+    .to(".presence-atmosphere-b", { x: -24, y: 12, scale: 1.1, opacity: .68, duration: .86 }, 4.62)
     .to("#s5", { clipPath: "inset(0% 0% 0% 0%)", duration: 1.05 }, 4.72)
     .to(".photo-main", { scale: 1, x: 0, duration: .88 }, 4.82)
     .to(".photo-detail", { scale: 1, x: 0, y: 0, duration: .88 }, 4.86)
@@ -195,6 +202,9 @@ window.addEventListener("load", () => {
   /* 05 -> 06: the editorial composition becomes the red manifesto through one expanding circle. */
   master
     .to("#s6", { clipPath: "circle(150% at 70% 55%)", duration: 1.04 }, 6.02)
+    .to(".presence-background-layer", { x: -42, y: -22, scale: 1.14, opacity: .24, duration: .72 }, 6.02)
+    .to(".presence-atmosphere-a", { x: 44, y: -24, scale: 1.2, opacity: .12, duration: .72 }, 6.02)
+    .to(".presence-atmosphere-b", { x: -38, y: -16, scale: 1.16, opacity: .08, duration: .72 }, 6.02)
     .to(".manifest-copy", { scale: 1, opacity: 1, duration: .86 }, 6.14)
     .to(".manifest-noir", { scale: 1, opacity: 1, duration: .88 }, 6.12)
     .to([".mc1", ".mc2", ".mc3"], { scale: 1, opacity: 1, stagger: .05, duration: .82 }, 6.14)

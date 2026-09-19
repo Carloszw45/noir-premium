@@ -83,7 +83,10 @@ async function audit(label, viewport, captureRatios) {
 
   async function scrollToRatio(ratio, settle = 650) {
     const y = maxScroll * ratio;
-    await page.evaluate(pos => window.scrollTo(0, pos), Math.round(y));
+    await page.evaluate(pos => {
+      window.scrollTo(0, pos);
+      if (window.ScrollTrigger) window.ScrollTrigger.update();
+    }, Math.round(y));
     await page.waitForTimeout(900);
     const started = Date.now();
     const maxWait = Math.max(settle, 5500);

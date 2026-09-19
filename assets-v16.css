@@ -1,0 +1,177 @@
+/* NOIR V16 — Act 05 / PRÉSENCE: editorial campaign layers with local imagery. */
+
+.presence {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  color: #efe4d7 !important;
+  background: #24211e !important;
+  background-image: none !important;
+}
+
+.presence-background-layer {
+  position: absolute;
+  z-index: 0;
+  inset: -4%;
+  background:
+    radial-gradient(circle at 68% 34%, rgba(133,103,77,.26), transparent 25%),
+    radial-gradient(circle at 17% 81%, rgba(12,11,10,.52), transparent 31%),
+    linear-gradient(118deg, #171614 0%, #4a433b 48%, #211e1b 100%);
+  will-change: transform, opacity;
+}
+
+.presence-background-layer::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  opacity: .34;
+  background:
+    linear-gradient(90deg, rgba(8,8,7,.48), transparent 46%, rgba(8,8,7,.32)),
+    repeating-linear-gradient(112deg, transparent 0 23px, rgba(255,240,216,.035) 24px, transparent 25px 48px),
+    linear-gradient(180deg, rgba(255,255,255,.08), transparent 38%, rgba(0,0,0,.40));
+  mix-blend-mode: multiply;
+}
+
+.presence-atmosphere {
+  position: absolute;
+  z-index: 2;
+  border-radius: 50%;
+  pointer-events: none;
+  mix-blend-mode: screen;
+  will-change: transform, opacity;
+}
+
+.presence-atmosphere-a {
+  left: 3%;
+  top: 16%;
+  width: 45vw;
+  height: 54vh;
+  background: radial-gradient(ellipse, rgba(222,194,160,.24), rgba(148,117,86,.08) 42%, transparent 72%);
+  filter: blur(48px);
+}
+
+.presence-atmosphere-b {
+  right: -7%;
+  bottom: -13%;
+  width: 42vw;
+  height: 40vh;
+  background: radial-gradient(ellipse, rgba(173,88,48,.18), transparent 70%);
+  filter: blur(38px);
+}
+
+.presence-word {
+  z-index: 4 !important;
+  color: rgba(255,241,222,.095) !important;
+  text-shadow: 0 12px 44px rgba(0,0,0,.24);
+}
+
+.photo {
+  z-index: 8;
+  border: 1px solid rgba(247,229,207,.18);
+  box-shadow: 0 35px 70px rgba(0,0,0,.26);
+  background: #161514;
+  will-change: transform, opacity;
+}
+
+.photo::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(180deg, rgba(7,7,6,.08), transparent 50%, rgba(7,7,6,.30));
+  mix-blend-mode: multiply;
+}
+
+.photo img {
+  display: block;
+  width: 100%;
+  height: 115%;
+  object-fit: cover;
+  filter: grayscale(.88) contrast(1.08) brightness(.88) sepia(.10);
+  will-change: transform;
+}
+
+.photo-main {
+  left: 6%;
+  top: 13%;
+  width: 45vw;
+  height: 76vh;
+}
+
+.photo-main img { object-position: 66% center; }
+
+.photo-detail {
+  right: 6%;
+  bottom: 7%;
+  width: 25vw;
+  height: 41vh;
+}
+
+.photo-detail img { object-position: 42% center; }
+
+.presence-copy,
+.presence-footer,
+.presence .chapter {
+  z-index: 20 !important;
+  color: #f3e7d9 !important;
+  text-shadow: 0 7px 26px rgba(0,0,0,.48);
+}
+
+.presence-copy h2 {
+  color: #f3e7d9;
+  font-size: clamp(51px, 6vw, 98px);
+}
+
+.presence-copy span { color: #ddc0a5; }
+
+.presence-footer { color: rgba(246,229,211,.68) !important; }
+
+@media (max-width: 650px) {
+  .presence-background-layer { inset: -7% -20%; }
+
+  .presence-atmosphere-a {
+    left: -10%;
+    top: 12%;
+    width: 92vw;
+    height: 48vh;
+    filter: blur(36px);
+  }
+
+  .presence-atmosphere-b {
+    right: -25%;
+    bottom: -5%;
+    width: 92vw;
+    height: 31vh;
+  }
+
+  .presence-word {
+    top: 45%;
+    font-size: 27vw;
+  }
+
+  .photo-main {
+    left: 0;
+    top: 10%;
+    width: 78vw;
+    height: 56vh;
+  }
+
+  .photo-main img { object-position: 74% center; }
+
+  .photo-detail {
+    right: -8%;
+    bottom: 6%;
+    width: 53vw;
+    height: 33vh;
+  }
+
+  .photo-detail img { object-position: 42% center; }
+
+  .presence-copy h2 { font-size: 13.5vw; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .presence-background-layer,
+  .presence-atmosphere,
+  .photo { will-change: auto; }
+}
