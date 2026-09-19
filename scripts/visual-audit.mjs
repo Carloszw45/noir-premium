@@ -10,9 +10,7 @@ await fs.mkdir(OUT, { recursive: true });
 const browser = await chromium.launch({ headless: true });
 let failed = false;
 
-const wait = ms => new Promise(resolve => setTimeout(resolve, ms));
-
-async function audit(label, viewport, steps) {
+async function audit(label, viewport, captureRatios) {
   const context = await browser.newContext({ viewport, deviceScaleFactor: 1 });
   const page = await context.newPage();
   const consoleErrors = [];
@@ -24,180 +22,161 @@ async function audit(label, viewport, steps) {
   page.on("pageerror", error => pageErrors.push(error.message));
 
   await page.goto("http://127.0.0.1:4173", { waitUntil: "networkidle" });
-  await page.waitForTimeout(2600);
+  await page.waitForTimeout(2400);
 
-  const baseLayout = await page.evaluate(sceneSelectors => {
-    const sceneMetrics = sceneSelectors.map(selector => {
+  const base = await page.evaluate(selectors => {
+    const stage = document.querySelector(".experience-stage");
+    const stageRect = stage?.getBoundingClientRect();
+    const sceneMetrics = selectors.map(selector => {
       const element = document.querySelector(selector);
       if (!element) return { selector, exists: false };
       const rect = element.getBoundingClientRect();
+      const style = getComputedStyle(element);
       return {
         selector,
         exists: true,
         width: rect.width,
-        height: rect.height
+        height: rect.height,
+        top: rect.top,
+        left: rect.left,
+        position: style.position,
+        visibility: style.visibility
       };
     });
 
     const invalidTransforms = [...document.querySelectorAll(".scene *")]
-      .filter(element => {
-        const transform = getComputedStyle(element).transform;
-        return /NaN|undefined/i.test(transform);
-      })
+      .filter(element => /NaN|undefined/i.test(getComputedStyle(element).transform))
       .map(element => element.className || element.tagName)
       .slice(0, 20);
 
     return {
-      height: document.documentElement.scrollHeight,
-      viewport: window.innerHeight,
-      horizontalOverflow: Math.max(0, document.documentElement.scrollWidth - window.innerWidth),
+      stageExists: Boolean(stage),
+      stage: stageRect ? { width: stageRect.width, height: stageRect.height, top: stageRect.top } : null,
+      scrollHeight: document.documentElement.scrollHeight,
+      viewportHeight: innerHeight,
+      overflowX: Math.max(0, document.documentElement.scrollWidth - innerWidth),
       sceneMetrics,
       invalidTransforms
     };
   }, SCENES);
 
-  const scenesValid = baseLayout.sceneMetrics.every(scene => scene.exists && scene.width > 0 && scene.height > 0);
-  const layoutValid = scenesValid && baseLayout.horizontalOverflow <= 3 && baseLayout.invalidTransforms.length === 0;
+  const scenesLayered = base.stageExists && base.sceneMetrics.every(scene =>
+    scene.exists &&
+    scene.position === "absolute" &&
+    Math.abs(scene.width - viewport.width) <= 4 &&
+    Math.abs(scene.height - base.stage.height) <= 4 &&
+    Math.abs(scene.top - base.stage.top) <= 4
+  );
 
-  async function scrollTo(y, settle = 820) {
-    await page.evaluate(yPos => window.scrollTo(0, yPos), Math.max(0, Math.round(y)));
+  const layoutValid = scenesLayered && base.overflowX <= 3 && base.invalidTransforms.length === 0 && base.scrollHeight > viewport.height * 8;
+  const maxScroll = Math.max(0, base.scrollHeight - viewport.height);
+
+  async function scrollToRatio(ratio, settle = 650) {
+    const y = maxScroll * ratio;
+    await page.evaluate(pos => window.scrollTo(0, pos), Math.round(y));
     await page.waitForTimeout(settle);
+    return y;
   }
 
-  async function readHeroState(y) {
-    await scrollTo(y, 900);
-    return page.evaluate(() => {
-      const read = selector => {
+  async function readTimelineState(ratio) {
+    await scrollToRatio(ratio, 760);
+    return page.evaluate(selectors => {
+      const round = value => Math.round(value * 1000) / 1000;
+      return selectors.map(selector => {
         const element = document.querySelector(selector);
-        if (!element) return null;
-        const rect = element.getBoundingClientRect();
         const style = getComputedStyle(element);
         return {
-          opacity: Number.parseFloat(style.opacity || "0"),
-          rect: {
-            top: rect.top,
-            left: rect.left,
-            width: rect.width,
-            height: rect.height
-          }
+          selector,
+          opacity: round(Number.parseFloat(style.opacity || "0")),
+          visibility: style.visibility,
+          clipPath: style.clipPath,
+          transform: style.transform
         };
-      };
-
-      return {
-        scrollY: window.scrollY,
-        product: read(".hero-product"),
-        copy: read(".hero-copy")
-      };
-    });
+      });
+    }, SCENES);
   }
 
-  const heroPositions = [0, viewport.height * .18, viewport.height * .36, viewport.height * .54, viewport.height * .72];
+  const reverseRatios = [0, .045, .095, .16, .235, .315, .40, .49, .61, .73, .84, .94];
   const downStates = [];
   const upStates = [];
 
-  for (const y of heroPositions) downStates.push(await readHeroState(y));
-  for (const y of [...heroPositions].reverse()) upStates.unshift(await readHeroState(y));
+  for (const ratio of reverseRatios) downStates.push(await readTimelineState(ratio));
+  for (const ratio of [...reverseRatios].reverse()) upStates.unshift(await readTimelineState(ratio));
 
-  const delta = (a, b) => Math.abs((a ?? 0) - (b ?? 0));
-  const stateMatches = (a, b) => {
-    if (!a || !b || !a.product || !b.product || !a.copy || !b.copy) return false;
-    return (
-      delta(a.product.rect.top, b.product.rect.top) <= 4 &&
-      delta(a.product.rect.left, b.product.rect.left) <= 4 &&
-      delta(a.product.rect.width, b.product.rect.width) <= 4 &&
-      delta(a.product.rect.height, b.product.rect.height) <= 4 &&
-      delta(a.product.opacity, b.product.opacity) <= .05 &&
-      delta(a.copy.rect.top, b.copy.rect.top) <= 4 &&
-      delta(a.copy.opacity, b.copy.opacity) <= .05
-    );
-  };
+  const normalize = value => String(value || "").replace(/\s+/g, " ").trim();
+  const stateMatches = (down, up) => down.every((scene, index) => {
+    const other = up[index];
+    return other &&
+      Math.abs(scene.opacity - other.opacity) <= .055 &&
+      scene.visibility === other.visibility &&
+      normalize(scene.clipPath) === normalize(other.clipPath) &&
+      normalize(scene.transform) === normalize(other.transform);
+  });
+  const bidirectionalStable = downStates.every((state, index) => stateMatches(state, upStates[index]));
 
-  const heroReversible = downStates.every((state, index) => stateMatches(state, upStates[index]));
-
-  await scrollTo(0, 1000);
-
+  await scrollToRatio(0, 900);
   const heroReturn = await page.evaluate(() => {
-    const inspect = selector => {
-      const element = document.querySelector(selector);
-      if (!element) return { exists: false, opacity: 0, visible: false, rect: null };
-      const style = getComputedStyle(element);
-      const rect = element.getBoundingClientRect();
-      const opacity = Number.parseFloat(style.opacity || "0");
-      const visible = opacity > .8 && rect.bottom > 0 && rect.top < innerHeight && rect.right > 0 && rect.left < innerWidth;
-      return {
-        exists: true,
-        opacity,
-        visible,
-        rect: { top: rect.top, left: rect.left, right: rect.right, bottom: rect.bottom }
-      };
+    const visible = selector => {
+      const el = document.querySelector(selector);
+      if (!el) return false;
+      const rect = el.getBoundingClientRect();
+      const style = getComputedStyle(el);
+      return Number.parseFloat(style.opacity || "0") > .75 && style.visibility !== "hidden" && rect.bottom > 0 && rect.top < innerHeight;
     };
-
     return {
-      scrollY: window.scrollY,
-      product: inspect(".hero-product"),
-      copy: inspect(".hero-copy"),
-      notes: inspect(".hero-notes")
+      product: visible(".hero-product"),
+      copy: visible(".hero-copy"),
+      notes: visible(".hero-notes")
     };
   });
 
-  await page.screenshot({ path: `${OUT}/${label}-return-top.png`, fullPage: false });
-
-  const maxScroll = Math.max(0, baseLayout.height - baseLayout.viewport);
-  for (let i = 0; i < steps.length; i++) {
-    const ratio = steps[i];
-    await scrollTo(maxScroll * ratio, 760);
+  for (let i = 0; i < captureRatios.length; i++) {
+    const ratio = captureRatios[i];
+    await scrollToRatio(ratio, 700);
     await page.screenshot({
       path: `${OUT}/${label}-${String(i + 1).padStart(2, "0")}-${Math.round(ratio * 100)}.png`,
       fullPage: false
     });
   }
 
-  const actionableConsoleErrors = consoleErrors.filter(message => !/Failed to load resource|ERR_BLOCKED_BY_CLIENT/i.test(message));
-  const heroReturnPassed = heroReturn.product.visible && heroReturn.copy.visible;
-  const runtimeValid = pageErrors.length === 0 && actionableConsoleErrors.length === 0;
-  const passed = layoutValid && runtimeValid && heroReturnPassed && heroReversible;
+  await scrollToRatio(0, 800);
+  await page.screenshot({ path: `${OUT}/${label}-return-top.png`, fullPage: false });
 
+  const actionableConsoleErrors = consoleErrors.filter(message => !/Failed to load resource|ERR_BLOCKED_BY_CLIENT/i.test(message));
+  const runtimeValid = pageErrors.length === 0 && actionableConsoleErrors.length === 0;
+  const heroReturnPassed = heroReturn.product && heroReturn.copy && heroReturn.notes;
+  const passed = layoutValid && runtimeValid && heroReturnPassed && bidirectionalStable;
   if (!passed) failed = true;
 
-  await fs.writeFile(
-    `${OUT}/${label}-meta.json`,
-    JSON.stringify({
-      viewport,
-      baseLayout,
-      consoleErrors,
-      actionableConsoleErrors,
-      pageErrors,
-      heroReturn,
-      heroReturnPassed,
-      heroReversible,
-      downStates,
-      upStates,
-      layoutValid,
-      runtimeValid,
-      passed
-    }, null, 2)
-  );
+  await fs.writeFile(`${OUT}/${label}-meta.json`, JSON.stringify({
+    viewport,
+    base,
+    scenesLayered,
+    layoutValid,
+    runtimeValid,
+    heroReturn,
+    heroReturnPassed,
+    bidirectionalStable,
+    consoleErrors,
+    actionableConsoleErrors,
+    pageErrors,
+    reverseRatios,
+    downStates,
+    upStates,
+    passed
+  }, null, 2));
 
   await context.close();
 }
 
-await audit(
-  "desktop",
-  { width: 1440, height: 900 },
-  [0, .055, .11, .17, .23, .30, .37, .44, .51, .58, .65, .72, .79, .86, .93, 1]
-);
-
-await audit(
-  "mobile",
-  { width: 390, height: 844 },
-  [0, .08, .16, .24, .32, .40, .48, .56, .64, .72, .80, .88, .96, 1]
-);
+await audit("desktop", { width: 1440, height: 900 }, [0, .04, .08, .12, .17, .22, .28, .34, .40, .47, .54, .61, .68, .75, .82, .89, .95, 1]);
+await audit("mobile", { width: 390, height: 844 }, [0, .06, .12, .18, .24, .31, .38, .45, .52, .60, .68, .76, .84, .92, 1]);
 
 await browser.close();
 
 if (failed) {
-  console.error("NOIR regression audit failed. Inspect visual-audit/*-meta.json and screenshots.");
+  console.error("NOIR layered audit failed. Inspect visual-audit metadata and screenshots.");
   process.exitCode = 1;
 } else {
-  console.log("NOIR regression audit passed: layout, runtime, hero return and reverse-scroll state are stable.");
+  console.log("NOIR layered audit passed: scenes share one stage and reverse-scroll states are deterministic.");
 }
