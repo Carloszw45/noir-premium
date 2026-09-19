@@ -1,4 +1,4 @@
-/* NOIR V7 — continuity layer between acts.
+/* NOIR V8 — continuity layer between acts.
    The base scene backgrounds stay untouched. Continuity only exists while scrolling
    across a boundary, so a settled scene never keeps a visible transition band. */
 
