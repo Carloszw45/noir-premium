@@ -10,8 +10,7 @@
 .finale {
   background-image:
     linear-gradient(90deg, rgba(5,5,5,.70) 0%, rgba(5,5,5,.26) 38%, rgba(5,5,5,.10) 68%, rgba(5,5,5,.42) 100%),
-    linear-gradient(180deg, rgba(5,5,5,.20), transparent 35%, rgba(5,5,5,.36)),
-    url("assets/backgrounds/hero.webp") !important;
+    linear-gradient(180deg, rgba(5,5,5,.20), transparent 35%, rgba(5,5,5,.36)) !important;
   background-size: cover !important;
   background-position: center !important;
   background-repeat: no-repeat !important;
@@ -23,8 +22,7 @@
 .midnight {
   background-image:
     linear-gradient(90deg, rgba(18,2,2,.72), rgba(24,3,3,.18) 48%, rgba(10,2,2,.46)),
-    linear-gradient(180deg, rgba(12,2,2,.15), transparent 58%, rgba(8,1,1,.42)),
-    url("assets/backgrounds/night.webp") !important;
+    linear-gradient(180deg, rgba(12,2,2,.15), transparent 58%, rgba(8,1,1,.42)) !important;
   background-size: cover !important;
   background-position: center !important;
   background-repeat: no-repeat !important;
@@ -53,7 +51,7 @@
   position: absolute;
   inset: 0;
   pointer-events: none;
-  background-image: url("assets/objects/noir.webp") !important;
+  background-image: none !important;
   background-size: contain !important;
   background-position: center !important;
   background-repeat: no-repeat !important;

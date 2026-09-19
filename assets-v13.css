@@ -10,12 +10,23 @@
 }
 
 .night-background-layer {
+  display: block;
   position: absolute;
   z-index: 0;
   inset: -4%;
-  background: url("assets/backgrounds/night-v12.webp") center / cover no-repeat;
+  background: transparent;
   filter: saturate(.94) contrast(1.08);
   will-change: transform, opacity;
+}
+
+.night-background-layer > img {
+  position: absolute;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
 }
 
 .night-background-layer::after {
