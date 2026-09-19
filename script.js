@@ -88,6 +88,11 @@ window.addEventListener("load", () => {
   gsap.set(".atelier-atmosphere-b", { x: 0, y: 0, scale: 1, opacity: .52 });
   gsap.set(".atelier-bottle-asset", { scale: .96, opacity: 1 });
 
+  gsap.set(".final-background-layer", { x: 0, y: 0, scale: 1.04, opacity: .98 });
+  gsap.set(".final-atmosphere-a", { x: 0, y: 0, scale: 1, opacity: .78 });
+  gsap.set(".final-atmosphere-b", { x: 0, y: 0, scale: 1, opacity: .54 });
+  gsap.set(".final-bottle-asset", { scale: .96, opacity: 1 });
+
   gsap.set(".night-title", { x: -90 });
   gsap.set(".night-product", { x: 95, scale: .9 });
   gsap.set(".night-text", { y: 60, opacity: .35 });
@@ -298,9 +303,13 @@ window.addEventListener("load", () => {
     .to(".atelier-background-layer", { x: -42, y: -22, scale: 1.14, opacity: .24, duration: .72 }, 13.32)
     .to(".atelier-atmosphere-a", { x: 42, y: -24, scale: 1.18, opacity: .10, duration: .72 }, 13.32)
     .to(".atelier-atmosphere-b", { x: -36, y: -14, scale: 1.16, opacity: .08, duration: .72 }, 13.32)
+    .to(".final-background-layer", { x: -14, y: -8, scale: 1.08, opacity: 1, duration: .90 }, 13.5)
+    .to(".final-atmosphere-a", { x: 28, y: -18, scale: 1.12, opacity: .96, duration: .90 }, 13.5)
+    .to(".final-atmosphere-b", { x: -24, y: 10, scale: 1.10, opacity: .70, duration: .90 }, 13.5)
     .to(".atelier-product", { x: 65, y: -30, scale: 1.08, duration: .68 }, 13.32)
     .to("#s10", { clipPath: "circle(150% at 68% 50%)", duration: 1.05 }, 13.5)
     .to(".final-product", { x: 0, y: 0, scale: 1, opacity: 1, duration: .92 }, 13.52)
+    .to(".final-bottle-asset", { scale: 1.035, duration: .92 }, 13.52)
     .to(".final-copy", { x: 0, opacity: 1, duration: .82 }, 13.68)
     .to(".final-word", { scale: 1, opacity: 1, duration: .84 }, 13.62)
     .to(".final-glow", { scale: 1, opacity: 1, duration: .84 }, 13.62)

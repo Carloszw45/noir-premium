@@ -1,0 +1,185 @@
+/* NOIR V21 — Act 10 / FINAL: the last trace in a dedicated night field. */
+
+.finale {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  color: #f8e9df !important;
+  background: #0e0305 !important;
+  background-image: none !important;
+}
+
+.final-background-layer {
+  position: absolute;
+  z-index: 0;
+  inset: -5%;
+  background:
+    radial-gradient(circle at 68% 43%, rgba(128,32,24,.72), transparent 23%),
+    radial-gradient(circle at 26% 81%, rgba(71,8,15,.42), transparent 30%),
+    linear-gradient(128deg, #050203 0%, #2b080b 50%, #090204 100%);
+  filter: saturate(.92) contrast(1.08);
+  will-change: transform, opacity;
+}
+
+.final-background-layer::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  opacity: .34;
+  background:
+    repeating-linear-gradient(108deg, transparent 0 20px, rgba(255,218,199,.035) 21px, transparent 22px 46px),
+    linear-gradient(90deg, rgba(0,0,0,.55), transparent 44%, rgba(0,0,0,.32)),
+    linear-gradient(180deg, rgba(255,255,255,.05), transparent 38%, rgba(0,0,0,.48));
+  mix-blend-mode: soft-light;
+}
+
+.final-atmosphere {
+  position: absolute;
+  z-index: 2;
+  border-radius: 50%;
+  pointer-events: none;
+  mix-blend-mode: screen;
+  will-change: transform, opacity;
+}
+
+.final-atmosphere-a {
+  left: 49%;
+  top: 11%;
+  width: 43vw;
+  height: 60vh;
+  background: radial-gradient(ellipse, rgba(229,85,58,.25), rgba(142,35,28,.10) 42%, transparent 72%);
+  filter: blur(48px);
+}
+
+.final-atmosphere-b {
+  right: -10%;
+  bottom: -20%;
+  width: 45vw;
+  height: 41vh;
+  background: radial-gradient(ellipse, rgba(188,59,35,.18), transparent 70%);
+  filter: blur(38px);
+}
+
+.final-glow {
+  z-index: 3;
+  background: rgba(153,36,26,.34);
+  mix-blend-mode: screen;
+}
+
+.final-word { z-index: 4; color: rgba(255,237,224,.06); }
+.final-axis { z-index: 6; background: rgba(255,236,225,.13); }
+
+.final-product {
+  z-index: 14 !important;
+  width: min(31vw, 440px) !important;
+  height: min(73vh, 660px) !important;
+  translate: none !important;
+  transform: translateY(-50%);
+  pointer-events: none;
+  will-change: transform, opacity;
+}
+
+.final-product > .bottle { display: none !important; }
+
+.final-art {
+  position: absolute;
+  left: 50%;
+  top: 0;
+  width: auto;
+  height: 100%;
+  aspect-ratio: 2 / 3;
+  transform: translateX(-50%);
+}
+
+.final-bottle-asset {
+  position: absolute;
+  z-index: 2;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  filter: drop-shadow(0 44px 38px rgba(0,0,0,.60));
+  will-change: transform, opacity;
+}
+
+.final-label-overlay {
+  position: absolute;
+  z-index: 4;
+  left: 31.5%;
+  top: 42.4%;
+  width: 37%;
+  height: 26.6%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: #ead8c0;
+  text-align: center;
+  text-shadow: 0 2px 12px rgba(0,0,0,.92);
+}
+
+.final-label-overlay small,
+.final-label-overlay span,
+.final-label-overlay em {
+  font-size: clamp(5px, .42vw, 7px);
+  letter-spacing: .30em;
+  font-style: normal;
+}
+
+.final-label-overlay small { margin-bottom: 6px; }
+
+.final-label-overlay strong {
+  font-family: "Italiana", serif;
+  font-size: clamp(21px, 2.25vw, 34px);
+  font-weight: 400;
+  letter-spacing: .08em;
+}
+
+.final-label-overlay span { margin-top: 6px; }
+.final-label-overlay em { margin-top: 10px; opacity: .72; }
+
+.final-copy,
+.finale .chapter,
+.finale footer { z-index: 20 !important; }
+
+.final-copy h2 { text-shadow: 0 12px 38px rgba(0,0,0,.45); }
+.final-cta { background: rgba(19,3,5,.14); backdrop-filter: blur(2px); }
+
+@media (max-width: 650px) {
+  .final-background-layer { inset: -8% -22%; }
+
+  .final-atmosphere-a {
+    left: 4%;
+    top: 15%;
+    width: 96vw;
+    height: 45vh;
+    filter: blur(36px);
+  }
+
+  .final-atmosphere-b {
+    right: -26%;
+    bottom: -8%;
+    width: 95vw;
+    height: 31vh;
+  }
+
+  .final-product {
+    right: -10%;
+    top: 39%;
+    width: 91vw !important;
+    height: 61svh !important;
+  }
+
+  .final-label-overlay small,
+  .final-label-overlay span,
+  .final-label-overlay em { font-size: 1.25vw; }
+
+  .final-label-overlay strong { font-size: 7.2vw; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .final-background-layer,
+  .final-atmosphere,
+  .final-bottle-asset { will-change: auto; }
+}
