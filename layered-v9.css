@@ -1,0 +1,211 @@
+/* NOIR V9 — layered scrollytelling stage */
+
+html, body {
+  min-height: 100%;
+  background: #080808;
+}
+
+body {
+  overflow-x: clip;
+}
+
+.site {
+  position: relative;
+  min-height: 100vh;
+  background: #080808;
+}
+
+.experience-stage {
+  position: relative;
+  width: 100%;
+  height: 100svh;
+  min-height: 680px;
+  overflow: hidden;
+  isolation: isolate;
+  background: #080808;
+}
+
+.experience-stage .scene {
+  position: absolute !important;
+  inset: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
+  min-height: 100% !important;
+  margin: 0 !important;
+  overflow: hidden;
+  visibility: hidden;
+  opacity: 1;
+  pointer-events: none;
+  transform-origin: 50% 50%;
+  backface-visibility: hidden;
+}
+
+.experience-stage #s1 {
+  visibility: visible;
+}
+
+.experience-stage .circle-transition,
+.experience-stage .bottom-wipe {
+  display: none !important;
+}
+
+.nav {
+  z-index: 5000;
+}
+
+/* The collection becomes one chapter inside the same pinned stage. */
+.collection-track {
+  display: flex;
+  width: max-content;
+  height: 100%;
+  will-change: transform;
+}
+
+.collection-panel {
+  flex: 0 0 100vw;
+  width: 100vw;
+  height: 100%;
+}
+
+/* Keep the panels paint-stable while they overlap. */
+.hero,
+.night,
+.materials,
+.object-scene,
+.presence,
+.manifesto,
+.collection,
+.midnight,
+.atelier,
+.finale {
+  will-change: clip-path, opacity;
+}
+
+.hero-title,
+.hero-product,
+.night-product,
+.material-one,
+.material-two,
+.material-three,
+.object-stage,
+.photo-main,
+.photo-detail,
+.manifest-copy,
+.collection-track,
+.midnight-title,
+.sun,
+.main-sheet,
+.atelier-product,
+.final-product,
+.final-copy {
+  backface-visibility: hidden;
+}
+
+/* The first hero keeps the polished V6/V8 composition inside the stage. */
+.hero,
+.night,
+.manifesto,
+.collection,
+.midnight,
+.finale {
+  min-height: 0 !important;
+}
+
+.materials,
+.object-scene,
+.presence,
+.atelier {
+  min-height: 0 !important;
+}
+
+/* Re-fit layouts that previously relied on sections taller than the viewport. */
+.materials-title { top: 16%; }
+.material-one { top: 49%; }
+.material-two { top: 37%; }
+.material-three { top: 54%; }
+.orbit-large { top: 40%; }
+.orbit-small { top: 49%; }
+
+.object-stage { top: 44%; }
+.object-copy { bottom: 11%; }
+
+.presence-copy { top: 15%; }
+.photo-main { top: 12%; height: 72vh; }
+.photo-detail { bottom: 6%; height: 38vh; }
+
+.manifest-copy { top: 50%; }
+
+.atelier {
+  min-height: 0 !important;
+}
+.atelier-word { top: 7%; }
+.main-sheet { top: 16%; }
+.small-sheet.one { top: 14%; }
+.small-sheet.two { top: 54%; }
+.atelier-product { top: 15%; }
+.atelier-copy { bottom: 10%; }
+
+/* Only actual interactive controls accept input inside the stacked stage. */
+.experience-stage a,
+.experience-stage button {
+  pointer-events: auto;
+}
+
+@media (max-width: 900px) {
+  .experience-stage {
+    min-height: 640px;
+  }
+}
+
+@media (max-width: 650px) {
+  .experience-stage {
+    height: 100svh;
+    min-height: 620px;
+  }
+
+  .experience-stage .scene {
+    height: 100% !important;
+    min-height: 100% !important;
+  }
+
+  .materials-title { top: 15%; }
+  .material-one { top: 38%; }
+  .material-two { top: 46%; }
+  .material-three { top: 67%; }
+
+  .object-stage { top: 38%; }
+  .object-copy { top: 61%; bottom: auto; }
+
+  .presence-copy { top: 55%; }
+  .photo-main { top: 9%; height: 54vh; }
+  .photo-detail { bottom: 4%; height: 31vh; }
+
+  .atelier-word { top: 6%; }
+  .main-sheet { top: 9%; }
+  .small-sheet.one { top: 14%; }
+  .small-sheet.two { top: 43%; }
+  .atelier-product { top: 38%; }
+  .atelier-copy { bottom: 6%; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .experience-stage {
+    height: auto;
+    min-height: 0;
+    overflow: visible;
+  }
+
+  .experience-stage .scene {
+    position: relative !important;
+    inset: auto !important;
+    height: auto !important;
+    min-height: 100svh !important;
+    visibility: visible !important;
+    clip-path: none !important;
+    transform: none !important;
+  }
+
+  .collection-track {
+    transform: none !important;
+  }
+}
