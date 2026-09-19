@@ -1,0 +1,50 @@
+name: visual audit
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "index.html"
+      - "style.css"
+      - "v5.css"
+      - "script.js"
+      - "package.json"
+      - "scripts/**"
+      - ".github/workflows/visual-audit.yml"
+  workflow_dispatch:
+
+jobs:
+  capture:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Install Chromium
+        run: npx playwright install --with-deps chromium
+
+      - name: Start local site
+        run: |
+          python3 -m http.server 4173 --bind 127.0.0.1 > /tmp/noir-server.log 2>&1 &
+          echo $! > /tmp/noir-server.pid
+          sleep 3
+
+      - name: Capture desktop and mobile screenshots
+        run: npm run visual:audit
+
+      - name: Upload visual audit
+        uses: actions/upload-artifact@v4
+        with:
+          name: noir-visual-audit
+          path: visual-audit/
+          retention-days: 7
