@@ -9,6 +9,8 @@ on:
       - "v5.css"
       - "continuity.css"
       - "layered-v9.css"
+      - "assets-v11.css"
+      - "assets/**"
       - "script.js"
       - "continuity.js"
       - "package.json"
