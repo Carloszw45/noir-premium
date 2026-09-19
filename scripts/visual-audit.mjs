@@ -84,14 +84,34 @@ async function audit(label, viewport, captureRatios) {
   async function scrollToRatio(ratio, settle = 650) {
     const y = maxScroll * ratio;
     await page.evaluate(pos => window.scrollTo(0, pos), Math.round(y));
-    await page.waitForTimeout(settle);
+    await page.waitForTimeout(900);
+    const started = Date.now();
+    const maxWait = Math.max(settle, 5500);
+    let previous = "";
+    let stableSince = 0;
+    while (Date.now() - started < maxWait) {
+      const snapshot = await page.evaluate(() => [...document.querySelectorAll(".scene")]
+        .map(scene => {
+          const style = getComputedStyle(scene);
+          return [style.clipPath, style.transform, style.opacity].join("/");
+        })
+        .join("|"));
+      if (snapshot === previous) {
+        if (!stableSince) stableSince = Date.now();
+        if (Date.now() - stableSince >= 700) break;
+      } else {
+        previous = snapshot;
+        stableSince = 0;
+      }
+      await page.waitForTimeout(160);
+    }
     return y;
   }
 
   async function readTimelineState(ratio) {
     // The master timeline intentionally uses a non-zero scrub value. Give it
     // enough time to converge before comparing down-scroll and up-scroll states.
-    await scrollToRatio(ratio, 2600);
+    await scrollToRatio(ratio, 1000);
     return page.evaluate(selectors => {
       const round = value => Math.round(value * 1000) / 1000;
       return selectors.map(selector => {
@@ -120,10 +140,25 @@ async function audit(label, viewport, captureRatios) {
     const leftText = normalize(left);
     const rightText = normalize(right);
     if (leftText === rightText) return true;
-    const leftNumbers = (leftText.match(/-?\d+(?:\.\d+)?/g) || []).map(Number);
-    const rightNumbers = (rightText.match(/-?\d+(?:\.\d+)?/g) || []).map(Number);
-    return leftNumbers.length === rightNumbers.length &&
-      leftNumbers.every((value, index) => Math.abs(value - rightNumbers[index]) <= 3.5);
+    const expandInset = value => {
+      const match = value.match(/^inset\(([^)]+)\)$/i);
+      if (!match) return value;
+      const values = (match[1].match(/-?\d+(?:\.\d+)?/g) || []).map(Number);
+      if (values.length === 1) return [values[0], values[0], values[0], values[0]];
+      if (values.length === 2) return [values[0], values[1], values[0], values[1]];
+      if (values.length === 3) return [values[0], values[1], values[2], values[1]];
+      return values.slice(0, 4);
+    };
+    const leftNumbers = expandInset(leftText);
+    const rightNumbers = expandInset(rightText);
+    if (Array.isArray(leftNumbers) && Array.isArray(rightNumbers)) {
+      return leftNumbers.length === rightNumbers.length &&
+        leftNumbers.every((value, index) => Math.abs(value - rightNumbers[index]) <= 3.5);
+    }
+    const leftValues = (leftText.match(/-?\d+(?:\.\d+)?/g) || []).map(Number);
+    const rightValues = (rightText.match(/-?\d+(?:\.\d+)?/g) || []).map(Number);
+    return leftValues.length === rightValues.length &&
+      leftValues.every((value, index) => Math.abs(value - rightValues[index]) <= 3.5);
   };
   const stateMatches = (down, up) => down.every((scene, index) => {
     const other = up[index];

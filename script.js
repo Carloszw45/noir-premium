@@ -60,6 +60,11 @@ window.addEventListener("load", () => {
   gsap.set(".materials-atmosphere-b", { x: 0, y: 0, scale: 1, opacity: .58 });
   gsap.set([".material-wood-asset", ".material-rose-asset", ".material-amber-asset"], { scale: 1, opacity: 1 });
 
+  gsap.set(".object-background-layer", { x: 0, y: 0, scale: 1.04, opacity: .98 });
+  gsap.set(".object-atmosphere-a", { x: 0, y: 0, scale: 1, opacity: .85 });
+  gsap.set(".object-atmosphere-b", { x: 0, y: 0, scale: 1, opacity: .58 });
+  gsap.set(".object-bottle-asset", { scale: 1, opacity: 1 });
+
   gsap.set(".night-title", { x: -90 });
   gsap.set(".night-product", { x: 95, scale: .9 });
   gsap.set(".night-text", { y: 60, opacity: .35 });
@@ -157,8 +162,12 @@ window.addEventListener("load", () => {
     .to(".materials-atmosphere-a", { x: 42, y: -28, scale: 1.18, opacity: .14, duration: .78 }, 3.45)
     .to(".materials-atmosphere-b", { x: -36, y: -18, scale: 1.16, opacity: .10, duration: .78 }, 3.45)
     .to([".material-wood-asset", ".material-rose-asset", ".material-amber-asset"], { scale: 1.08, duration: .72, stagger: .06 }, 3.45)
+    .to(".object-background-layer", { x: -18, y: -14, scale: 1.10, opacity: 1, duration: .86 }, 3.45)
+    .to(".object-atmosphere-a", { x: 28, y: -20, scale: 1.16, opacity: .96, duration: .86 }, 3.45)
+    .to(".object-atmosphere-b", { x: -30, y: 12, scale: 1.12, opacity: .72, duration: .86 }, 3.45)
     .to("#s4", { clipPath: "circle(150% at 54% 48%)", duration: 1.02 }, 3.45)
     .to(".object-stage", { scale: 1, rotation: 0, duration: .86 }, 3.58)
+    .to(".object-bottle-asset", { scale: 1.035, duration: .86 }, 3.58)
     .to(".object-copy", { x: 0, opacity: 1, duration: .78 }, 3.68)
     .to(".huge-word", { xPercent: 0, opacity: 1, duration: .82 }, 3.58)
     .to(".oc1", { rotation: 55, duration: .72 }, 3.7)
@@ -168,6 +177,10 @@ window.addEventListener("load", () => {
 
   /* 04 -> 05: the black object opens through the middle into the campaign image. */
   master
+    .to(".object-background-layer", { x: -48, y: -22, scale: 1.16, opacity: .28, duration: .68 }, 4.48)
+    .to(".object-atmosphere-a", { x: 40, y: -24, scale: 1.22, opacity: .12, duration: .68 }, 4.48)
+    .to(".object-atmosphere-b", { x: -42, y: -16, scale: 1.18, opacity: .08, duration: .68 }, 4.48)
+    .to(".object-bottle-asset", { scale: 1.09, duration: .68 }, 4.48)
     .to(".object-stage", { scale: 1.08, rotation: 2, duration: .68 }, 4.48)
     .to(".huge-word", { xPercent: 4, duration: .68 }, 4.48)
     .to("#s5", { clipPath: "inset(0% 0% 0% 0%)", duration: 1.05 }, 4.72)
