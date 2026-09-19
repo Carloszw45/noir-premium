@@ -2,12 +2,13 @@ name: visual audit
 
 on:
   push:
-    branches: [main]
+    branches: [main, layered-v9-build]
     paths:
       - "index.html"
       - "style.css"
       - "v5.css"
       - "continuity.css"
+      - "layered-v9.css"
       - "script.js"
       - "continuity.js"
       - "package.json"
