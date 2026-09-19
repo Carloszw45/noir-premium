@@ -95,10 +95,10 @@ window.addEventListener("load", () => {
     .fromTo(
       ".transition-red",
       { scale: .08 },
-      { scale: 12, duration: .3, ease: "none", immediateRender: false },
-      .7
+      { scale: 12, duration: .14, ease: "none", immediateRender: false },
+      .86
     )
-    .to(".hero-product", { opacity: .12, duration: .17, ease: "none" }, .84);
+    .to(".hero-product", { opacity: .18, duration: .07, ease: "none" }, .94);
 
   gsap.fromTo(
     ".progress-line i",
@@ -134,8 +134,8 @@ window.addEventListener("load", () => {
     .fromTo(".night-product", { x: 28, y: 24, scale: .96, rotation: -1.2 }, { x: -32, y: -18, scale: 1.07, rotation: 2.2, duration: .72, ease: "none", immediateRender: false }, 0)
     .fromTo(".night-text", { y: 16 }, { y: -10, duration: .66, ease: "none", immediateRender: false }, .04)
     .fromTo(".night-circle", { rotation: 0, scale: 1 }, { rotation: 135, scale: 1.3, duration: .72, ease: "none", immediateRender: false }, 0)
-    .to([".night-title", ".night-product", ".night-text", ".night-small"], { opacity: 0, y: -20, duration: .16, ease: "none" }, .79)
-    .fromTo(".wipe-cream", { scaleY: .02 }, { scaleY: 1, duration: .22, ease: "none", immediateRender: false }, .76);
+    .to([".night-title", ".night-product", ".night-text", ".night-small"], { opacity: 0, y: -20, duration: .09, ease: "none" }, .91)
+    .fromTo(".wipe-cream", { scaleY: .02 }, { scaleY: 1, duration: .13, ease: "none", immediateRender: false }, .87);
 
   /* MATERIALS */
   gsap.fromTo(".materials-title", { y: 38, opacity: 0 }, {
@@ -151,7 +151,7 @@ window.addEventListener("load", () => {
   gsap.fromTo(".material-three", { y: 60, scale: .86 }, { y: -58, scale: 1.07, ease: "none", immediateRender: false, scrollTrigger: { trigger: ".materials", start: "top bottom", end: "bottom top", scrub: .75 } });
   gsap.fromTo(".orbit-large", { rotation: 0, scale: 1 }, { rotation: 125, scale: 1.12, ease: "none", immediateRender: false, scrollTrigger: { trigger: ".materials", start: "top bottom", end: "bottom top", scrub: .7 } });
   gsap.fromTo(".orbit-small", { rotation: 0, scale: 1 }, { rotation: -165, scale: .86, ease: "none", immediateRender: false, scrollTrigger: { trigger: ".materials", start: "top bottom", end: "bottom top", scrub: .7 } });
-  gsap.fromTo(".transition-black", { scale: .08 }, { scale: 11, ease: "none", immediateRender: false, scrollTrigger: { trigger: ".materials", start: "76% 72%", end: "bottom top", scrub: .65 } });
+  gsap.fromTo(".transition-black", { scale: .08 }, { scale: 11, ease: "none", immediateRender: false, scrollTrigger: { trigger: ".materials", start: "88% 70%", end: "bottom 8%", scrub: .5 } });
 
   /* OBJECT */
   const object = gsap.timeline({
@@ -165,15 +165,15 @@ window.addEventListener("load", () => {
     .fromTo(".oc3", { rotation: 0, scale: 1 }, { rotation: 190, scale: 1.2, ease: "none", immediateRender: false }, 0)
     .fromTo(".huge-word", { xPercent: -4 }, { xPercent: 5, ease: "none", immediateRender: false }, 0)
     .fromTo(".object-copy", { opacity: .3, x: -34 }, { opacity: 1, x: 0, ease: "none", immediateRender: false }, .1)
-    .to([".object-copy", ".object-stage", ".huge-word"], { opacity: 0, duration: .13, ease: "none" }, .84)
-    .fromTo(".wipe-stone", { scaleY: .02 }, { scaleY: 1, duration: .19, ease: "none", immediateRender: false }, .8);
+    .to([".object-copy", ".object-stage", ".huge-word"], { opacity: 0, duration: .08, ease: "none" }, .92)
+    .fromTo(".wipe-stone", { scaleY: .02 }, { scaleY: 1, duration: .12, ease: "none", immediateRender: false }, .88);
 
   /* PRESENCE */
   gsap.fromTo(".photo-main img", { yPercent: -6, scale: 1.12 }, { yPercent: 6, scale: 1, ease: "none", immediateRender: false, scrollTrigger: { trigger: ".presence", start: "top bottom", end: "bottom top", scrub: .75 } });
   gsap.fromTo(".photo-detail", { y: 78 }, { y: -52, ease: "none", immediateRender: false, scrollTrigger: { trigger: ".presence", start: "top bottom", end: "bottom top", scrub: .8 } });
   gsap.fromTo(".presence-copy", { y: 38, opacity: .35 }, { y: -4, opacity: 1, ease: "none", immediateRender: false, scrollTrigger: { trigger: ".presence", start: "15% 78%", end: "48% 55%", scrub: .65 } });
   gsap.fromTo(".presence-word", { xPercent: 0, scale: 1 }, { xPercent: -5, scale: 1.04, ease: "none", immediateRender: false, scrollTrigger: { trigger: ".presence", start: "top bottom", end: "bottom top", scrub: .7 } });
-  gsap.fromTo(".transition-manifest", { scale: .08 }, { scale: 11, ease: "none", immediateRender: false, scrollTrigger: { trigger: ".presence", start: "78% 72%", end: "bottom top", scrub: .65 } });
+  gsap.fromTo(".transition-manifest", { scale: .08 }, { scale: 11, ease: "none", immediateRender: false, scrollTrigger: { trigger: ".presence", start: "90% 70%", end: "bottom 8%", scrub: .5 } });
 
   /* MANIFEST */
   const manifest = gsap.timeline({
@@ -194,8 +194,8 @@ window.addEventListener("load", () => {
     .fromTo(".mc2", { rotation: 0, scale: 1 }, { rotation: -112, scale: .84, duration: .72, ease: "none", immediateRender: false }, 0)
     .fromTo(".mc3", { rotation: 0, scale: 1 }, { rotation: 150, scale: 1.24, duration: .72, ease: "none", immediateRender: false }, 0)
     .fromTo(".manifest-noir", { scale: 1 }, { scale: 1.1, duration: .72, ease: "none", immediateRender: false }, 0)
-    .to([".manifest-copy", ".manifest-bottom", ".manifesto .chapter", ".manifest-noir"], { opacity: 0, y: -18, duration: .17, ease: "none" }, .74)
-    .fromTo(".wipe-collection", { scaleY: .02 }, { scaleY: 1, duration: .21, ease: "none", immediateRender: false }, .77);
+    .to([".manifest-copy", ".manifest-bottom", ".manifesto .chapter", ".manifest-noir"], { opacity: 0, y: -18, duration: .08, ease: "none" }, .9)
+    .fromTo(".wipe-collection", { scaleY: .02 }, { scaleY: 1, duration: .1, ease: "none", immediateRender: false }, .88);
 
   /* COLLECTION */
   const track = document.querySelector(".collection-track");
@@ -253,8 +253,8 @@ window.addEventListener("load", () => {
     .fromTo(".fp1", { x: 0, y: 0, rotation: -5 }, { x: 70, y: -34, rotation: -2, duration: .72, ease: "none", immediateRender: false }, 0)
     .fromTo(".fp2", { x: 0, y: 0, rotation: 6 }, { x: -58, y: 28, rotation: 3, duration: .72, ease: "none", immediateRender: false }, 0)
     .fromTo(".midnight-word", { xPercent: 0 }, { xPercent: -6, duration: .72, ease: "none", immediateRender: false }, 0)
-    .fromTo(".wipe-atelier", { scaleY: .02 }, { scaleY: 1, duration: .23, ease: "none", immediateRender: false }, .74)
-    .to([".midnight-title", ".sun", ".sun-frame", ".fp1", ".fp2", ".coordinates", ".midnight .chapter"], { opacity: 0, y: -14, duration: .17, ease: "none" }, .8);
+    .fromTo(".wipe-atelier", { scaleY: .02 }, { scaleY: 1, duration: .12, ease: "none", immediateRender: false }, .88)
+    .to([".midnight-title", ".sun", ".sun-frame", ".fp1", ".fp2", ".coordinates", ".midnight .chapter"], { opacity: 0, y: -10, duration: .08, ease: "none" }, .91);
 
   /* ATELIER */
   const atelier = gsap.timeline({
@@ -276,8 +276,8 @@ window.addEventListener("load", () => {
     .fromTo(".atelier-product", { y: 32, rotation: -2 }, { y: -24, rotation: 2, duration: .67, ease: "none", immediateRender: false }, 0)
     .fromTo(".atelier-copy", { y: 18, opacity: .72 }, { y: -2, opacity: 1, duration: .52, ease: "none", immediateRender: false }, .05)
     .fromTo(".atelier-word", { xPercent: 0, scale: 1 }, { xPercent: -5, scale: 1.025, duration: .66, ease: "none", immediateRender: false }, 0)
-    .fromTo(".transition-final", { scale: .08 }, { scale: 12, duration: .26, ease: "none", immediateRender: false }, .69)
-    .to([".main-sheet", ".small-sheet", ".atelier-product", ".atelier-copy", ".atelier .chapter"], { opacity: 0, y: -18, duration: .16, ease: "none" }, .78);
+    .fromTo(".transition-final", { scale: .08 }, { scale: 12, duration: .12, ease: "none", immediateRender: false }, .88)
+    .to([".main-sheet", ".small-sheet", ".atelier-product", ".atelier-copy", ".atelier .chapter"], { opacity: 0, y: -12, duration: .08, ease: "none" }, .92);
 
   /* FINAL */
   const finale = gsap.timeline({
