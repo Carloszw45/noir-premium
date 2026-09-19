@@ -1,0 +1,173 @@
+/* NOIR V11 — photographic backgrounds + independent transparent objects. */
+
+/* Every scene receives a photographic environment. More unique backgrounds can
+   replace these shared base plates without changing the GSAP choreography. */
+.hero,
+.object-scene,
+.presence,
+.collection,
+.atelier,
+.finale {
+  background-image:
+    linear-gradient(90deg, rgba(5,5,5,.70) 0%, rgba(5,5,5,.26) 38%, rgba(5,5,5,.10) 68%, rgba(5,5,5,.42) 100%),
+    linear-gradient(180deg, rgba(5,5,5,.20), transparent 35%, rgba(5,5,5,.36)),
+    url("assets/backgrounds/hero.webp") !important;
+  background-size: cover !important;
+  background-position: center !important;
+  background-repeat: no-repeat !important;
+}
+
+.night,
+.materials,
+.manifesto,
+.midnight {
+  background-image:
+    linear-gradient(90deg, rgba(18,2,2,.72), rgba(24,3,3,.18) 48%, rgba(10,2,2,.46)),
+    linear-gradient(180deg, rgba(12,2,2,.15), transparent 58%, rgba(8,1,1,.42)),
+    url("assets/backgrounds/night.webp") !important;
+  background-size: cover !important;
+  background-position: center !important;
+  background-repeat: no-repeat !important;
+}
+
+/* The old composite Hero image and CSS bottle are no longer visible. */
+.hero-product .bottle,
+.hero-product .shadow,
+.night-product .bottle,
+.object-stage .object-bottle,
+.atelier-product .bottle,
+.final-product .bottle,
+.cp1 .collection-product .bottle {
+  display: none !important;
+}
+
+/* Shared independent NOIR object. The GSAP timeline keeps animating the existing
+   wrapper; only its visual source changes from CSS geometry to a transparent asset. */
+.hero-product::before,
+.night-product::before,
+.object-stage::after,
+.atelier-product::before,
+.final-product::before,
+.cp1 .collection-product::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background-image: url("assets/objects/noir.webp") !important;
+  background-size: contain !important;
+  background-position: center !important;
+  background-repeat: no-repeat !important;
+  filter: drop-shadow(0 34px 34px rgba(0,0,0,.42));
+  -webkit-mask-image: none !important;
+  mask-image: none !important;
+}
+
+/* Hero composition */
+.hero {
+  color: #f2e5d4 !important;
+}
+.hero::after {
+  content: "";
+  position: absolute;
+  z-index: 3;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(90deg, rgba(4,4,4,.56) 0%, rgba(4,4,4,.12) 42%, transparent 72%);
+}
+.hero-title {
+  z-index: 4 !important;
+  color: rgba(229,195,149,.88) !important;
+  opacity: .60;
+}
+.hero-copy,
+.hero-notes,
+.hero-bottom,
+.hero .chapter {
+  z-index: 20 !important;
+  color: #f2e5d4 !important;
+  text-shadow: 0 5px 24px rgba(0,0,0,.62);
+}
+.hero-product {
+  z-index: 12 !important;
+  left: 67% !important;
+  top: 52% !important;
+  width: min(31vw, 470px) !important;
+  height: min(76vh, 690px) !important;
+  translate: -50% -50% !important;
+  opacity: 1 !important;
+}
+.hero-product::before {
+  filter: drop-shadow(0 42px 38px rgba(0,0,0,.52));
+}
+
+/* Other NOIR placements */
+.night-product {
+  width: min(28vw, 420px) !important;
+  height: min(68vh, 620px) !important;
+}
+.object-stage::after {
+  inset: 8% 12% 5% 12%;
+  z-index: 9;
+}
+.atelier-product,
+.final-product {
+  width: min(27vw, 410px) !important;
+  height: min(67vh, 610px) !important;
+}
+.collection-product {
+  width: min(28vw, 400px) !important;
+  height: min(64vh, 570px) !important;
+}
+
+/* Dark photographic plates require light editorial type in the scenes that used
+   to depend on cream/stone flat backgrounds. */
+.materials,
+.presence,
+.collection,
+.atelier {
+  color: #f1e5d5 !important;
+}
+.materials .chapter.dark,
+.materials-header p,
+.material-name p,
+.presence .chapter.dark,
+.collection .chapter.dark,
+.atelier .chapter.dark,
+.atelier-copy p {
+  color: rgba(241,229,213,.64) !important;
+}
+.dark-number { color: rgba(255,255,255,.035) !important; }
+
+@media (max-width: 650px) {
+  .hero,
+  .object-scene,
+  .presence,
+  .collection,
+  .atelier,
+  .finale,
+  .night,
+  .materials,
+  .manifesto,
+  .midnight {
+    background-position: 60% center !important;
+  }
+  .hero::after {
+    background: linear-gradient(180deg, rgba(4,4,4,.20), rgba(4,4,4,.18) 46%, rgba(4,4,4,.83) 82%, rgba(4,4,4,.94));
+  }
+  .hero-title { opacity: .35; }
+  .hero-product {
+    left: 68% !important;
+    top: 49% !important;
+    width: 74vw !important;
+    height: 59svh !important;
+  }
+  .night-product {
+    width: 66vw !important;
+    height: 54svh !important;
+  }
+  .atelier-product,
+  .final-product {
+    width: 70vw !important;
+    height: 57svh !important;
+  }
+}
