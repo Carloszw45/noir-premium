@@ -8,11 +8,14 @@ on:
       - "style.css"
       - "v5.css"
       - "script.js"
-      - "hero-return-fix.js"
       - "package.json"
       - "scripts/**"
       - ".github/workflows/visual-audit.yml"
   workflow_dispatch:
+
+concurrency:
+  group: visual-audit-${{ github.ref }}
+  cancel-in-progress: true
 
 jobs:
   capture:
@@ -26,7 +29,7 @@ jobs:
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 24
 
       - name: Install dependencies
         run: npm install
@@ -40,7 +43,7 @@ jobs:
           echo $! > /tmp/noir-server.pid
           sleep 3
 
-      - name: Capture desktop and mobile screenshots
+      - name: Capture and validate desktop/mobile
         run: npm run visual:audit
 
       - name: Upload visual audit
