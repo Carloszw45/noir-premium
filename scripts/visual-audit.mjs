@@ -83,31 +83,18 @@ async function audit(label, viewport, captureRatios) {
 
   async function scrollToRatio(ratio, settle = 650) {
     const y = maxScroll * ratio;
-    await page.evaluate(pos => {
-      window.scrollTo(0, pos);
-      if (window.ScrollTrigger) window.ScrollTrigger.update();
-    }, Math.round(y));
+    await page.evaluate(pos => window.scrollTo(0, pos), Math.round(y));
     await page.waitForTimeout(900);
-    const started = Date.now();
-    const maxWait = Math.max(settle, 5500);
-    let previous = "";
-    let stableSince = 0;
-    while (Date.now() - started < maxWait) {
-      const snapshot = await page.evaluate(() => [...document.querySelectorAll(".scene")]
-        .map(scene => {
-          const style = getComputedStyle(scene);
-          return [style.clipPath, style.transform, style.opacity].join("/");
-        })
-        .join("|"));
-      if (snapshot === previous) {
-        if (!stableSince) stableSince = Date.now();
-        if (Date.now() - stableSince >= 700) break;
-      } else {
-        previous = snapshot;
-        stableSince = 0;
-      }
-      await page.waitForTimeout(160);
-    }
+    await page.evaluate(() => {
+      window.dispatchEvent(new Event("scroll"));
+      if (window.ScrollTrigger) window.ScrollTrigger.update();
+    });
+    await page.waitForTimeout(Math.max(settle, 2400));
+    await page.evaluate(() => {
+      window.dispatchEvent(new Event("scroll"));
+      if (window.ScrollTrigger) window.ScrollTrigger.update();
+    });
+    await page.waitForTimeout(700);
     return y;
   }
 

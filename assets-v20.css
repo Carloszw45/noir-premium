@@ -1,0 +1,193 @@
+/* NOIR V20 — Act 09 / L'ATELIER: formula sheets and the final object. */
+
+.atelier {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  color: #25201b !important;
+  background: #d8cdbd !important;
+  background-image: none !important;
+}
+
+.atelier-background-layer {
+  position: absolute;
+  z-index: 0;
+  inset: -5%;
+  background:
+    radial-gradient(circle at 73% 41%, rgba(255,251,235,.58), transparent 25%),
+    radial-gradient(circle at 20% 84%, rgba(153,91,44,.16), transparent 30%),
+    linear-gradient(122deg, #bda998 0%, #eee5d7 48%, #c8b7a5 100%);
+  filter: saturate(.72) contrast(1.03);
+  will-change: transform, opacity;
+}
+
+.atelier-background-layer::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  opacity: .36;
+  background:
+    repeating-linear-gradient(98deg, transparent 0 16px, rgba(63,39,23,.055) 17px, transparent 18px 39px),
+    linear-gradient(180deg, rgba(255,255,255,.18), transparent 40%, rgba(44,26,15,.18));
+  mix-blend-mode: multiply;
+}
+
+.atelier-atmosphere {
+  position: absolute;
+  z-index: 2;
+  border-radius: 50%;
+  pointer-events: none;
+  mix-blend-mode: multiply;
+  will-change: transform, opacity;
+}
+
+.atelier-atmosphere-a {
+  left: 48%;
+  top: 10%;
+  width: 41vw;
+  height: 57vh;
+  background: radial-gradient(ellipse, rgba(255,250,227,.72), transparent 70%);
+  filter: blur(46px);
+}
+
+.atelier-atmosphere-b {
+  right: -10%;
+  bottom: -20%;
+  width: 45vw;
+  height: 42vh;
+  background: radial-gradient(ellipse, rgba(157,75,30,.16), transparent 70%);
+  filter: blur(38px);
+}
+
+.atelier-word { z-index: 3; color: rgba(35,26,19,.065); }
+.sheet { z-index: 8; }
+
+.atelier-product {
+  z-index: 14 !important;
+  width: min(31vw, 440px) !important;
+  height: min(62vh, 560px) !important;
+  top: 14% !important;
+  pointer-events: none;
+  will-change: transform, opacity;
+}
+
+.atelier-product > .bottle { display: none !important; }
+
+.atelier-art {
+  position: absolute;
+  left: 50%;
+  top: 0;
+  width: auto;
+  height: 100%;
+  aspect-ratio: 2 / 3;
+  transform: translateX(-50%);
+}
+
+.atelier-bottle-asset {
+  position: absolute;
+  z-index: 2;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  filter: drop-shadow(0 40px 34px rgba(31,19,12,.32));
+  will-change: transform, opacity;
+}
+
+.atelier-label-overlay {
+  position: absolute;
+  z-index: 4;
+  left: 31.5%;
+  top: 42.4%;
+  width: 37%;
+  height: 26.6%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: #ead8c0;
+  text-align: center;
+  text-shadow: 0 2px 12px rgba(0,0,0,.86);
+}
+
+.atelier-label-overlay small,
+.atelier-label-overlay span,
+.atelier-label-overlay em {
+  font-size: clamp(5px, .42vw, 7px);
+  letter-spacing: .30em;
+  font-style: normal;
+}
+
+.atelier-label-overlay small { margin-bottom: 6px; }
+
+.atelier-label-overlay strong {
+  font-family: "Italiana", serif;
+  font-size: clamp(21px, 2.25vw, 34px);
+  font-weight: 400;
+  letter-spacing: .08em;
+}
+
+.atelier-label-overlay span { margin-top: 6px; }
+.atelier-label-overlay em { margin-top: 10px; opacity: .72; }
+
+.atelier-copy,
+.atelier .chapter,
+.atelier-number { z-index: 20 !important; }
+
+.atelier-copy {
+  left: 6% !important;
+  right: auto !important;
+  bottom: 4% !important;
+  width: 42% !important;
+  color: #28211b;
+  text-shadow: 0 7px 22px rgba(76,43,22,.12);
+}
+.atelier-copy h2 { font-size: clamp(45px, 5.1vw, 82px); }
+.atelier-copy p { color: rgba(40,33,27,.70) !important; }
+
+@media (max-width: 650px) {
+  .atelier-background-layer { inset: -8% -22%; }
+
+  .atelier-atmosphere-a {
+    left: 20%;
+    top: 17%;
+    width: 96vw;
+    height: 46vh;
+  }
+
+  .atelier-atmosphere-b {
+    right: -26%;
+    bottom: -8%;
+    width: 95vw;
+    height: 31vh;
+  }
+
+  .atelier-product {
+    right: -18%;
+    top: 24% !important;
+    width: 96vw !important;
+    height: 47svh !important;
+  }
+
+  .atelier-copy {
+    left: 20px !important;
+    right: auto !important;
+    bottom: 4% !important;
+    width: 68vw !important;
+  }
+
+  .atelier-copy h2 { font-size: 12vw; }
+
+  .atelier-label-overlay small,
+  .atelier-label-overlay span,
+  .atelier-label-overlay em { font-size: 1.25vw; }
+
+  .atelier-label-overlay strong { font-size: 7.2vw; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .atelier-background-layer,
+  .atelier-atmosphere,
+  .atelier-bottle-asset { will-change: auto; }
+}

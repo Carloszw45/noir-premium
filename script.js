@@ -83,6 +83,11 @@ window.addEventListener("load", () => {
   gsap.set(".midnight-atmosphere-b", { x: 0, y: 0, scale: 1, opacity: .54 });
   gsap.set(".midnight-sun-asset", { scale: 1, opacity: 1 });
 
+  gsap.set(".atelier-background-layer", { x: 0, y: 0, scale: 1.04, opacity: .98 });
+  gsap.set(".atelier-atmosphere-a", { x: 0, y: 0, scale: 1, opacity: .76 });
+  gsap.set(".atelier-atmosphere-b", { x: 0, y: 0, scale: 1, opacity: .52 });
+  gsap.set(".atelier-bottle-asset", { scale: .96, opacity: 1 });
+
   gsap.set(".night-title", { x: -90 });
   gsap.set(".night-product", { x: 95, scale: .9 });
   gsap.set(".night-text", { y: 60, opacity: .35 });
@@ -274,11 +279,15 @@ window.addEventListener("load", () => {
     .to(".midnight-background-layer", { x: -46, y: -24, scale: 1.16, opacity: .28, duration: .62 }, 11.82)
     .to(".midnight-atmosphere-a", { x: 44, y: -24, scale: 1.18, opacity: .12, duration: .62 }, 11.82)
     .to(".midnight-atmosphere-b", { x: -38, y: -16, scale: 1.16, opacity: .08, duration: .62 }, 11.82)
+    .to(".atelier-background-layer", { x: -12, y: -8, scale: 1.08, opacity: 1, duration: .86 }, 11.94)
+    .to(".atelier-atmosphere-a", { x: 28, y: -18, scale: 1.12, opacity: .94, duration: .86 }, 11.94)
+    .to(".atelier-atmosphere-b", { x: -24, y: 10, scale: 1.10, opacity: .68, duration: .86 }, 11.94)
     .to("#s9", { clipPath: "inset(0% 0% 0% 0%)", duration: 1.02 }, 11.94)
     .to(".main-sheet", { y: 0, rotation: 0, opacity: 1, duration: .82 }, 12.06)
     .to(".small-sheet.one", { x: 0, y: 0, opacity: 1, duration: .78 }, 12.1)
     .to(".small-sheet.two", { x: 0, y: 0, opacity: 1, duration: .78 }, 12.14)
     .to(".atelier-product", { x: 0, y: 0, scale: 1, opacity: 1, duration: .84 }, 12.08)
+    .to(".atelier-bottle-asset", { scale: 1, duration: .84 }, 12.08)
     .to(".atelier-copy", { y: 0, opacity: 1, duration: .82 }, 12.15)
     .addLabel("s9", 12.88)
     .to(".main-sheet", { y: -24, duration: .55 }, 12.92)
@@ -286,6 +295,9 @@ window.addEventListener("load", () => {
 
   /* 09 -> 10: the atelier bottle travels into the final dark field. */
   master
+    .to(".atelier-background-layer", { x: -42, y: -22, scale: 1.14, opacity: .24, duration: .72 }, 13.32)
+    .to(".atelier-atmosphere-a", { x: 42, y: -24, scale: 1.18, opacity: .10, duration: .72 }, 13.32)
+    .to(".atelier-atmosphere-b", { x: -36, y: -14, scale: 1.16, opacity: .08, duration: .72 }, 13.32)
     .to(".atelier-product", { x: 65, y: -30, scale: 1.08, duration: .68 }, 13.32)
     .to("#s10", { clipPath: "circle(150% at 68% 50%)", duration: 1.05 }, 13.5)
     .to(".final-product", { x: 0, y: 0, scale: 1, opacity: 1, duration: .92 }, 13.52)
