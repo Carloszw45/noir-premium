@@ -1,0 +1,11 @@
+{
+  "name": "noir-premium-visual-audit",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "visual:audit": "node scripts/visual-audit.mjs"
+  },
+  "devDependencies": {
+    "playwright": "1.55.0"
+  }
+}
