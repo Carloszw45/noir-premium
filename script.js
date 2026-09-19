@@ -55,6 +55,11 @@ window.addEventListener("load", () => {
   gsap.set(".night-atmosphere-b", { x: 0, y: 0, scale: 1, opacity: .78 });
   gsap.set(".night-bottle-asset", { scale: 1, opacity: 1 });
 
+  gsap.set(".materials-background-layer", { x: 0, y: 0, scale: 1.04, opacity: .98 });
+  gsap.set(".materials-atmosphere-a", { x: 0, y: 0, scale: 1, opacity: .82 });
+  gsap.set(".materials-atmosphere-b", { x: 0, y: 0, scale: 1, opacity: .58 });
+  gsap.set([".material-wood-asset", ".material-rose-asset", ".material-amber-asset"], { scale: 1, opacity: 1 });
+
   gsap.set(".night-title", { x: -90 });
   gsap.set(".night-product", { x: 95, scale: .9 });
   gsap.set(".night-text", { y: 60, opacity: .35 });
@@ -131,8 +136,12 @@ window.addEventListener("load", () => {
     .to(".night-product", { x: -35, y: -20, scale: 1.05, duration: .7 }, 1.8)
     .to(".night-bottle-asset", { scale: 1.08, duration: .7 }, 1.8)
     .to("#s3", { clipPath: "inset(0% 0% 0% 0%)", duration: 1.05 }, 2.05)
+    .to(".materials-background-layer", { x: -12, y: -8, scale: 1.08, opacity: 1, duration: .82 }, 2.05)
+    .to(".materials-atmosphere-a", { x: 28, y: -16, scale: 1.12, opacity: .96, duration: .82 }, 2.05)
+    .to(".materials-atmosphere-b", { x: -24, y: 12, scale: 1.08, opacity: .72, duration: .82 }, 2.05)
     .to(".materials-title", { y: 0, opacity: 1, duration: .78 }, 2.18)
     .to([".material-one", ".material-two", ".material-three"], { y: 0, scale: 1, opacity: 1, stagger: .07, duration: .72 }, 2.2)
+    .to([".material-wood-asset", ".material-rose-asset", ".material-amber-asset"], { scale: 1.035, duration: .72, stagger: .07 }, 2.2)
     .to(".orbit-large", { scale: 1, rotation: 35, opacity: 1, duration: .82 }, 2.2)
     .to(".orbit-small", { scale: 1, rotation: -45, opacity: 1, duration: .82 }, 2.2)
     .addLabel("s3", 2.95)
@@ -144,6 +153,10 @@ window.addEventListener("load", () => {
 
   /* 03 -> 04: the amber/material field collapses into the black object world. */
   master
+    .to(".materials-background-layer", { x: -38, y: -20, scale: 1.13, opacity: .38, duration: .78 }, 3.45)
+    .to(".materials-atmosphere-a", { x: 42, y: -28, scale: 1.18, opacity: .14, duration: .78 }, 3.45)
+    .to(".materials-atmosphere-b", { x: -36, y: -18, scale: 1.16, opacity: .10, duration: .78 }, 3.45)
+    .to([".material-wood-asset", ".material-rose-asset", ".material-amber-asset"], { scale: 1.08, duration: .72, stagger: .06 }, 3.45)
     .to("#s4", { clipPath: "circle(150% at 54% 48%)", duration: 1.02 }, 3.45)
     .to(".object-stage", { scale: 1, rotation: 0, duration: .86 }, 3.58)
     .to(".object-copy", { x: 0, opacity: 1, duration: .78 }, 3.68)

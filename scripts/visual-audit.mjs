@@ -91,7 +91,7 @@ async function audit(label, viewport, captureRatios) {
   async function readTimelineState(ratio) {
     // The master timeline intentionally uses a non-zero scrub value. Give it
     // enough time to converge before comparing down-scroll and up-scroll states.
-    await scrollToRatio(ratio, 1800);
+    await scrollToRatio(ratio, 2600);
     return page.evaluate(selectors => {
       const round = value => Math.round(value * 1000) / 1000;
       return selectors.map(selector => {
