@@ -6,6 +6,7 @@ await fs.rm(OUT, { recursive: true, force: true });
 await fs.mkdir(OUT, { recursive: true });
 
 const browser = await chromium.launch({ headless: true });
+let failed = false;
 
 async function audit(label, viewport, steps) {
   const context = await browser.newContext({ viewport, deviceScaleFactor: 1 });
@@ -18,7 +19,7 @@ async function audit(label, viewport, steps) {
   page.on("pageerror", err => consoleErrors.push(err.message));
 
   await page.goto("http://127.0.0.1:4173", { waitUntil: "networkidle" });
-  await page.waitForTimeout(1800);
+  await page.waitForTimeout(2200);
 
   const metrics = await page.evaluate(() => ({
     height: document.documentElement.scrollHeight,
@@ -38,9 +39,44 @@ async function audit(label, viewport, steps) {
     });
   }
 
+  await page.evaluate(() => window.scrollTo(0, 0));
+  await page.waitForTimeout(1400);
+
+  const heroReturn = await page.evaluate(() => {
+    const inspect = selector => {
+      const element = document.querySelector(selector);
+      if (!element) return { exists: false, opacity: 0, visible: false, rect: null };
+      const style = getComputedStyle(element);
+      const rect = element.getBoundingClientRect();
+      const opacity = Number.parseFloat(style.opacity || "0");
+      const visible = opacity > 0.8 && rect.bottom > 0 && rect.top < innerHeight && rect.right > 0 && rect.left < innerWidth;
+      return {
+        exists: true,
+        opacity,
+        visible,
+        rect: { top: rect.top, left: rect.left, right: rect.right, bottom: rect.bottom }
+      };
+    };
+
+    return {
+      scrollY: window.scrollY,
+      product: inspect(".hero-product"),
+      copy: inspect(".hero-copy"),
+      notes: inspect(".hero-notes")
+    };
+  });
+
+  await page.screenshot({
+    path: `${OUT}/${label}-return-top.png`,
+    fullPage: false
+  });
+
+  const heroReturnPassed = heroReturn.product.visible && heroReturn.copy.visible;
+  if (!heroReturnPassed) failed = true;
+
   await fs.writeFile(
     `${OUT}/${label}-meta.json`,
-    JSON.stringify({ viewport, metrics, consoleErrors }, null, 2)
+    JSON.stringify({ viewport, metrics, consoleErrors, heroReturn, heroReturnPassed }, null, 2)
   );
 
   await context.close();
@@ -59,4 +95,10 @@ await audit(
 );
 
 await browser.close();
-console.log("Visual audit screenshots created.");
+
+if (failed) {
+  console.error("Hero return regression detected.");
+  process.exitCode = 1;
+} else {
+  console.log("Visual audit screenshots created and hero return regression test passed.");
+}
