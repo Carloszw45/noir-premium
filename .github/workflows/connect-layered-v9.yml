@@ -1,0 +1,41 @@
+name: connect layered V9
+
+on:
+  push:
+    branches: [layered-v9-build]
+    paths:
+      - ".github/workflows/connect-layered-v9.yml"
+
+permissions:
+  contents: write
+
+jobs:
+  patch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: layered-v9-build
+      - name: Connect layered stage
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          p = Path('index.html')
+          text = p.read_text()
+          text = text.replace('  <link rel="stylesheet" href="continuity.css?v=8">', '  <link rel="stylesheet" href="layered-v9.css?v=9">')
+          nav_end = '  </nav>\n\n  <section class="scene hero" id="s1">'
+          if '<div class="experience-stage">' not in text:
+              text = text.replace(nav_end, '  </nav>\n\n  <div class="experience-stage">\n  <section class="scene hero" id="s1">')
+          final_close = '  </section>\n\n</main>'
+          if '  </div><!-- /experience-stage -->' not in text:
+              text = text.replace(final_close, '  </section>\n  </div><!-- /experience-stage -->\n\n</main>')
+          text = text.replace('<script src="script.js?v=8"></script>\n<script src="continuity.js?v=8"></script>', '<script src="script.js?v=9"></script>')
+          p.write_text(text)
+          PY
+      - name: Commit layered index
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add index.html
+          git commit -m "Wire NOIR V9 layered stage"
+          git push origin HEAD:layered-v9-build
