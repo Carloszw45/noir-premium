@@ -1,0 +1,88 @@
+/* NOIR V7 — continuity layer between acts. */
+
+.night {
+  background:
+    linear-gradient(to bottom, rgba(235,228,217,.98) 0, rgba(235,228,217,.42) 5vh, rgba(235,228,217,0) 14vh),
+    radial-gradient(circle at 50% 35%, #84281b, var(--wine) 43%, var(--darkwine));
+}
+.materials {
+  background:
+    linear-gradient(to bottom, rgba(104,25,15,.96) 0, rgba(104,25,15,.34) 5vh, rgba(104,25,15,0) 13vh),
+    var(--ivory);
+}
+.object-scene {
+  background:
+    linear-gradient(to bottom, rgba(243,238,230,.98) 0, rgba(243,238,230,.3) 5vh, rgba(243,238,230,0) 13vh),
+    var(--black);
+}
+.presence {
+  background:
+    linear-gradient(to bottom, rgba(8,8,8,.96) 0, rgba(8,8,8,.26) 5vh, rgba(8,8,8,0) 13vh),
+    var(--stone);
+}
+.manifesto {
+  background:
+    linear-gradient(to bottom, rgba(217,208,195,.92) 0, rgba(217,208,195,.22) 5vh, rgba(217,208,195,0) 13vh),
+    radial-gradient(circle at 50% 50%, #871f16, #51110d 51%, #240604);
+}
+.collection {
+  background:
+    linear-gradient(to bottom, rgba(104,25,15,.92) 0, rgba(104,25,15,.2) 5vh, rgba(104,25,15,0) 13vh),
+    var(--ivory);
+}
+.midnight {
+  background:
+    linear-gradient(to bottom, rgba(176,108,27,.92) 0, rgba(176,108,27,.18) 6vh, rgba(176,108,27,0) 14vh),
+    linear-gradient(135deg, #684008, #d08920 48%, #744508);
+}
+.atelier {
+  background:
+    linear-gradient(to bottom, rgba(208,137,32,.94) 0, rgba(208,137,32,.24) 6vh, rgba(208,137,32,0) 15vh),
+    #d7cdbf;
+}
+.finale {
+  background:
+    linear-gradient(to bottom, rgba(215,205,191,.92) 0, rgba(215,205,191,.18) 6vh, rgba(215,205,191,0) 15vh),
+    radial-gradient(circle at 65% 44%, #691a12, #210806 52%, #060302 88%);
+}
+
+.continuity-layer {
+  position: fixed;
+  inset: 0;
+  z-index: 24;
+  pointer-events: none;
+  visibility: hidden;
+  opacity: 0;
+  overflow: hidden;
+}
+.continuity-wash,
+.continuity-orb,
+.continuity-plane,
+.continuity-axis {
+  position: absolute;
+  pointer-events: none;
+}
+.continuity-wash { inset: 0; opacity: 0; }
+.continuity-orb {
+  left: 50%; top: 50%; width: 24vmax; height: 24vmax;
+  translate: -50% -50%; border-radius: 50%; opacity: 0;
+}
+.continuity-plane {
+  left: -8%; right: -8%; bottom: -8%; height: 42vh;
+  transform-origin: 50% 100%; opacity: 0;
+}
+.continuity-axis {
+  left: 50%; top: 0; width: 1px; height: 100%;
+  background: rgba(255,255,255,.2); transform-origin: 50% 50%; opacity: 0;
+}
+.bottom-wipe { height: 24vh; }
+.wipe-cream,.wipe-stone,.wipe-collection,.wipe-atelier { filter: saturate(.92); }
+.transition-red,.transition-black,.transition-manifest,.transition-final { will-change: transform; }
+.cp3,.midnight { box-shadow: inset 0 0 0 1px rgba(255,255,255,.01); }
+.midnight .sun,.atelier .main-sheet { will-change: transform, opacity; }
+
+@media (max-width:650px) {
+  .continuity-orb { width: 32vmax; height: 32vmax; }
+  .continuity-plane { height: 34vh; }
+}
+@media (prefers-reduced-motion: reduce) { .continuity-layer { display:none; } }
