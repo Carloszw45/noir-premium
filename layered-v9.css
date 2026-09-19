@@ -204,3 +204,95 @@ body {
     transform: none !important;
   }
 }
+
+/* NOIR V10 — first production asset: real Master Bottle in the Hero. */
+.hero {
+  color: #f2e5d4;
+  background:
+    radial-gradient(circle at 68% 48%, rgba(126, 78, 35, .34) 0%, rgba(31, 21, 14, .56) 31%, rgba(8, 8, 8, .96) 72%),
+    #080808 !important;
+}
+
+.hero::after {
+  content: "";
+  position: absolute;
+  z-index: 3;
+  inset: 0;
+  pointer-events: none;
+  background:
+    linear-gradient(90deg, rgba(8,8,8,.7) 0%, rgba(8,8,8,.18) 38%, rgba(8,8,8,.05) 68%, rgba(8,8,8,.34) 100%),
+    linear-gradient(180deg, rgba(8,8,8,.26), transparent 24%, transparent 74%, rgba(8,8,8,.5));
+}
+
+.hero .chapter.dark,
+.hero-notes,
+.hero-bottom {
+  color: rgba(242, 229, 212, .68);
+}
+
+.hero-title {
+  z-index: 4;
+  color: rgba(225, 193, 151, .92);
+  text-shadow: 0 10px 50px rgba(0,0,0,.48);
+}
+
+.hero-copy {
+  z-index: 14;
+  color: #f4e7d7;
+  text-shadow: 0 8px 28px rgba(0,0,0,.5);
+}
+
+.hero .dark-number {
+  color: rgba(255,255,255,.025);
+}
+
+.hero-product {
+  z-index: 10;
+  left: 68%;
+  top: 52%;
+  width: min(44vw, 620px);
+  height: min(88vh, 780px);
+  translate: -50% -50%;
+  transform: none;
+}
+
+.hero-product .bottle,
+.hero-product .shadow {
+  display: none;
+}
+
+.hero-product::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: url("assets/noir-hero.webp") center / contain no-repeat;
+  filter: saturate(.94) contrast(1.04) drop-shadow(0 42px 45px rgba(0,0,0,.38));
+  -webkit-mask-image: radial-gradient(ellipse 60% 62% at 50% 50%, #000 58%, rgba(0,0,0,.94) 72%, transparent 100%);
+  mask-image: radial-gradient(ellipse 60% 62% at 50% 50%, #000 58%, rgba(0,0,0,.94) 72%, transparent 100%);
+}
+
+@media (max-width: 650px) {
+  .hero::after {
+    background:
+      linear-gradient(180deg, rgba(8,8,8,.16) 0%, rgba(8,8,8,.16) 42%, rgba(8,8,8,.76) 78%, rgba(8,8,8,.94) 100%),
+      linear-gradient(90deg, rgba(8,8,8,.28), transparent 65%);
+  }
+
+  .hero-product {
+    left: 64%;
+    top: 50%;
+    width: 92vw;
+    height: 72svh;
+    opacity: .86;
+  }
+
+  .hero-product::before {
+    -webkit-mask-image: radial-gradient(ellipse 70% 66% at 50% 47%, #000 52%, rgba(0,0,0,.9) 70%, transparent 100%);
+    mask-image: radial-gradient(ellipse 70% 66% at 50% 47%, #000 52%, rgba(0,0,0,.9) 70%, transparent 100%);
+  }
+
+  .hero-copy,
+  .hero-bottom {
+    z-index: 20;
+  }
+}
