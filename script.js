@@ -73,6 +73,11 @@ window.addEventListener("load", () => {
   gsap.set(".manifest-atmosphere-a", { x: 0, y: 0, scale: 1, opacity: .78 });
   gsap.set(".manifest-atmosphere-b", { x: 0, y: 0, scale: 1, opacity: .56 });
 
+  gsap.set(".collection-background-layer", { x: 0, y: 0, scale: 1.04, opacity: .98 });
+  gsap.set(".collection-atmosphere-a", { x: 0, y: 0, scale: 1, opacity: .72 });
+  gsap.set(".collection-atmosphere-b", { x: 0, y: 0, scale: 1, opacity: .52 });
+  gsap.set(".collection-bottle-asset", { scale: .96, opacity: 1 });
+
   gsap.set(".night-title", { x: -90 });
   gsap.set(".night-product", { x: 95, scale: .9 });
   gsap.set(".night-text", { y: 60, opacity: .35 });
@@ -226,7 +231,11 @@ window.addEventListener("load", () => {
     .to(".manifest-background-layer", { x: -38, y: -18, scale: 1.14, opacity: .28, duration: .76 }, 7.38)
     .to(".manifest-atmosphere-a", { x: 42, y: -24, scale: 1.18, opacity: .12, duration: .76 }, 7.38)
     .to(".manifest-atmosphere-b", { x: -34, y: -14, scale: 1.16, opacity: .08, duration: .76 }, 7.38)
+    .to(".collection-background-layer", { x: -12, y: -8, scale: 1.08, opacity: 1, duration: .86 }, 7.38)
+    .to(".collection-atmosphere-a", { x: 26, y: -16, scale: 1.12, opacity: .92, duration: .86 }, 7.38)
+    .to(".collection-atmosphere-b", { x: -22, y: 12, scale: 1.10, opacity: .68, duration: .86 }, 7.38)
     .to(".collection-heading", { x: 0, opacity: 1, duration: .78 }, 7.48)
+    .to(".collection-bottle-asset", { scale: 1, duration: .78, stagger: .06 }, 7.52)
     .addLabel("s7", 8.12)
     .to(".collection-heading", { opacity: 0, y: -24, duration: .35 }, 8.42)
     .to(".collection-track", {
@@ -238,6 +247,9 @@ window.addEventListener("load", () => {
 
   /* 07 -> 08: ABSOLU hands its gold directly to APRÈS MINUIT. */
   master
+    .to(".collection-background-layer", { x: -42, y: -22, scale: 1.14, opacity: .22, duration: .72 }, 10.48)
+    .to(".collection-atmosphere-a", { x: 42, y: -24, scale: 1.18, opacity: .10, duration: .72 }, 10.48)
+    .to(".collection-atmosphere-b", { x: -34, y: -14, scale: 1.16, opacity: .06, duration: .72 }, 10.48)
     .to("#s8", { clipPath: "circle(150% at 50% 52%)", duration: 1.02 }, 10.48)
     .to(".midnight-title", { x: 0, opacity: 1, duration: .8 }, 10.58)
     .to(".sun", { scale: 1, opacity: 1, duration: .88 }, 10.55)

@@ -1,0 +1,247 @@
+/* NOIR V18 — Act 07 / COLLECTION: three independent fragrance objects. */
+
+.collection {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  color: #28221d !important;
+  background: #e2d8ca !important;
+  background-image: none !important;
+}
+
+.collection-background-layer {
+  position: absolute;
+  z-index: 0;
+  inset: -4%;
+  background:
+    radial-gradient(circle at 18% 38%, rgba(255,255,255,.42), transparent 25%),
+    radial-gradient(circle at 83% 64%, rgba(105,50,25,.18), transparent 28%),
+    linear-gradient(120deg, #c9bbae 0%, #eee6da 46%, #cbb8a5 100%);
+  will-change: transform, opacity;
+}
+
+.collection-background-layer::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  opacity: .28;
+  background:
+    repeating-linear-gradient(106deg, transparent 0 20px, rgba(66,42,25,.08) 21px, transparent 22px 47px),
+    linear-gradient(180deg, rgba(255,255,255,.16), transparent 42%, rgba(37,20,11,.18));
+  mix-blend-mode: multiply;
+}
+
+.collection-atmosphere {
+  position: absolute;
+  z-index: 2;
+  border-radius: 50%;
+  pointer-events: none;
+  mix-blend-mode: multiply;
+  will-change: transform, opacity;
+}
+
+.collection-atmosphere-a {
+  left: 15%;
+  top: 9%;
+  width: 41vw;
+  height: 56vh;
+  background: radial-gradient(ellipse, rgba(255,249,232,.62), transparent 70%);
+  filter: blur(48px);
+}
+
+.collection-atmosphere-b {
+  right: -8%;
+  bottom: -18%;
+  width: 43vw;
+  height: 39vh;
+  background: radial-gradient(ellipse, rgba(152,73,35,.18), transparent 70%);
+  filter: blur(38px);
+}
+
+.collection-track {
+  position: relative;
+  z-index: 5;
+}
+
+.collection-panel { isolation: isolate; }
+
+.cp1 {
+  color: #2a211b !important;
+  background:
+    radial-gradient(circle at 69% 42%, rgba(255,255,255,.72), transparent 27%),
+    linear-gradient(125deg, #c8b9aa 0%, #eee7dc 57%, #cbbcae 100%) !important;
+}
+
+.cp2 {
+  color: #fff0e6 !important;
+  background:
+    radial-gradient(circle at 63% 43%, rgba(224,78,49,.52), transparent 25%),
+    linear-gradient(135deg, #3a0808 0%, #851a17 49%, #2a0506 100%) !important;
+}
+
+.cp3 {
+  color: #fff1d7 !important;
+  background:
+    radial-gradient(circle at 62% 42%, rgba(218,147,58,.50), transparent 25%),
+    linear-gradient(135deg, #211207 0%, #8a4d12 49%, #2d1505 100%) !important;
+}
+
+.cp1::after,
+.cp2::after,
+.cp3::after {
+  content: "";
+  position: absolute;
+  z-index: 0;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(90deg, rgba(0,0,0,.12), transparent 42%, rgba(0,0,0,.18));
+}
+
+.collection-heading,
+.collection-copy,
+.panel-counter,
+.panel-ghost,
+.collection-product {
+  z-index: 12 !important;
+}
+
+.collection-heading { color: #2a211b; }
+.collection-heading h2 { text-shadow: 0 8px 24px rgba(71,41,22,.08); }
+
+.cp2 .collection-copy h3,
+.cp3 .collection-copy h3,
+.cp2 .collection-heading,
+.cp3 .collection-heading { color: #fff0e6; }
+
+.panel-counter,
+.collection-copy > span,
+.collection-copy p { text-shadow: 0 4px 18px rgba(0,0,0,.20); }
+
+.collection-product {
+  width: min(38vw, 520px) !important;
+  height: min(72vh, 650px) !important;
+  translate: none !important;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  will-change: transform, opacity;
+}
+
+.collection-product > .bottle { display: none !important; }
+
+.collection-art {
+  position: absolute;
+  left: 50%;
+  top: 0;
+  width: auto;
+  height: 100%;
+  aspect-ratio: 612 / 1396;
+  transform: translateX(-50%);
+}
+
+.collection-art-noir { aspect-ratio: 2 / 3; }
+
+.collection-bottle-asset {
+  position: absolute;
+  z-index: 2;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  filter: drop-shadow(0 40px 34px rgba(17,8,4,.38));
+  will-change: transform, opacity;
+}
+
+.collection-label-overlay {
+  position: absolute;
+  z-index: 4;
+  left: 24%;
+  top: 39%;
+  width: 52%;
+  height: 34%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: #f4e4cf;
+  text-align: center;
+  text-shadow: 0 2px 12px rgba(0,0,0,.58);
+}
+
+.collection-art-noir .collection-label-overlay {
+  left: 31.5%;
+  top: 42.4%;
+  width: 37%;
+  height: 26.6%;
+  color: #ead8c0;
+}
+
+.collection-label-overlay small,
+.collection-label-overlay span,
+.collection-label-overlay em {
+  font-size: clamp(5px, .42vw, 7px);
+  letter-spacing: .30em;
+  font-style: normal;
+}
+
+.collection-label-overlay small { margin-bottom: 6px; }
+
+.collection-label-overlay strong {
+  font-family: "Italiana", serif;
+  font-size: clamp(21px, 2.25vw, 34px);
+  font-weight: 400;
+  letter-spacing: .08em;
+}
+
+.collection-label-overlay span { margin-top: 6px; }
+.collection-label-overlay em { margin-top: 10px; opacity: .72; }
+
+.cp1 .collection-label-overlay { color: #ead8c0; text-shadow: 0 2px 12px rgba(0,0,0,.84); }
+.cp2 .collection-label-overlay { color: #ffe8d0; }
+.cp3 .collection-label-overlay { color: #5a2b08; text-shadow: 0 1px 6px rgba(255,239,196,.34); }
+
+@media (max-width: 650px) {
+  .collection-background-layer { inset: -7% -20%; }
+
+  .collection-heading {
+    width: calc(100vw - 40px);
+  }
+
+  .collection-heading h2 {
+    font-size: 9.4vw;
+    line-height: .82;
+  }
+
+  .collection-atmosphere-a {
+    left: -12%;
+    top: 11%;
+    width: 96vw;
+    height: 48vh;
+  }
+
+  .collection-atmosphere-b {
+    right: -25%;
+    bottom: -7%;
+    width: 94vw;
+    height: 30vh;
+  }
+
+  .collection-product {
+    left: 58%;
+    top: 49%;
+    width: 94vw !important;
+    height: 65svh !important;
+  }
+
+  .collection-label-overlay small,
+  .collection-label-overlay span,
+  .collection-label-overlay em { font-size: 1.25vw; }
+
+  .collection-label-overlay strong { font-size: 7.2vw; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .collection-background-layer,
+  .collection-atmosphere,
+  .collection-bottle-asset { will-change: auto; }
+}
