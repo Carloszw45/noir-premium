@@ -1,0 +1,60 @@
+name: tune V8 transitions
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - ".github/workflows/tune-v8.yml"
+
+permissions:
+  contents: write
+
+jobs:
+  patch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Tighten cinematic handoffs
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+
+          p = Path('script.js')
+          s = p.read_text()
+          replacements = {
+            '{ scale: 12, duration: .3, ease: "none", immediateRender: false },\n      .7': '{ scale: 12, duration: .14, ease: "none", immediateRender: false },\n      .86',
+            '.to(".hero-product", { opacity: .12, duration: .17, ease: "none" }, .84);': '.to(".hero-product", { opacity: .18, duration: .07, ease: "none" }, .94);',
+            'duration: .16, ease: "none" }, .79)\n    .fromTo(".wipe-cream", { scaleY: .02 }, { scaleY: 1, duration: .22, ease: "none", immediateRender: false }, .76);': 'duration: .09, ease: "none" }, .91)\n    .fromTo(".wipe-cream", { scaleY: .02 }, { scaleY: 1, duration: .13, ease: "none", immediateRender: false }, .87);',
+            'start: "76% 72%", end: "bottom top", scrub: .65': 'start: "88% 70%", end: "bottom 8%", scrub: .5',
+            'duration: .13, ease: "none" }, .84)\n    .fromTo(".wipe-stone", { scaleY: .02 }, { scaleY: 1, duration: .19, ease: "none", immediateRender: false }, .8);': 'duration: .08, ease: "none" }, .92)\n    .fromTo(".wipe-stone", { scaleY: .02 }, { scaleY: 1, duration: .12, ease: "none", immediateRender: false }, .88);',
+            'start: "78% 72%", end: "bottom top", scrub: .65': 'start: "90% 70%", end: "bottom 8%", scrub: .5',
+            'duration: .17, ease: "none" }, .74)\n    .fromTo(".wipe-collection", { scaleY: .02 }, { scaleY: 1, duration: .21, ease: "none", immediateRender: false }, .77);': 'duration: .08, ease: "none" }, .9)\n    .fromTo(".wipe-collection", { scaleY: .02 }, { scaleY: 1, duration: .1, ease: "none", immediateRender: false }, .88);',
+            'duration: .23, ease: "none", immediateRender: false }, .74)\n    .to([".midnight-title", ".sun", ".sun-frame", ".fp1", ".fp2", ".coordinates", ".midnight .chapter"], { opacity: 0, y: -14, duration: .17, ease: "none" }, .8);': 'duration: .12, ease: "none", immediateRender: false }, .88)\n    .to([".midnight-title", ".sun", ".sun-frame", ".fp1", ".fp2", ".coordinates", ".midnight .chapter"], { opacity: 0, y: -10, duration: .08, ease: "none" }, .91);',
+            '{ scale: 12, duration: .26, ease: "none", immediateRender: false }, .69)\n    .to([".main-sheet", ".small-sheet", ".atelier-product", ".atelier-copy", ".atelier .chapter"], { opacity: 0, y: -18, duration: .16, ease: "none" }, .78);': '{ scale: 12, duration: .12, ease: "none", immediateRender: false }, .88)\n    .to([".main-sheet", ".small-sheet", ".atelier-product", ".atelier-copy", ".atelier .chapter"], { opacity: 0, y: -12, duration: .08, ease: "none" }, .92);'
+          }
+          for old, new in replacements.items():
+              if old not in s:
+                  raise SystemExit(f'missing script pattern: {old[:80]}')
+              s = s.replace(old, new, 1)
+          p.write_text(s)
+
+          p = Path('continuity.js')
+          s = p.read_text()
+          s = s.replace('scale: 5.8', 'scale: 2.35')
+          s = s.replace('scale: 2.8', 'scale: 1.55')
+          s = s.replace('{ opacity: .22, backgroundColor: config.to, duration: .66', '{ opacity: .12, backgroundColor: config.to, duration: .66')
+          s = s.replace('{ opacity: .78, scaleY: 1.35, duration: .72', '{ opacity: .42, scaleY: 1.18, duration: .72')
+          s = s.replace('{ opacity: config.shape === "gold" ? .72 : .72, scale: config.scale,', '{ opacity: config.shape === "gold" ? .48 : .32, scale: config.scale,')
+          p.write_text(s)
+
+          p = Path('index.html')
+          s = p.read_text().replace('continuity.css?v=7', 'continuity.css?v=8').replace('continuity.js?v=7', 'continuity.js?v=8').replace('script.js?v=6', 'script.js?v=8')
+          p.write_text(s)
+          PY
+      - name: Commit V8
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add script.js continuity.js index.html
+          git commit -m "NOIR V8 tighten scene handoffs from video review"
+          git push
