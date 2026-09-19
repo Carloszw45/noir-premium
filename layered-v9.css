@@ -1,4 +1,4 @@
-/* NOIR V9 — layered scrollytelling stage */
+/* NOIR V9 — layered scrollytelling stage (refined) */
 
 html, body {
   min-height: 100%;
@@ -53,7 +53,6 @@ body {
   z-index: 5000;
 }
 
-/* The collection becomes one chapter inside the same pinned stage. */
 .collection-track {
   display: flex;
   width: max-content;
@@ -67,7 +66,6 @@ body {
   height: 100%;
 }
 
-/* Keep the panels paint-stable while they overlap. */
 .hero,
 .night,
 .materials,
@@ -101,7 +99,6 @@ body {
   backface-visibility: hidden;
 }
 
-/* The first hero keeps the polished V6/V8 composition inside the stage. */
 .hero,
 .night,
 .manifesto,
@@ -118,7 +115,6 @@ body {
   min-height: 0 !important;
 }
 
-/* Re-fit layouts that previously relied on sections taller than the viewport. */
 .materials-title { top: 16%; }
 .material-one { top: 49%; }
 .material-two { top: 37%; }
@@ -145,7 +141,6 @@ body {
 .atelier-product { top: 15%; }
 .atelier-copy { bottom: 10%; }
 
-/* Only actual interactive controls accept input inside the stacked stage. */
 .experience-stage a,
 .experience-stage button {
   pointer-events: auto;
