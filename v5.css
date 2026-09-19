@@ -1,0 +1,191 @@
+/* NOIR V5 — refinements after full-screen review */
+
+/* Make the opening-to-night transition hold visual content longer */
+.hero,
+.night,
+.manifesto,
+.midnight,
+.atelier,
+.finale {
+  min-height: 100vh;
+}
+
+/* NIGHT: arrive fully composed instead of an empty red field */
+.night-title { top: 21%; }
+.night-title h2 {
+  font-size: clamp(64px, 8.4vw, 132px);
+  line-height: .8;
+}
+.night-product { right: 10%; top: 50%; }
+.night-text { bottom: 8%; }
+.night-circle { top: 56%; }
+
+/* MATERIALS: bring the objects into the same visual field as the title */
+.materials { height: 120vh; }
+.materials-title { top: 18%; }
+.material-one { top: 51%; }
+.material-two { top: 39%; }
+.material-three { top: 57%; }
+.orbit-large { top: 43%; }
+.orbit-small { top: 51%; }
+
+/* OBJECT: stop the large headline from falling below the viewport */
+.object-copy {
+  bottom: 14%;
+  max-width: 38vw;
+}
+.object-copy h2 {
+  font-size: clamp(44px, 5vw, 82px);
+  line-height: .9;
+}
+.object-copy p { margin-top: 17px; }
+.object-stage { top: 45%; }
+
+/* PRESENCE */
+.presence-copy { top: 17%; }
+.presence-copy h2 {
+  font-size: clamp(48px, 5.5vw, 90px);
+  line-height: .9;
+}
+
+/* MANIFEST: guarantee a centered, readable frame */
+.manifesto { height: 100vh; }
+.manifest-copy {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: min(92vw, 1200px);
+  transform: translate(-50%, -50%);
+}
+.manifest-copy h2 {
+  font-size: clamp(62px, 8.6vw, 138px);
+  line-height: .8;
+}
+.manifest-bottom { bottom: 24px; }
+
+/* COLLECTION: safer editorial placement during horizontal travel */
+.collection-heading {
+  top: 82px;
+  max-width: 45vw;
+}
+.collection-heading h2 {
+  font-size: clamp(38px, 4.7vw, 76px);
+  line-height: .87;
+}
+.collection-copy { bottom: 12%; }
+.collection-copy h3 {
+  font-size: clamp(70px, 10vw, 158px);
+  line-height: .76;
+}
+.collection-product { top: 49%; }
+.panel-counter { top: 86px; }
+
+/* MIDNIGHT: keep the title within the central safe zone */
+.midnight-title { top: 22%; }
+.midnight-title h2 {
+  font-size: clamp(58px, 8vw, 128px);
+  line-height: .82;
+}
+.sun { top: 49%; }
+
+/* ATELIER: this is now a full cinematic frame, not a fly-by */
+.atelier {
+  height: 100vh;
+  min-height: 720px;
+}
+.atelier .chapter { top: 84px; }
+.atelier-word {
+  top: 8%;
+  font-size: 12vw;
+}
+.main-sheet {
+  left: 7%;
+  top: 18%;
+  width: 30vw;
+  min-width: 330px;
+  padding: 34px;
+}
+.small-sheet.one { left: 31%; top: 16%; }
+.small-sheet.two { left: 29%; top: 57%; }
+.atelier-product {
+  right: 10%;
+  top: 17%;
+}
+.atelier-product .bottle { transform: scale(1.02); }
+.atelier-copy {
+  right: 6%;
+  bottom: 12%;
+  width: 45%;
+}
+.atelier-copy h2 {
+  font-size: clamp(46px, 5.6vw, 90px);
+  line-height: .86;
+}
+.atelier-copy p { margin-top: 18px; }
+
+/* FINAL: slightly stronger composition */
+.final-copy { top: 25%; }
+.final-product { right: 18%; }
+.final-product .bottle { transform: scale(1.34); }
+
+@media (max-width: 900px) {
+  .collection-heading { max-width: 58vw; }
+  .object-copy { max-width: 50vw; }
+  .atelier-copy { width: 52%; }
+}
+
+@media (max-width: 650px) {
+  .night-title { top: 16%; }
+  .night-product { top: 48%; }
+
+  .materials { height: 145svh; }
+  .materials-title { top: 18%; }
+  .material-one { top: 43%; }
+  .material-two { top: 49%; }
+  .material-three { top: 72%; }
+
+  .object-copy {
+    left: 20px;
+    bottom: 8%;
+    max-width: 82vw;
+  }
+  .object-copy h2 { font-size: 12vw; }
+
+  .manifest-copy { width: 94vw; }
+  .manifest-copy h2 { font-size: 15vw; }
+
+  .collection-heading {
+    top: 74px;
+    max-width: 82vw;
+  }
+  .collection-heading h2 { font-size: 10.5vw; }
+  .collection-copy { bottom: 10%; }
+
+  .midnight-title { top: 17%; }
+  .midnight-title h2 { font-size: 14.5vw; }
+
+  .atelier {
+    height: 135svh;
+    min-height: 900px;
+  }
+  .main-sheet {
+    left: -7%;
+    top: 11%;
+    width: 78vw;
+    min-width: 0;
+    padding: 28px;
+  }
+  .small-sheet.one { left: auto; right: -8%; top: 16%; }
+  .small-sheet.two { left: 9%; top: 45%; }
+  .atelier-product { right: -18%; top: 40%; }
+  .atelier-product .bottle { transform: scale(.76); }
+  .atelier-copy {
+    left: 20px;
+    right: auto;
+    bottom: 7%;
+    width: 90%;
+  }
+  .atelier-copy h2 { font-size: 14vw; }
+
+  .final-product { right: -10%; }
+}
