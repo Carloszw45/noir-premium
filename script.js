@@ -78,6 +78,11 @@ window.addEventListener("load", () => {
   gsap.set(".collection-atmosphere-b", { x: 0, y: 0, scale: 1, opacity: .52 });
   gsap.set(".collection-bottle-asset", { scale: .96, opacity: 1 });
 
+  gsap.set(".midnight-background-layer", { x: 0, y: 0, scale: 1.04, opacity: .98 });
+  gsap.set(".midnight-atmosphere-a", { x: 0, y: 0, scale: 1, opacity: .78 });
+  gsap.set(".midnight-atmosphere-b", { x: 0, y: 0, scale: 1, opacity: .54 });
+  gsap.set(".midnight-sun-asset", { scale: 1, opacity: 1 });
+
   gsap.set(".night-title", { x: -90 });
   gsap.set(".night-product", { x: 95, scale: .9 });
   gsap.set(".night-text", { y: 60, opacity: .35 });
@@ -250,9 +255,13 @@ window.addEventListener("load", () => {
     .to(".collection-background-layer", { x: -42, y: -22, scale: 1.14, opacity: .22, duration: .72 }, 10.48)
     .to(".collection-atmosphere-a", { x: 42, y: -24, scale: 1.18, opacity: .10, duration: .72 }, 10.48)
     .to(".collection-atmosphere-b", { x: -34, y: -14, scale: 1.16, opacity: .06, duration: .72 }, 10.48)
+    .to(".midnight-background-layer", { x: -14, y: -8, scale: 1.08, opacity: 1, duration: .88 }, 10.48)
+    .to(".midnight-atmosphere-a", { x: 28, y: -18, scale: 1.12, opacity: .96, duration: .88 }, 10.48)
+    .to(".midnight-atmosphere-b", { x: -22, y: 10, scale: 1.10, opacity: .70, duration: .88 }, 10.48)
     .to("#s8", { clipPath: "circle(150% at 50% 52%)", duration: 1.02 }, 10.48)
     .to(".midnight-title", { x: 0, opacity: 1, duration: .8 }, 10.58)
     .to(".sun", { scale: 1, opacity: 1, duration: .88 }, 10.55)
+    .to(".midnight-sun-asset", { scale: 1.04, duration: .88 }, 10.55)
     .to(".sun-frame", { scale: 1, rotation: 0, opacity: 1, duration: .86 }, 10.6)
     .to([".fp1", ".fp2"], { y: 0, opacity: 1, stagger: .06, duration: .8 }, 10.62)
     .addLabel("s8", 11.34)
@@ -262,6 +271,9 @@ window.addEventListener("load", () => {
   /* 08 -> 09: the gold disc becomes a sheet/formula field rising from below. */
   master
     .to(".sun", { scale: 2.05, opacity: .45, duration: .62 }, 11.82)
+    .to(".midnight-background-layer", { x: -46, y: -24, scale: 1.16, opacity: .28, duration: .62 }, 11.82)
+    .to(".midnight-atmosphere-a", { x: 44, y: -24, scale: 1.18, opacity: .12, duration: .62 }, 11.82)
+    .to(".midnight-atmosphere-b", { x: -38, y: -16, scale: 1.16, opacity: .08, duration: .62 }, 11.82)
     .to("#s9", { clipPath: "inset(0% 0% 0% 0%)", duration: 1.02 }, 11.94)
     .to(".main-sheet", { y: 0, rotation: 0, opacity: 1, duration: .82 }, 12.06)
     .to(".small-sheet.one", { x: 0, y: 0, opacity: 1, duration: .78 }, 12.1)
