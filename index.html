@@ -20,21 +20,37 @@
   <link rel="icon" type="image/svg+xml" href="assets/noir-mark.svg">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="stylesheet" href="style.css?v=6">
+  <link rel="stylesheet" href="style.css?v=7">
   <link rel="stylesheet" href="v5.css?v=6">
   <link rel="stylesheet" href="layered-v9.css?v=9">
-  <link rel="stylesheet" href="assets-v11.css?v=11">
-  <link rel="stylesheet" href="assets-v12.css?v=12">
-  <link rel="stylesheet" href="assets-v13.css?v=13">
-  <link rel="stylesheet" href="assets-v14.css?v=14">
-  <link rel="stylesheet" href="assets-v15.css?v=15">
-  <link rel="stylesheet" href="assets-v16.css?v=16">
-  <link rel="stylesheet" href="assets-v17.css?v=17">
-  <link rel="stylesheet" href="assets-v18.css?v=18">
-  <link rel="stylesheet" href="assets-v19.css?v=19">
-  <link rel="stylesheet" href="assets-v20.css?v=20">
-  <link rel="stylesheet" href="assets-v21.css?v=21">
-  <link rel="stylesheet" href="assets-v22.css?v=22">
+  <script>
+    (() => {
+      const desktop = window.matchMedia("(min-width: 651px)").matches;
+      const stylesheets = desktop
+        ? [
+            "https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500&family=Italiana&display=swap",
+            "assets-v11.css?v=11",
+            "assets-v12.css?v=12",
+            "assets-v13.css?v=13",
+            "assets-v14.css?v=14",
+            "assets-v15.css?v=15",
+            "assets-v16.css?v=16",
+            "assets-v17.css?v=17",
+            "assets-v18.css?v=18",
+            "assets-v19.css?v=19",
+            "assets-v20.css?v=20",
+            "assets-v21.css?v=21",
+            "assets-v22.css?v=22"
+          ]
+        : ["assets-mobile-v23.css?v=23"];
+      stylesheets.forEach(href => {
+        const link = document.createElement("link");
+        link.rel = "stylesheet";
+        link.href = href;
+        document.head.appendChild(link);
+      });
+    })();
+  </script>
 </head>
 <body>
 

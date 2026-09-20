@@ -1,0 +1,2114 @@
+/* NOIR V23 — one mobile stylesheet bundle.
+   It contains the same scene rules as the desktop cascade, but avoids
+   multiple render-blocking stylesheet requests on small screens. */
+/* ---- assets-v11.css ---- */
+/* NOIR V11 — photographic backgrounds + independent transparent objects. */
+
+/* Every scene receives a photographic environment. More unique backgrounds can
+   replace these shared base plates without changing the GSAP choreography. */
+.hero,
+.object-scene,
+.presence,
+.collection,
+.atelier,
+.finale {
+  background-image:
+    linear-gradient(90deg, rgba(5,5,5,.70) 0%, rgba(5,5,5,.26) 38%, rgba(5,5,5,.10) 68%, rgba(5,5,5,.42) 100%),
+    linear-gradient(180deg, rgba(5,5,5,.20), transparent 35%, rgba(5,5,5,.36)) !important;
+  background-size: cover !important;
+  background-position: center !important;
+  background-repeat: no-repeat !important;
+}
+
+.night,
+.materials,
+.manifesto,
+.midnight {
+  background-image:
+    linear-gradient(90deg, rgba(18,2,2,.72), rgba(24,3,3,.18) 48%, rgba(10,2,2,.46)),
+    linear-gradient(180deg, rgba(12,2,2,.15), transparent 58%, rgba(8,1,1,.42)) !important;
+  background-size: cover !important;
+  background-position: center !important;
+  background-repeat: no-repeat !important;
+}
+
+/* The old composite Hero image and CSS bottle are no longer visible. */
+.hero-product .bottle,
+.hero-product .shadow,
+.night-product .bottle,
+.object-stage .object-bottle,
+.atelier-product .bottle,
+.final-product .bottle,
+.cp1 .collection-product .bottle {
+  display: none !important;
+}
+
+/* Shared independent NOIR object. The GSAP timeline keeps animating the existing
+   wrapper; only its visual source changes from CSS geometry to a transparent asset. */
+.hero-product::before,
+.night-product::before,
+.object-stage::after,
+.atelier-product::before,
+.final-product::before,
+.cp1 .collection-product::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background-image: none !important;
+  background-size: contain !important;
+  background-position: center !important;
+  background-repeat: no-repeat !important;
+  filter: drop-shadow(0 34px 34px rgba(0,0,0,.42));
+  -webkit-mask-image: none !important;
+  mask-image: none !important;
+}
+
+/* Hero composition */
+.hero {
+  color: #f2e5d4 !important;
+}
+.hero::after {
+  content: "";
+  position: absolute;
+  z-index: 3;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(90deg, rgba(4,4,4,.56) 0%, rgba(4,4,4,.12) 42%, transparent 72%);
+}
+.hero-title {
+  z-index: 4 !important;
+  color: rgba(229,195,149,.88) !important;
+  opacity: .60;
+}
+.hero-copy,
+.hero-notes,
+.hero-bottom,
+.hero .chapter {
+  z-index: 20 !important;
+  color: #f2e5d4 !important;
+  text-shadow: 0 5px 24px rgba(0,0,0,.62);
+}
+.hero-product {
+  z-index: 12 !important;
+  left: 67% !important;
+  top: 52% !important;
+  width: min(31vw, 470px) !important;
+  height: min(76vh, 690px) !important;
+  translate: -50% -50% !important;
+  opacity: 1 !important;
+}
+.hero-product::before {
+  filter: drop-shadow(0 42px 38px rgba(0,0,0,.52));
+}
+
+/* Other NOIR placements */
+.night-product {
+  width: min(28vw, 420px) !important;
+  height: min(68vh, 620px) !important;
+}
+.object-stage::after {
+  inset: 8% 12% 5% 12%;
+  z-index: 9;
+}
+.atelier-product,
+.final-product {
+  width: min(27vw, 410px) !important;
+  height: min(67vh, 610px) !important;
+}
+.collection-product {
+  width: min(28vw, 400px) !important;
+  height: min(64vh, 570px) !important;
+}
+
+/* Dark photographic plates require light editorial type in the scenes that used
+   to depend on cream/stone flat backgrounds. */
+.materials,
+.presence,
+.collection,
+.atelier {
+  color: #f1e5d5 !important;
+}
+.materials .chapter.dark,
+.materials-header p,
+.material-name p,
+.presence .chapter.dark,
+.collection .chapter.dark,
+.atelier .chapter.dark,
+.atelier-copy p {
+  color: rgba(241,229,213,.64) !important;
+}
+.dark-number { color: rgba(255,255,255,.035) !important; }
+
+@media (max-width: 650px) {
+  .hero,
+  .object-scene,
+  .presence,
+  .collection,
+  .atelier,
+  .finale,
+  .night,
+  .materials,
+  .manifesto,
+  .midnight {
+    background-position: 60% center !important;
+  }
+  .hero::after {
+    background: linear-gradient(180deg, rgba(4,4,4,.20), rgba(4,4,4,.18) 46%, rgba(4,4,4,.83) 82%, rgba(4,4,4,.94));
+  }
+  .hero-title { opacity: .35; }
+  .hero-product {
+    left: 68% !important;
+    top: 49% !important;
+    width: 74vw !important;
+    height: 59svh !important;
+  }
+  .night-product {
+    width: 66vw !important;
+    height: 54svh !important;
+  }
+  .atelier-product,
+  .final-product {
+    width: 70vw !important;
+    height: 57svh !important;
+  }
+}
+/* ---- assets-v12.css ---- */
+/* NOIR V12 — Hero art direction: independent scene, atmosphere and object. */
+
+.hero {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  color: #f2e5d4 !important;
+  background: #080808 !important;
+  background-image: none !important;
+}
+
+/* The plate is its own layer so the bottle never becomes part of the scenery. */
+.hero-background-layer {
+  display: block;
+  position: absolute;
+  z-index: 0;
+  inset: -3%;
+  background: transparent;
+  transform: scale(1.03);
+  filter: saturate(.86) contrast(1.06);
+  will-change: transform;
+}
+
+.hero-background-layer > img {
+  position: absolute;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+.hero-background-layer::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(90deg, rgba(4,4,4,.78) 0%, rgba(4,4,4,.30) 40%, rgba(4,4,4,.08) 68%, rgba(4,4,4,.30) 100%),
+    linear-gradient(180deg, rgba(4,4,4,.18), transparent 42%, rgba(4,4,4,.62));
+}
+
+.hero-atmosphere {
+  position: absolute;
+  z-index: 2;
+  pointer-events: none;
+  border-radius: 50%;
+  mix-blend-mode: screen;
+  will-change: transform, opacity;
+}
+
+.hero-atmosphere-a {
+  left: 32%;
+  top: 5%;
+  width: 33vw;
+  height: 78vh;
+  background: radial-gradient(ellipse, rgba(238,190,117,.28), rgba(155,88,38,.10) 37%, transparent 72%);
+  filter: blur(42px);
+}
+
+.hero-atmosphere-b {
+  left: 49%;
+  bottom: -14%;
+  width: 46vw;
+  height: 39vh;
+  background: radial-gradient(ellipse, rgba(240,176,79,.25), transparent 68%);
+  filter: blur(34px);
+}
+
+.hero-reflection {
+  position: absolute;
+  z-index: 3;
+  left: 44%;
+  bottom: -15%;
+  width: 30vw;
+  height: 25vh;
+  border-radius: 50%;
+  background: radial-gradient(ellipse, rgba(221,162,84,.25), transparent 68%);
+  filter: blur(28px);
+  mix-blend-mode: screen;
+  pointer-events: none;
+  will-change: transform, opacity;
+}
+
+.hero::after {
+  content: "";
+  position: absolute;
+  z-index: 4;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(90deg, rgba(4,4,4,.18), transparent 42%, rgba(4,4,4,.18));
+}
+
+.hero-title {
+  z-index: 5 !important;
+  color: rgba(229,195,149,.88) !important;
+  opacity: .66;
+  text-shadow: 0 10px 50px rgba(0,0,0,.48);
+}
+
+.hero-product {
+  z-index: 12 !important;
+  left: 68% !important;
+  top: 52% !important;
+  width: min(31vw, 470px) !important;
+  height: min(76vh, 690px) !important;
+  /* Keep one centering transform; GSAP owns the animated transform after load. */
+  translate: none !important;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  will-change: transform, opacity;
+}
+
+.hero-product::before {
+  content: none !important;
+}
+
+.hero-product .bottle { display: none !important; }
+
+.hero-bottle-asset {
+  position: absolute;
+  z-index: 2;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  filter: drop-shadow(0 42px 38px rgba(0,0,0,.56));
+  will-change: transform;
+}
+
+.hero-product .shadow {
+  position: absolute;
+  z-index: 1;
+  left: 50%;
+  bottom: 5%;
+  width: 55%;
+  height: 6%;
+  transform: translateX(-50%);
+  border-radius: 50%;
+  background: rgba(0,0,0,.60);
+  filter: blur(22px);
+}
+
+.hero-label-overlay {
+  position: absolute;
+  z-index: 4;
+  left: 31.5%;
+  top: 42.4%;
+  width: 37%;
+  height: 26.6%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: #e9d4b2;
+  text-align: center;
+  text-shadow: 0 2px 12px rgba(0,0,0,.8);
+}
+
+.hero-label-overlay small,
+.hero-label-overlay span,
+.hero-label-overlay em {
+  font-size: clamp(5px, .42vw, 7px);
+  letter-spacing: .30em;
+  font-style: normal;
+}
+
+.hero-label-overlay small { margin-bottom: 6px; }
+.hero-label-overlay strong {
+  font-family: "Italiana", serif;
+  font-size: clamp(21px, 2.25vw, 34px);
+  font-weight: 400;
+  letter-spacing: .08em;
+}
+.hero-label-overlay span { margin-top: 6px; }
+.hero-label-overlay em { margin-top: 10px; opacity: .72; }
+
+.hero-copy,
+.hero-notes,
+.hero-bottom,
+.hero .chapter {
+  z-index: 20 !important;
+  color: #f2e5d4 !important;
+  text-shadow: 0 5px 24px rgba(0,0,0,.62);
+}
+
+.hero-copy { will-change: transform, opacity; }
+
+@media (max-width: 650px) {
+  .hero-background-layer {
+    inset: -5% -22%;
+    background-position: 58% center;
+  }
+
+  .hero-atmosphere-a {
+    left: 15%;
+    top: 6%;
+    width: 80vw;
+    height: 62vh;
+    filter: blur(34px);
+  }
+
+  .hero-atmosphere-b {
+    left: 28%;
+    bottom: -4%;
+    width: 85vw;
+    height: 27vh;
+  }
+
+  .hero-reflection {
+    left: 38%;
+    bottom: 0;
+    width: 80vw;
+    height: 22vh;
+  }
+
+  .hero-title { opacity: .38; }
+  .hero-product {
+    left: 68% !important;
+    top: 48% !important;
+    width: 76vw !important;
+    height: 64svh !important;
+  }
+
+  .hero-label-overlay strong { font-size: 7.2vw; }
+  .hero-label-overlay small,
+  .hero-label-overlay span,
+  .hero-label-overlay em { font-size: 1.25vw; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-background-layer,
+  .hero-atmosphere,
+  .hero-reflection,
+  .hero-bottle-asset { will-change: auto; }
+}
+/* ---- assets-v13.css ---- */
+/* NOIR V13 — Act 02 / LA NUIT: wine-red environment with an independent object. */
+
+.night {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  color: #f8e9df !important;
+  background: #260708 !important;
+  background-image: none !important;
+}
+
+.night-background-layer {
+  display: block;
+  position: absolute;
+  z-index: 0;
+  inset: -4%;
+  background: transparent;
+  filter: saturate(.94) contrast(1.08);
+  will-change: transform, opacity;
+}
+
+.night-background-layer > img {
+  position: absolute;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+.night-background-layer::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(90deg, rgba(18,2,3,.62), rgba(18,2,3,.16) 50%, rgba(8,1,2,.46)),
+    linear-gradient(180deg, rgba(10,1,2,.18), transparent 46%, rgba(8,1,1,.54));
+}
+
+.night-atmosphere {
+  position: absolute;
+  z-index: 2;
+  pointer-events: none;
+  border-radius: 50%;
+  mix-blend-mode: screen;
+  will-change: transform, opacity;
+}
+
+.night-atmosphere-a {
+  left: 39%;
+  top: 12%;
+  width: 35vw;
+  height: 55vh;
+  background: radial-gradient(ellipse, rgba(224,65,43,.24), rgba(121,18,19,.10) 42%, transparent 72%);
+  filter: blur(46px);
+}
+
+.night-atmosphere-b {
+  right: 6%;
+  bottom: -18%;
+  width: 42vw;
+  height: 38vh;
+  background: radial-gradient(ellipse, rgba(169,39,28,.22), transparent 70%);
+  filter: blur(34px);
+}
+
+.night-glow {
+  z-index: 3;
+  opacity: .46;
+}
+
+.night-circle {
+  z-index: 4;
+  opacity: .9;
+}
+
+.night-title,
+.night-text,
+.night-small,
+.night .chapter,
+.night .number {
+  z-index: 20 !important;
+}
+
+.night-title h2 {
+  color: #f7e8dd;
+  text-shadow: 0 10px 36px rgba(0,0,0,.38);
+}
+
+.night-product {
+  z-index: 12 !important;
+  right: 10% !important;
+  top: 52% !important;
+  width: min(28vw, 420px) !important;
+  height: min(68vh, 620px) !important;
+  translate: none !important;
+  transform: translateY(-50%);
+  pointer-events: none;
+  will-change: transform, opacity;
+}
+
+.night-product .bottle { display: none !important; }
+
+.night-product-shadow {
+  position: absolute;
+  z-index: 1;
+  left: 50%;
+  bottom: 5%;
+  width: 58%;
+  height: 6%;
+  transform: translateX(-50%);
+  border-radius: 50%;
+  background: rgba(0,0,0,.68);
+  filter: blur(24px);
+}
+
+.night-bottle-asset {
+  position: absolute;
+  z-index: 2;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  filter: drop-shadow(0 42px 38px rgba(0,0,0,.58));
+  will-change: transform, opacity;
+}
+
+.night-label-overlay {
+  position: absolute;
+  z-index: 4;
+  left: 31.5%;
+  top: 42.4%;
+  width: 37%;
+  height: 26.6%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: #ead2c2;
+  text-align: center;
+  text-shadow: 0 2px 12px rgba(0,0,0,.86);
+}
+
+.night-label-overlay small,
+.night-label-overlay span,
+.night-label-overlay em {
+  font-size: clamp(5px, .42vw, 7px);
+  letter-spacing: .30em;
+  font-style: normal;
+}
+
+.night-label-overlay small { margin-bottom: 6px; }
+
+.night-label-overlay strong {
+  font-family: "Italiana", serif;
+  font-size: clamp(21px, 2.25vw, 34px);
+  font-weight: 400;
+  letter-spacing: .08em;
+}
+
+.night-label-overlay span { margin-top: 6px; }
+.night-label-overlay em { margin-top: 10px; opacity: .72; }
+
+.night-text p {
+  color: #f4e3d8;
+  text-shadow: 0 6px 24px rgba(0,0,0,.48);
+}
+
+.night-text span,
+.night-small {
+  color: rgba(255,239,229,.72);
+}
+
+@media (max-width: 650px) {
+  .night-background-layer {
+    inset: -7% -22%;
+    background-position: 61% center;
+  }
+
+  .night-atmosphere-a {
+    left: 22%;
+    top: 12%;
+    width: 76vw;
+    height: 48vh;
+    filter: blur(34px);
+  }
+
+  .night-atmosphere-b {
+    right: -18%;
+    bottom: -6%;
+    width: 84vw;
+    height: 30vh;
+  }
+
+  .night-product {
+    right: -14% !important;
+    top: 65% !important;
+    width: 68vw !important;
+    height: 52svh !important;
+  }
+
+  .night-title { left: 20px; top: 17%; width: 68vw; }
+  .night-title h2 {
+    font-size: 13.2vw;
+    letter-spacing: -.065em;
+  }
+
+  .night-text { width: 48%; }
+
+  .night-label-overlay strong { font-size: 7.2vw; }
+  .night-label-overlay small,
+  .night-label-overlay span,
+  .night-label-overlay em { font-size: 1.25vw; }
+
+  .night-title h2 { text-shadow: 0 8px 24px rgba(0,0,0,.5); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .night-background-layer,
+  .night-atmosphere,
+  .night-bottle-asset { will-change: auto; }
+}
+/* ---- assets-v14.css ---- */
+/* NOIR V14 — Act 03 / MATIÈRES: independent botanical and raw-material objects. */
+
+.materials {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  color: #25201b !important;
+  background: #d8d0c6 !important;
+  background-image: none !important;
+}
+
+.materials-background-layer {
+  position: absolute;
+  z-index: 0;
+  inset: -4%;
+  background:
+    radial-gradient(circle at 47% 48%, rgba(255,255,255,.62), transparent 33%),
+    radial-gradient(circle at 84% 72%, rgba(174,116,62,.15), transparent 26%),
+    linear-gradient(122deg, #b8aaa0 0%, #e9e1d7 45%, #c8bcb0 100%);
+  filter: saturate(.75) contrast(1.02);
+  will-change: transform, opacity;
+}
+
+.materials-background-layer::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  opacity: .24;
+  background:
+    repeating-linear-gradient(108deg, transparent 0 10px, rgba(54,38,28,.08) 11px, transparent 12px 27px),
+    linear-gradient(180deg, rgba(255,255,255,.12), transparent 40%, rgba(33,24,18,.18));
+  mix-blend-mode: multiply;
+}
+
+.materials-atmosphere {
+  position: absolute;
+  z-index: 2;
+  border-radius: 50%;
+  pointer-events: none;
+  mix-blend-mode: multiply;
+  will-change: transform, opacity;
+}
+
+.materials-atmosphere-a {
+  left: 20%;
+  top: 24%;
+  width: 42vw;
+  height: 44vh;
+  background: radial-gradient(ellipse, rgba(255,250,237,.58), transparent 70%);
+  filter: blur(46px);
+}
+
+.materials-atmosphere-b {
+  right: -6%;
+  bottom: -16%;
+  width: 42vw;
+  height: 38vh;
+  background: radial-gradient(ellipse, rgba(142,72,20,.18), transparent 70%);
+  filter: blur(35px);
+}
+
+.materials-header,
+.materials-title,
+.material,
+.materials .number,
+.materials .material-orbit {
+  z-index: 10 !important;
+}
+
+.materials-header p,
+.material-name p {
+  color: rgba(37,32,27,.68) !important;
+}
+
+.materials-title {
+  color: #26201b !important;
+  text-shadow: 0 10px 24px rgba(67,48,32,.08);
+}
+
+.wood-art,
+.petal-art,
+.amber-art {
+  position: relative;
+  overflow: visible !important;
+  background: none !important;
+  box-shadow: none !important;
+}
+
+.wood-art {
+  width: 22vw;
+  height: 34vh;
+  min-width: 220px;
+  transform: rotate(-3deg);
+}
+
+.petal-art {
+  width: 27vw;
+  height: 27vw;
+  min-width: 290px;
+  min-height: 290px;
+}
+
+.amber-art {
+  width: 19vw;
+  height: 19vw;
+  min-width: 190px;
+  min-height: 190px;
+}
+
+.material-asset {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  filter: drop-shadow(0 28px 26px rgba(35,24,16,.22));
+  will-change: transform, opacity;
+}
+
+.material-wood-asset { transform: scale(1.08); }
+.material-rose-asset { transform: scale(1.07); }
+.material-amber-asset { transform: scale(1.08); }
+
+.wood-art span,
+.petal-art .petal,
+.amber-art div { display: none !important; }
+
+.material-name {
+  position: relative;
+  z-index: 4;
+}
+
+.material-name strong {
+  color: #2a211c;
+  font-size: clamp(27px, 2.6vw, 42px);
+}
+
+.material-name p {
+  font-size: 7px;
+  letter-spacing: .15em;
+}
+
+@media (max-width: 650px) {
+  .materials-background-layer { inset: -7% -20%; }
+
+  .materials-atmosphere-a {
+    left: 4%;
+    top: 18%;
+    width: 90vw;
+    height: 42vh;
+  }
+
+  .materials-atmosphere-b {
+    right: -24%;
+    bottom: -4%;
+    width: 90vw;
+    height: 30vh;
+  }
+
+  .wood-art {
+    width: 43vw;
+    height: 28vh;
+    min-width: 0;
+  }
+
+  .petal-art {
+    width: 56vw;
+    height: 56vw;
+    min-width: 0;
+    min-height: 0;
+  }
+
+  .amber-art {
+    width: 42vw;
+    height: 42vw;
+    min-width: 0;
+    min-height: 0;
+  }
+
+  .material-name strong { font-size: 7.4vw; }
+  .material-name p { font-size: 5px; letter-spacing: .11em; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .materials-background-layer,
+  .materials-atmosphere,
+  .material-asset { will-change: auto; }
+}
+/* ---- assets-v15.css ---- */
+/* NOIR V15 — Act 04 / L'OBJET: object study in black, light and proportion. */
+
+.object-scene {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  color: #f4e8dc !important;
+  background: #050505 !important;
+  background-image: none !important;
+}
+
+.object-background-layer {
+  position: absolute;
+  z-index: 0;
+  inset: -4%;
+  background:
+    radial-gradient(circle at 56% 46%, rgba(111,74,42,.34), transparent 24%),
+    radial-gradient(circle at 80% 72%, rgba(72,24,11,.28), transparent 28%),
+    linear-gradient(118deg, #050505 0%, #17110e 46%, #030303 100%);
+  will-change: transform, opacity;
+}
+
+.object-background-layer::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(90deg, rgba(0,0,0,.68), transparent 42%, rgba(0,0,0,.28)),
+    repeating-linear-gradient(105deg, transparent 0 18px, rgba(255,214,160,.025) 19px, transparent 20px 43px);
+}
+
+.object-atmosphere {
+  position: absolute;
+  z-index: 2;
+  border-radius: 50%;
+  pointer-events: none;
+  mix-blend-mode: screen;
+  will-change: transform, opacity;
+}
+
+.object-atmosphere-a {
+  left: 38%;
+  top: 20%;
+  width: 36vw;
+  height: 48vh;
+  background: radial-gradient(ellipse, rgba(222,159,88,.22), transparent 70%);
+  filter: blur(45px);
+}
+
+.object-atmosphere-b {
+  right: 2%;
+  bottom: -18%;
+  width: 40vw;
+  height: 38vh;
+  background: radial-gradient(ellipse, rgba(137,47,18,.20), transparent 70%);
+  filter: blur(35px);
+}
+
+.object-scene .huge-word,
+.object-scene .object-stage,
+.object-scene .object-copy,
+.object-scene .scale-line,
+.object-scene .number,
+.object-scene .chapter {
+  z-index: 12 !important;
+}
+
+.object-stage {
+  width: min(36vw, 520px) !important;
+  height: min(70vh, 600px) !important;
+  translate: none !important;
+  transform: translate(-50%, -50%);
+}
+
+.object-stage .object-bottle { display: none !important; }
+
+.object-bottle-asset {
+  position: absolute;
+  z-index: 9;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  filter: drop-shadow(0 44px 38px rgba(0,0,0,.68));
+  will-change: transform, opacity;
+}
+
+.object-label-overlay {
+  position: absolute;
+  z-index: 11;
+  left: 31.5%;
+  top: 42.4%;
+  width: 37%;
+  height: 26.6%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: #ead8c0;
+  text-align: center;
+  text-shadow: 0 2px 12px rgba(0,0,0,.9);
+}
+
+.object-label-overlay small,
+.object-label-overlay span,
+.object-label-overlay em {
+  font-size: clamp(5px, .42vw, 7px);
+  letter-spacing: .30em;
+  font-style: normal;
+}
+
+.object-label-overlay small { margin-bottom: 6px; }
+.object-label-overlay strong {
+  font-family: "Italiana", serif;
+  font-size: clamp(21px, 2.25vw, 34px);
+  font-weight: 400;
+  letter-spacing: .08em;
+}
+.object-label-overlay span { margin-top: 6px; }
+.object-label-overlay em { margin-top: 10px; opacity: .72; }
+
+.object-copy h2 { text-shadow: 0 8px 28px rgba(0,0,0,.52); }
+.object-copy p { color: rgba(255,242,226,.66) !important; }
+
+@media (max-width: 650px) {
+  .object-background-layer { inset: -7% -18%; }
+
+  .object-atmosphere-a {
+    left: 14%;
+    top: 25%;
+    width: 80vw;
+    height: 42vh;
+  }
+
+  .object-atmosphere-b {
+    right: -20%;
+    bottom: -4%;
+    width: 82vw;
+    height: 30vh;
+  }
+
+  .object-stage {
+    left: 55%;
+    top: 40%;
+    width: 78vw !important;
+    height: 66svh !important;
+  }
+
+  .object-label-overlay strong { font-size: 7.2vw; }
+  .object-label-overlay small,
+  .object-label-overlay span,
+  .object-label-overlay em { font-size: 1.25vw; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .object-background-layer,
+  .object-atmosphere,
+  .object-bottle-asset { will-change: auto; }
+}
+/* ---- assets-v16.css ---- */
+/* NOIR V16 — Act 05 / PRÉSENCE: editorial campaign layers with local imagery. */
+
+.presence {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  color: #efe4d7 !important;
+  background: #24211e !important;
+  background-image: none !important;
+}
+
+.presence-background-layer {
+  position: absolute;
+  z-index: 0;
+  inset: -4%;
+  background:
+    radial-gradient(circle at 68% 34%, rgba(133,103,77,.26), transparent 25%),
+    radial-gradient(circle at 17% 81%, rgba(12,11,10,.52), transparent 31%),
+    linear-gradient(118deg, #171614 0%, #4a433b 48%, #211e1b 100%);
+  will-change: transform, opacity;
+}
+
+.presence-background-layer::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  opacity: .34;
+  background:
+    linear-gradient(90deg, rgba(8,8,7,.48), transparent 46%, rgba(8,8,7,.32)),
+    repeating-linear-gradient(112deg, transparent 0 23px, rgba(255,240,216,.035) 24px, transparent 25px 48px),
+    linear-gradient(180deg, rgba(255,255,255,.08), transparent 38%, rgba(0,0,0,.40));
+  mix-blend-mode: multiply;
+}
+
+.presence-atmosphere {
+  position: absolute;
+  z-index: 2;
+  border-radius: 50%;
+  pointer-events: none;
+  mix-blend-mode: screen;
+  will-change: transform, opacity;
+}
+
+.presence-atmosphere-a {
+  left: 3%;
+  top: 16%;
+  width: 45vw;
+  height: 54vh;
+  background: radial-gradient(ellipse, rgba(222,194,160,.24), rgba(148,117,86,.08) 42%, transparent 72%);
+  filter: blur(48px);
+}
+
+.presence-atmosphere-b {
+  right: -7%;
+  bottom: -13%;
+  width: 42vw;
+  height: 40vh;
+  background: radial-gradient(ellipse, rgba(173,88,48,.18), transparent 70%);
+  filter: blur(38px);
+}
+
+.presence-word {
+  z-index: 4 !important;
+  color: rgba(255,241,222,.095) !important;
+  text-shadow: 0 12px 44px rgba(0,0,0,.24);
+}
+
+.photo {
+  z-index: 8;
+  border: 1px solid rgba(247,229,207,.18);
+  box-shadow: 0 35px 70px rgba(0,0,0,.26);
+  background: #161514;
+  will-change: transform, opacity;
+}
+
+.photo::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(180deg, rgba(7,7,6,.08), transparent 50%, rgba(7,7,6,.30));
+  mix-blend-mode: multiply;
+}
+
+.photo img {
+  display: block;
+  width: 100%;
+  height: 115%;
+  object-fit: cover;
+  filter: grayscale(.88) contrast(1.08) brightness(.88) sepia(.10);
+  will-change: transform;
+}
+
+.photo-main {
+  left: 6%;
+  top: 13%;
+  width: 45vw;
+  height: 76vh;
+}
+
+.photo-main img { object-position: 66% center; }
+
+.photo-detail {
+  right: 6%;
+  bottom: 7%;
+  width: 25vw;
+  height: 41vh;
+}
+
+.photo-detail img { object-position: 42% center; }
+
+.presence-copy,
+.presence-footer,
+.presence .chapter {
+  z-index: 20 !important;
+  color: #f3e7d9 !important;
+  text-shadow: 0 7px 26px rgba(0,0,0,.48);
+}
+
+.presence-copy h2 {
+  color: #f3e7d9;
+  font-size: clamp(51px, 6vw, 98px);
+}
+
+.presence-copy span { color: #ddc0a5; }
+
+.presence-footer { color: rgba(246,229,211,.68) !important; }
+
+@media (max-width: 650px) {
+  .presence-background-layer { inset: -7% -20%; }
+
+  .presence-atmosphere-a {
+    left: -10%;
+    top: 12%;
+    width: 92vw;
+    height: 48vh;
+    filter: blur(36px);
+  }
+
+  .presence-atmosphere-b {
+    right: -25%;
+    bottom: -5%;
+    width: 92vw;
+    height: 31vh;
+  }
+
+  .presence-word {
+    top: 45%;
+    font-size: 27vw;
+  }
+
+  .photo-main {
+    left: 0;
+    top: 10%;
+    width: 78vw;
+    height: 56vh;
+  }
+
+  .photo-main img { object-position: 74% center; }
+
+  .photo-detail {
+    right: -8%;
+    bottom: 6%;
+    width: 53vw;
+    height: 33vh;
+  }
+
+  .photo-detail img { object-position: 42% center; }
+
+  .presence-copy h2 { font-size: 13.5vw; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .presence-background-layer,
+  .presence-atmosphere,
+  .photo { will-change: auto; }
+}
+/* ---- assets-v17.css ---- */
+/* NOIR V17 — Act 06 / MANIFESTE: a dedicated wine-red declaration field. */
+
+.manifesto {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  color: #f8e9df !important;
+  background: #3a090d !important;
+  background-image: none !important;
+}
+
+.manifest-background-layer {
+  position: absolute;
+  z-index: 0;
+  inset: -5%;
+  background:
+    radial-gradient(circle at 53% 44%, rgba(182,61,42,.80), transparent 24%),
+    radial-gradient(circle at 16% 70%, rgba(92,11,16,.72), transparent 32%),
+    radial-gradient(circle at 87% 24%, rgba(40,2,7,.72), transparent 34%),
+    linear-gradient(132deg, #250307 0%, #691218 46%, #1b0205 100%);
+  filter: saturate(.94) contrast(1.06);
+  will-change: transform, opacity;
+}
+
+.manifest-background-layer::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  opacity: .32;
+  background:
+    repeating-linear-gradient(108deg, transparent 0 19px, rgba(255,221,195,.045) 20px, transparent 21px 43px),
+    linear-gradient(180deg, rgba(255,255,255,.08), transparent 36%, rgba(0,0,0,.50));
+  mix-blend-mode: soft-light;
+}
+
+.manifest-atmosphere {
+  position: absolute;
+  z-index: 2;
+  border-radius: 50%;
+  pointer-events: none;
+  mix-blend-mode: screen;
+  will-change: transform, opacity;
+}
+
+.manifest-atmosphere-a {
+  left: 24%;
+  top: 4%;
+  width: 52vw;
+  height: 72vh;
+  background: radial-gradient(ellipse, rgba(255,128,83,.28), rgba(220,68,47,.10) 38%, transparent 72%);
+  filter: blur(48px);
+}
+
+.manifest-atmosphere-b {
+  right: -10%;
+  bottom: -24%;
+  width: 47vw;
+  height: 46vh;
+  background: radial-gradient(ellipse, rgba(244,155,89,.19), transparent 70%);
+  filter: blur(42px);
+}
+
+.manifest-circle {
+  z-index: 6;
+  border-color: rgba(255,237,221,.18);
+  box-shadow: 0 0 70px rgba(244,96,63,.06);
+}
+
+.manifest-copy,
+.manifest-noir,
+.manifest-bottom,
+.manifesto .chapter {
+  z-index: 20 !important;
+}
+
+.manifest-copy > span,
+.manifest-bottom {
+  color: rgba(255,237,225,.72);
+}
+
+.manifest-copy h2 {
+  color: #fff0e4;
+  text-shadow: 0 12px 42px rgba(32,0,3,.46);
+}
+
+.manifest-noir {
+  color: rgba(255,233,215,.055);
+  text-shadow: 0 16px 50px rgba(14,0,2,.22);
+}
+
+@media (max-width: 650px) {
+  .manifest-background-layer { inset: -8% -22%; }
+
+  .manifest-atmosphere-a {
+    left: -22%;
+    top: 10%;
+    width: 120vw;
+    height: 56vh;
+    filter: blur(36px);
+  }
+
+  .manifest-atmosphere-b {
+    right: -32%;
+    bottom: -12%;
+    width: 115vw;
+    height: 34vh;
+  }
+
+  .manifest-circle { border-color: rgba(255,237,221,.16); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .manifest-background-layer,
+  .manifest-atmosphere { will-change: auto; }
+}
+/* ---- assets-v18.css ---- */
+/* NOIR V18 — Act 07 / COLLECTION: three independent fragrance objects. */
+
+.collection {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  color: #28221d !important;
+  background: #e2d8ca !important;
+  background-image: none !important;
+}
+
+.collection-background-layer {
+  position: absolute;
+  z-index: 0;
+  inset: -4%;
+  background:
+    radial-gradient(circle at 18% 38%, rgba(255,255,255,.42), transparent 25%),
+    radial-gradient(circle at 83% 64%, rgba(105,50,25,.18), transparent 28%),
+    linear-gradient(120deg, #c9bbae 0%, #eee6da 46%, #cbb8a5 100%);
+  will-change: transform, opacity;
+}
+
+.collection-background-layer::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  opacity: .28;
+  background:
+    repeating-linear-gradient(106deg, transparent 0 20px, rgba(66,42,25,.08) 21px, transparent 22px 47px),
+    linear-gradient(180deg, rgba(255,255,255,.16), transparent 42%, rgba(37,20,11,.18));
+  mix-blend-mode: multiply;
+}
+
+.collection-atmosphere {
+  position: absolute;
+  z-index: 2;
+  border-radius: 50%;
+  pointer-events: none;
+  mix-blend-mode: multiply;
+  will-change: transform, opacity;
+}
+
+.collection-atmosphere-a {
+  left: 15%;
+  top: 9%;
+  width: 41vw;
+  height: 56vh;
+  background: radial-gradient(ellipse, rgba(255,249,232,.62), transparent 70%);
+  filter: blur(48px);
+}
+
+.collection-atmosphere-b {
+  right: -8%;
+  bottom: -18%;
+  width: 43vw;
+  height: 39vh;
+  background: radial-gradient(ellipse, rgba(152,73,35,.18), transparent 70%);
+  filter: blur(38px);
+}
+
+.collection-track {
+  position: relative;
+  z-index: 5;
+}
+
+.collection-panel { isolation: isolate; }
+
+.cp1 {
+  color: #2a211b !important;
+  background:
+    radial-gradient(circle at 69% 42%, rgba(255,255,255,.72), transparent 27%),
+    linear-gradient(125deg, #c8b9aa 0%, #eee7dc 57%, #cbbcae 100%) !important;
+}
+
+.cp2 {
+  color: #fff0e6 !important;
+  background:
+    radial-gradient(circle at 63% 43%, rgba(224,78,49,.52), transparent 25%),
+    linear-gradient(135deg, #3a0808 0%, #851a17 49%, #2a0506 100%) !important;
+}
+
+.cp3 {
+  color: #fff1d7 !important;
+  background:
+    radial-gradient(circle at 62% 42%, rgba(218,147,58,.50), transparent 25%),
+    linear-gradient(135deg, #211207 0%, #8a4d12 49%, #2d1505 100%) !important;
+}
+
+.cp1::after,
+.cp2::after,
+.cp3::after {
+  content: "";
+  position: absolute;
+  z-index: 0;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(90deg, rgba(0,0,0,.12), transparent 42%, rgba(0,0,0,.18));
+}
+
+.collection-heading,
+.collection-copy,
+.panel-counter,
+.panel-ghost,
+.collection-product {
+  z-index: 12 !important;
+}
+
+.collection-heading { color: #2a211b; }
+.collection-heading h2 { text-shadow: 0 8px 24px rgba(71,41,22,.08); }
+
+.cp2 .collection-copy h3,
+.cp3 .collection-copy h3,
+.cp2 .collection-heading,
+.cp3 .collection-heading { color: #fff0e6; }
+
+.panel-counter,
+.collection-copy > span,
+.collection-copy p { text-shadow: 0 4px 18px rgba(0,0,0,.20); }
+
+.collection-product {
+  width: min(38vw, 520px) !important;
+  height: min(72vh, 650px) !important;
+  translate: none !important;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  will-change: transform, opacity;
+}
+
+.collection-product > .bottle { display: none !important; }
+
+.collection-art {
+  position: absolute;
+  left: 50%;
+  top: 0;
+  width: auto;
+  height: 100%;
+  aspect-ratio: 612 / 1396;
+  transform: translateX(-50%);
+}
+
+.collection-art-noir { aspect-ratio: 2 / 3; }
+
+.collection-bottle-asset {
+  position: absolute;
+  z-index: 2;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  filter: drop-shadow(0 40px 34px rgba(17,8,4,.38));
+  will-change: transform, opacity;
+}
+
+.collection-label-overlay {
+  position: absolute;
+  z-index: 4;
+  left: 24%;
+  top: 39%;
+  width: 52%;
+  height: 34%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: #f4e4cf;
+  text-align: center;
+  text-shadow: 0 2px 12px rgba(0,0,0,.58);
+}
+
+.collection-art-noir .collection-label-overlay {
+  left: 31.5%;
+  top: 42.4%;
+  width: 37%;
+  height: 26.6%;
+  color: #ead8c0;
+}
+
+.collection-label-overlay small,
+.collection-label-overlay span,
+.collection-label-overlay em {
+  font-size: clamp(5px, .42vw, 7px);
+  letter-spacing: .30em;
+  font-style: normal;
+}
+
+.collection-label-overlay small { margin-bottom: 6px; }
+
+.collection-label-overlay strong {
+  font-family: "Italiana", serif;
+  font-size: clamp(21px, 2.25vw, 34px);
+  font-weight: 400;
+  letter-spacing: .08em;
+}
+
+.collection-label-overlay span { margin-top: 6px; }
+.collection-label-overlay em { margin-top: 10px; opacity: .72; }
+
+.cp1 .collection-label-overlay { color: #ead8c0; text-shadow: 0 2px 12px rgba(0,0,0,.84); }
+.cp2 .collection-label-overlay { color: #ffe8d0; }
+.cp3 .collection-label-overlay { color: #5a2b08; text-shadow: 0 1px 6px rgba(255,239,196,.34); }
+
+@media (max-width: 650px) {
+  .collection-background-layer { inset: -7% -20%; }
+
+  .collection-heading {
+    width: calc(100vw - 40px);
+  }
+
+  .collection-heading h2 {
+    font-size: 9.4vw;
+    line-height: .82;
+  }
+
+  .collection-atmosphere-a {
+    left: -12%;
+    top: 11%;
+    width: 96vw;
+    height: 48vh;
+  }
+
+  .collection-atmosphere-b {
+    right: -25%;
+    bottom: -7%;
+    width: 94vw;
+    height: 30vh;
+  }
+
+  .collection-product {
+    left: 58%;
+    top: 49%;
+    width: 94vw !important;
+    height: 65svh !important;
+  }
+
+  .collection-label-overlay small,
+  .collection-label-overlay span,
+  .collection-label-overlay em { font-size: 1.25vw; }
+
+  .collection-label-overlay strong { font-size: 7.2vw; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .collection-background-layer,
+  .collection-atmosphere,
+  .collection-bottle-asset { will-change: auto; }
+}
+/* ---- assets-v19.css ---- */
+/* NOIR V19 — Act 08 / APRÈS MINUIT: amber resin, light and coordinates. */
+
+.midnight {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  color: #f9ecd7 !important;
+  background: #5d3307 !important;
+  background-image: none !important;
+}
+
+.midnight-background-layer {
+  position: absolute;
+  z-index: 0;
+  inset: -5%;
+  background:
+    radial-gradient(circle at 74% 44%, rgba(244,178,63,.54), transparent 22%),
+    radial-gradient(circle at 11% 78%, rgba(39,16,2,.62), transparent 34%),
+    linear-gradient(126deg, #2c1503 0%, #a15e10 47%, #3c1c03 100%);
+  filter: saturate(.96) contrast(1.05);
+  will-change: transform, opacity;
+}
+
+.midnight-background-layer::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  opacity: .30;
+  background:
+    repeating-linear-gradient(105deg, transparent 0 17px, rgba(255,226,166,.042) 18px, transparent 19px 42px),
+    linear-gradient(180deg, rgba(255,255,255,.12), transparent 38%, rgba(0,0,0,.46));
+  mix-blend-mode: soft-light;
+}
+
+.midnight-atmosphere {
+  position: absolute;
+  z-index: 2;
+  border-radius: 50%;
+  pointer-events: none;
+  mix-blend-mode: screen;
+  will-change: transform, opacity;
+}
+
+.midnight-atmosphere-a {
+  left: 49%;
+  top: 10%;
+  width: 45vw;
+  height: 60vh;
+  background: radial-gradient(ellipse, rgba(255,219,133,.28), rgba(235,142,32,.12) 42%, transparent 72%);
+  filter: blur(48px);
+}
+
+.midnight-atmosphere-b {
+  right: -8%;
+  bottom: -20%;
+  width: 43vw;
+  height: 38vh;
+  background: radial-gradient(ellipse, rgba(255,173,41,.20), transparent 70%);
+  filter: blur(38px);
+}
+
+.midnight-title,
+.midnight .chapter,
+.coordinates { z-index: 20 !important; }
+
+.midnight-title h2 {
+  color: #fff0d9;
+  text-shadow: 0 12px 36px rgba(47,18,2,.42);
+}
+
+.midnight-word { z-index: 4; color: rgba(255,238,194,.075); }
+.center-axis { z-index: 6; }
+.sun-frame { z-index: 8; border-color: rgba(255,238,197,.32); }
+.floating-panel { z-index: 9; }
+
+.sun {
+  z-index: 12;
+  background: none !important;
+  box-shadow: none !important;
+  overflow: visible;
+  will-change: transform, opacity;
+}
+
+.midnight-sun-asset {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  filter: drop-shadow(0 32px 34px rgba(70,29,2,.46));
+  will-change: transform, opacity;
+}
+
+.coordinates { color: rgba(255,241,211,.76); }
+
+@media (max-width: 650px) {
+  .midnight-background-layer { inset: -8% -22%; }
+
+  .midnight-atmosphere-a {
+    left: 9%;
+    top: 16%;
+    width: 95vw;
+    height: 46vh;
+    filter: blur(36px);
+  }
+
+  .midnight-atmosphere-b {
+    right: -24%;
+    bottom: -8%;
+    width: 94vw;
+    height: 31vh;
+  }
+
+  .midnight-sun-asset { filter: drop-shadow(0 22px 24px rgba(70,29,2,.42)); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .midnight-background-layer,
+  .midnight-atmosphere,
+  .midnight-sun-asset { will-change: auto; }
+}
+/* ---- assets-v20.css ---- */
+/* NOIR V20 — Act 09 / L'ATELIER: formula sheets and the final object. */
+
+.atelier {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  color: #25201b !important;
+  background: #d8cdbd !important;
+  background-image: none !important;
+}
+
+.atelier-background-layer {
+  position: absolute;
+  z-index: 0;
+  inset: -5%;
+  background:
+    radial-gradient(circle at 73% 41%, rgba(255,251,235,.58), transparent 25%),
+    radial-gradient(circle at 20% 84%, rgba(153,91,44,.16), transparent 30%),
+    linear-gradient(122deg, #bda998 0%, #eee5d7 48%, #c8b7a5 100%);
+  filter: saturate(.72) contrast(1.03);
+  will-change: transform, opacity;
+}
+
+.atelier-background-layer::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  opacity: .36;
+  background:
+    repeating-linear-gradient(98deg, transparent 0 16px, rgba(63,39,23,.055) 17px, transparent 18px 39px),
+    linear-gradient(180deg, rgba(255,255,255,.18), transparent 40%, rgba(44,26,15,.18));
+  mix-blend-mode: multiply;
+}
+
+.atelier-atmosphere {
+  position: absolute;
+  z-index: 2;
+  border-radius: 50%;
+  pointer-events: none;
+  mix-blend-mode: multiply;
+  will-change: transform, opacity;
+}
+
+.atelier-atmosphere-a {
+  left: 48%;
+  top: 10%;
+  width: 41vw;
+  height: 57vh;
+  background: radial-gradient(ellipse, rgba(255,250,227,.72), transparent 70%);
+  filter: blur(46px);
+}
+
+.atelier-atmosphere-b {
+  right: -10%;
+  bottom: -20%;
+  width: 45vw;
+  height: 42vh;
+  background: radial-gradient(ellipse, rgba(157,75,30,.16), transparent 70%);
+  filter: blur(38px);
+}
+
+.atelier-word { z-index: 3; color: rgba(35,26,19,.065); }
+.sheet { z-index: 8; }
+
+.atelier-product {
+  z-index: 14 !important;
+  width: min(31vw, 440px) !important;
+  height: min(62vh, 560px) !important;
+  top: 14% !important;
+  pointer-events: none;
+  will-change: transform, opacity;
+}
+
+.atelier-product > .bottle { display: none !important; }
+
+.atelier-art {
+  position: absolute;
+  left: 50%;
+  top: 0;
+  width: auto;
+  height: 100%;
+  aspect-ratio: 2 / 3;
+  transform: translateX(-50%);
+}
+
+.atelier-bottle-asset {
+  position: absolute;
+  z-index: 2;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  filter: drop-shadow(0 40px 34px rgba(31,19,12,.32));
+  will-change: transform, opacity;
+}
+
+.atelier-label-overlay {
+  position: absolute;
+  z-index: 4;
+  left: 31.5%;
+  top: 42.4%;
+  width: 37%;
+  height: 26.6%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: #ead8c0;
+  text-align: center;
+  text-shadow: 0 2px 12px rgba(0,0,0,.86);
+}
+
+.atelier-label-overlay small,
+.atelier-label-overlay span,
+.atelier-label-overlay em {
+  font-size: clamp(5px, .42vw, 7px);
+  letter-spacing: .30em;
+  font-style: normal;
+}
+
+.atelier-label-overlay small { margin-bottom: 6px; }
+
+.atelier-label-overlay strong {
+  font-family: "Italiana", serif;
+  font-size: clamp(21px, 2.25vw, 34px);
+  font-weight: 400;
+  letter-spacing: .08em;
+}
+
+.atelier-label-overlay span { margin-top: 6px; }
+.atelier-label-overlay em { margin-top: 10px; opacity: .72; }
+
+.atelier-copy,
+.atelier .chapter,
+.atelier-number { z-index: 20 !important; }
+
+.atelier-copy {
+  left: 6% !important;
+  right: auto !important;
+  bottom: 4% !important;
+  width: 42% !important;
+  color: #28211b;
+  text-shadow: 0 7px 22px rgba(76,43,22,.12);
+}
+.atelier-copy h2 { font-size: clamp(45px, 5.1vw, 82px); }
+.atelier-copy p { color: rgba(40,33,27,.70) !important; }
+
+@media (max-width: 650px) {
+  .atelier-background-layer { inset: -8% -22%; }
+
+  .atelier-atmosphere-a {
+    left: 20%;
+    top: 17%;
+    width: 96vw;
+    height: 46vh;
+  }
+
+  .atelier-atmosphere-b {
+    right: -26%;
+    bottom: -8%;
+    width: 95vw;
+    height: 31vh;
+  }
+
+  .atelier-product {
+    right: -18%;
+    top: 24% !important;
+    width: 96vw !important;
+    height: 47svh !important;
+  }
+
+  .atelier-copy {
+    left: 20px !important;
+    right: auto !important;
+    bottom: 4% !important;
+    width: 68vw !important;
+  }
+
+  .atelier-copy h2 { font-size: 12vw; }
+
+  .atelier-label-overlay small,
+  .atelier-label-overlay span,
+  .atelier-label-overlay em { font-size: 1.25vw; }
+
+  .atelier-label-overlay strong { font-size: 7.2vw; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .atelier-background-layer,
+  .atelier-atmosphere,
+  .atelier-bottle-asset { will-change: auto; }
+}
+/* ---- assets-v21.css ---- */
+/* NOIR V21 — Act 10 / FINAL: the last trace in a dedicated night field. */
+
+.finale {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  color: #f8e9df !important;
+  background: #0e0305 !important;
+  background-image: none !important;
+}
+
+.final-background-layer {
+  position: absolute;
+  z-index: 0;
+  inset: -5%;
+  background:
+    radial-gradient(circle at 68% 43%, rgba(128,32,24,.72), transparent 23%),
+    radial-gradient(circle at 26% 81%, rgba(71,8,15,.42), transparent 30%),
+    linear-gradient(128deg, #050203 0%, #2b080b 50%, #090204 100%);
+  filter: saturate(.92) contrast(1.08);
+  will-change: transform, opacity;
+}
+
+.final-background-layer::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  opacity: .34;
+  background:
+    repeating-linear-gradient(108deg, transparent 0 20px, rgba(255,218,199,.035) 21px, transparent 22px 46px),
+    linear-gradient(90deg, rgba(0,0,0,.55), transparent 44%, rgba(0,0,0,.32)),
+    linear-gradient(180deg, rgba(255,255,255,.05), transparent 38%, rgba(0,0,0,.48));
+  mix-blend-mode: soft-light;
+}
+
+.final-atmosphere {
+  position: absolute;
+  z-index: 2;
+  border-radius: 50%;
+  pointer-events: none;
+  mix-blend-mode: screen;
+  will-change: transform, opacity;
+}
+
+.final-atmosphere-a {
+  left: 49%;
+  top: 11%;
+  width: 43vw;
+  height: 60vh;
+  background: radial-gradient(ellipse, rgba(229,85,58,.25), rgba(142,35,28,.10) 42%, transparent 72%);
+  filter: blur(48px);
+}
+
+.final-atmosphere-b {
+  right: -10%;
+  bottom: -20%;
+  width: 45vw;
+  height: 41vh;
+  background: radial-gradient(ellipse, rgba(188,59,35,.18), transparent 70%);
+  filter: blur(38px);
+}
+
+.final-glow {
+  z-index: 3;
+  background: rgba(153,36,26,.34);
+  mix-blend-mode: screen;
+}
+
+.final-word { z-index: 4; color: rgba(255,237,224,.06); }
+.final-axis { z-index: 6; background: rgba(255,236,225,.13); }
+
+.final-product {
+  z-index: 14 !important;
+  width: min(31vw, 440px) !important;
+  height: min(73vh, 660px) !important;
+  translate: none !important;
+  transform: translateY(-50%);
+  pointer-events: none;
+  will-change: transform, opacity;
+}
+
+.final-product > .bottle { display: none !important; }
+
+.final-art {
+  position: absolute;
+  left: 50%;
+  top: 0;
+  width: auto;
+  height: 100%;
+  aspect-ratio: 2 / 3;
+  transform: translateX(-50%);
+}
+
+.final-bottle-asset {
+  position: absolute;
+  z-index: 2;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  filter: drop-shadow(0 44px 38px rgba(0,0,0,.60));
+  will-change: transform, opacity;
+}
+
+.final-label-overlay {
+  position: absolute;
+  z-index: 4;
+  left: 31.5%;
+  top: 42.4%;
+  width: 37%;
+  height: 26.6%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: #ead8c0;
+  text-align: center;
+  text-shadow: 0 2px 12px rgba(0,0,0,.92);
+}
+
+.final-label-overlay small,
+.final-label-overlay span,
+.final-label-overlay em {
+  font-size: clamp(5px, .42vw, 7px);
+  letter-spacing: .30em;
+  font-style: normal;
+}
+
+.final-label-overlay small { margin-bottom: 6px; }
+
+.final-label-overlay strong {
+  font-family: "Italiana", serif;
+  font-size: clamp(21px, 2.25vw, 34px);
+  font-weight: 400;
+  letter-spacing: .08em;
+}
+
+.final-label-overlay span { margin-top: 6px; }
+.final-label-overlay em { margin-top: 10px; opacity: .72; }
+
+.final-copy,
+.finale .chapter,
+.finale footer { z-index: 20 !important; }
+
+.final-copy h2 { text-shadow: 0 12px 38px rgba(0,0,0,.45); }
+.final-cta { background: rgba(19,3,5,.14); backdrop-filter: blur(2px); }
+
+@media (max-width: 650px) {
+  .final-background-layer { inset: -8% -22%; }
+
+  .final-atmosphere-a {
+    left: 4%;
+    top: 15%;
+    width: 96vw;
+    height: 45vh;
+    filter: blur(36px);
+  }
+
+  .final-atmosphere-b {
+    right: -26%;
+    bottom: -8%;
+    width: 95vw;
+    height: 31vh;
+  }
+
+  .final-product {
+    right: -10%;
+    top: 39%;
+    width: 91vw !important;
+    height: 61svh !important;
+  }
+
+  .final-label-overlay small,
+  .final-label-overlay span,
+  .final-label-overlay em { font-size: 1.25vw; }
+
+  .final-label-overlay strong { font-size: 7.2vw; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .final-background-layer,
+  .final-atmosphere,
+  .final-bottle-asset { will-change: auto; }
+}
+/* ---- assets-v22.css ---- */
+/* NOIR V22 — mobile performance pass.
+   Desktop keeps the approved art direction and full-resolution sources. */
+
+.responsive-asset {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+@media (max-width: 650px) {
+  /* The picture element owns the responsive source; the layer keeps its
+     position, transform and animation contract for the master timeline. */
+  .hero-background-layer,
+  .night-background-layer {
+    background: transparent !important;
+  }
+
+  /* Keep the single-stage scrollytelling choreography, but do not reserve
+     compositor layers for every animated child on a small device. */
+  .experience-stage .scene,
+  .experience-stage .scene * {
+    will-change: auto;
+  }
+
+  .hero-atmosphere,
+  .hero-reflection,
+  .ambient,
+  .night-atmosphere,
+  .night-glow,
+  .materials-atmosphere,
+  .materials .material-orbit,
+  .object-atmosphere,
+  .presence-atmosphere,
+  .manifest-atmosphere,
+  .collection-atmosphere,
+  .midnight-atmosphere,
+  .atelier-atmosphere,
+  .final-atmosphere,
+  .final-glow {
+    display: none !important;
+  }
+
+  /* Preserve depth with smaller paint areas for the transparent objects. */
+  .hero-bottle-asset,
+  .night-bottle-asset,
+  .object-bottle-asset,
+  .collection-bottle-asset,
+  .midnight-sun-asset,
+  .atelier-bottle-asset,
+  .final-bottle-asset {
+    filter: drop-shadow(0 22px 20px rgba(0,0,0,.42));
+  }
+
+  .hero-product .shadow,
+  .night-product-shadow {
+    filter: none;
+    opacity: .72;
+  }
+
+  .photo {
+    box-shadow: 0 18px 32px rgba(0,0,0,.22);
+  }
+
+  .photo img {
+    filter: grayscale(.86) contrast(1.04) brightness(.92);
+    will-change: auto;
+  }
+
+  .floating-panel,
+  .final-cta {
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+  }
+
+  .sheet {
+    box-shadow: 0 18px 34px rgba(38,25,15,.12);
+  }
+
+  .manifest-circle {
+    box-shadow: none;
+  }
+}
+
