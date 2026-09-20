@@ -1,13 +1,8 @@
 window.addEventListener("load", () => {
-  if (typeof gsap === "undefined" || typeof ScrollTrigger === "undefined") return;
-
-  gsap.registerPlugin(ScrollTrigger);
-  gsap.config({ nullTargetWarn: false });
-
   const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   const mobileDevice = window.matchMedia("(max-width: 650px)").matches;
   const stage = document.querySelector(".experience-stage");
-  const scenes = gsap.utils.toArray(".experience-stage .scene");
+  const sceneElements = [...document.querySelectorAll(".experience-stage .scene")];
   const sceneLabels = ["s1", "s2", "s3", "s4", "s5", "s6", "s7", "s8", "s9", "s10"];
 
   /* Mobile scenes beyond the opening pair use dormant picture sources. They
@@ -15,7 +10,7 @@ window.addEventListener("load", () => {
      light without allowing a transition to arrive before its artwork. */
   const activateMobileSceneImages = sceneIndex => {
     if (!mobileDevice) return;
-    const scene = scenes[sceneIndex];
+    const scene = sceneElements[sceneIndex];
     if (!scene) return;
 
     scene.querySelectorAll("picture").forEach(picture => {
@@ -33,7 +28,7 @@ window.addEventListener("load", () => {
   const preloadMobileSceneWindow = activeIndex => {
     if (!mobileDevice) return;
     const first = Math.max(0, activeIndex - 1);
-    const last = Math.min(scenes.length - 1, activeIndex + 3);
+    const last = Math.min(sceneElements.length - 1, activeIndex + 3);
     for (let index = first; index <= last; index += 1) activateMobileSceneImages(index);
   };
 
@@ -47,6 +42,17 @@ window.addEventListener("load", () => {
       });
     });
   };
+
+  if (typeof gsap === "undefined" || typeof ScrollTrigger === "undefined") {
+    document.documentElement.classList.add("no-gsap");
+    if (mobileDevice) sceneElements.forEach((_, index) => activateMobileSceneImages(index));
+    nativeLinks();
+    return;
+  }
+
+  gsap.registerPlugin(ScrollTrigger);
+  gsap.config({ nullTargetWarn: false });
+  const scenes = gsap.utils.toArray(sceneElements);
 
   if (!stage || scenes.length !== 10 || reduceMotion) {
     if (mobileDevice) scenes.forEach((_, index) => activateMobileSceneImages(index));
