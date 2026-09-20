@@ -53,6 +53,13 @@
       linear-gradient(132deg, #250307 0%, #691218 46%, #1b0205 100%);
   }
 
+  .midnight-transition-disc {
+    background:
+      radial-gradient(circle at 74% 44%, rgba(244,178,63,.54), transparent 22%),
+      radial-gradient(circle at 11% 78%, rgba(39,16,2,.62), transparent 34%),
+      linear-gradient(126deg, #2c1503 0%, #a15e10 47%, #3c1c03 100%);
+  }
+
   .final-transition-disc {
     background:
       radial-gradient(circle at 68% 43%, rgba(128,32,24,.72), transparent 23%),
