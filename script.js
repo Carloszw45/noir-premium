@@ -60,12 +60,26 @@ window.addEventListener("load", () => {
     return;
   }
 
-  const midnightScene = document.querySelector("#s8");
-  const midnightTransitionDisc = document.querySelector(".midnight-transition-disc");
-  const midnightContent = document.querySelector(".midnight-content");
-  const desktopMidnightReveal = !mobileDevice && Boolean(midnightTransitionDisc && midnightContent);
-  const midnightRevealTarget = desktopMidnightReveal ? ".midnight-transition-disc" : "#s8";
-  if (desktopMidnightReveal) midnightScene?.classList.add("disc-transition-active");
+  const circleRevealDefinitions = {
+    s2: { sceneSelector: "#s2", discSelector: ".night-transition-disc", contentSelector: ".night-transition-content", origin: "50% 78%" },
+    s4: { sceneSelector: "#s4", discSelector: ".object-transition-disc", contentSelector: ".object-transition-content", origin: "54% 48%" },
+    s6: { sceneSelector: "#s6", discSelector: ".manifest-transition-disc", contentSelector: ".manifest-transition-content", origin: "70% 55%" },
+    s8: { sceneSelector: "#s8", discSelector: ".midnight-transition-disc", contentSelector: ".midnight-content", origin: "50% 52%" },
+    s10: { sceneSelector: "#s10", discSelector: ".final-transition-disc", contentSelector: ".final-transition-content", origin: "68% 50%" }
+  };
+
+  Object.values(circleRevealDefinitions).forEach(definition => {
+    definition.scene = document.querySelector(definition.sceneSelector);
+    definition.disc = document.querySelector(definition.discSelector);
+    definition.content = document.querySelector(definition.contentSelector);
+    definition.active = !mobileDevice && Boolean(definition.scene && definition.disc && definition.content);
+    if (definition.active) definition.scene.classList.add("circle-reveal-active");
+  });
+
+  const circleRevealTarget = sceneKey => {
+    const definition = circleRevealDefinitions[sceneKey];
+    return definition.active ? definition.disc : definition.scene;
+  };
 
   /* One viewport, ten stacked scenes. Scroll controls one timeline in both directions. */
   scenes.forEach((scene, index) => {
@@ -79,21 +93,21 @@ window.addEventListener("load", () => {
   preloadMobileSceneWindow(0);
 
   gsap.set("#s1", { clipPath: "inset(0% 0% 0% 0%)" });
-  gsap.set("#s2", { clipPath: "circle(0% at 50% 78%)" });
   gsap.set("#s3", { clipPath: "inset(100% 0% 0% 0%)" });
-  gsap.set("#s4", { clipPath: "circle(0% at 54% 48%)" });
   gsap.set("#s5", { clipPath: "inset(50% 0% 50% 0%)" });
-  gsap.set("#s6", { clipPath: "circle(0% at 70% 55%)" });
   gsap.set("#s7", { clipPath: "inset(0% 0% 0% 100%)" });
-  if (desktopMidnightReveal) {
-    gsap.set("#s8", { clipPath: "none" });
-    gsap.set(".midnight-transition-disc", { clipPath: "circle(0% at 50% 52%)" });
-    gsap.set(".midnight-content", { opacity: 0 });
-  } else {
-    gsap.set("#s8", { clipPath: "circle(0% at 50% 52%)" });
-  }
   gsap.set("#s9", { clipPath: "inset(100% 0% 0% 0%)" });
-  gsap.set("#s10", { clipPath: "circle(0% at 68% 50%)" });
+
+  Object.values(circleRevealDefinitions).forEach(definition => {
+    const closedCircle = `circle(0% at ${definition.origin})`;
+    if (definition.active) {
+      gsap.set(definition.scene, { clipPath: "none" });
+      gsap.set(definition.disc, { clipPath: closedCircle });
+      gsap.set(definition.content, { opacity: 0 });
+      return;
+    }
+    gsap.set(definition.scene, { clipPath: closedCircle });
+  });
 
   /* Initial poses for the incoming layers. All are deterministic and reversible. */
   gsap.set(".hero-background-layer", { scale: 1.03, x: 0, y: 0, opacity: .98 });
@@ -203,13 +217,17 @@ window.addEventListener("load", () => {
     .to(".night-background-layer", { x: -8, y: -6, scale: 1.07, opacity: 1, duration: 1.05 }, .72)
     .to(".night-atmosphere-a", { x: -24, y: -12, scale: 1.12, opacity: 1, duration: 1.05 }, .72)
     .to(".night-atmosphere-b", { x: 20, y: 10, scale: 1.10, opacity: .88, duration: 1.05 }, .72)
-    .to("#s2", { clipPath: "circle(150% at 50% 78%)", duration: 1.12 }, .72)
+    .to(circleRevealTarget("s2"), { clipPath: "circle(150% at 50% 78%)", duration: 1.12 }, .72)
     .to(".night-title", { x: 0, duration: .9 }, .84)
     .to(".night-product", { x: 0, scale: 1, duration: .92 }, .84)
     .to(".night-bottle-asset", { scale: 1.02, duration: .92 }, .84)
     .to(".night-text", { y: 0, opacity: 1, duration: .82 }, .9)
     .to(".night-circle", { scale: 1, rotation: 0, opacity: 1, duration: .88 }, .9)
     .addLabel("s2", 1.62);
+
+  if (circleRevealDefinitions.s2.active) {
+    master.to(circleRevealDefinitions.s2.content, { opacity: 1, duration: .34 }, 1.5);
+  }
 
   /* 02 -> 03: ivory rises while the night remains visible underneath. */
   master
@@ -244,7 +262,7 @@ window.addEventListener("load", () => {
     .to(".object-background-layer", { x: -18, y: -14, scale: 1.10, opacity: 1, duration: .86 }, 3.45)
     .to(".object-atmosphere-a", { x: 28, y: -20, scale: 1.16, opacity: .96, duration: .86 }, 3.45)
     .to(".object-atmosphere-b", { x: -30, y: 12, scale: 1.12, opacity: .72, duration: .86 }, 3.45)
-    .to("#s4", { clipPath: "circle(150% at 54% 48%)", duration: 1.02 }, 3.45)
+    .to(circleRevealTarget("s4"), { clipPath: "circle(150% at 54% 48%)", duration: 1.02 }, 3.45)
     .to(".object-stage", { scale: 1, rotation: 0, duration: .86 }, 3.58)
     .to(".object-bottle-asset", { scale: 1.035, duration: .86 }, 3.58)
     .to(".object-copy", { x: 0, opacity: 1, duration: .78 }, 3.68)
@@ -253,6 +271,10 @@ window.addEventListener("load", () => {
     .to(".oc2", { rotation: -70, duration: .72 }, 3.7)
     .to(".oc3", { rotation: 95, duration: .72 }, 3.7)
     .addLabel("s4", 4.32);
+
+  if (circleRevealDefinitions.s4.active) {
+    master.to(circleRevealDefinitions.s4.content, { opacity: 1, duration: .34 }, 4.1);
+  }
 
   /* 04 -> 05: the black object opens through the middle into the campaign image. */
   master
@@ -276,7 +298,7 @@ window.addEventListener("load", () => {
 
   /* 05 -> 06: the editorial composition becomes the red manifesto through one expanding circle. */
   master
-    .to("#s6", { clipPath: "circle(150% at 70% 55%)", duration: 1.04 }, 6.02)
+    .to(circleRevealTarget("s6"), { clipPath: "circle(150% at 70% 55%)", duration: 1.04 }, 6.02)
     .to(".presence-background-layer", { x: -42, y: -22, scale: 1.14, opacity: .24, duration: .72 }, 6.02)
     .to(".presence-atmosphere-a", { x: 44, y: -24, scale: 1.2, opacity: .12, duration: .72 }, 6.02)
     .to(".presence-atmosphere-b", { x: -38, y: -16, scale: 1.16, opacity: .08, duration: .72 }, 6.02)
@@ -290,6 +312,10 @@ window.addEventListener("load", () => {
     .to(".mc1", { rotation: 70, scale: 1.22, duration: .62 }, 6.95)
     .to(".mc2", { rotation: -95, scale: .88, duration: .62 }, 6.95)
     .to(".mc3", { rotation: 120, scale: 1.15, duration: .62 }, 6.95);
+
+  if (circleRevealDefinitions.s6.active) {
+    master.to(circleRevealDefinitions.s6.content, { opacity: 1, duration: .34 }, 6.67);
+  }
 
   /* 06 -> 07: collection slides over the manifesto and continues horizontally in the same master timeline. */
   master
@@ -319,7 +345,7 @@ window.addEventListener("load", () => {
     .to(".midnight-background-layer", { x: -14, y: -8, scale: 1.08, opacity: 1, duration: .88 }, 10.48)
     .to(".midnight-atmosphere-a", { x: 28, y: -18, scale: 1.12, opacity: .96, duration: .88 }, 10.48)
     .to(".midnight-atmosphere-b", { x: -22, y: 10, scale: 1.10, opacity: .70, duration: .88 }, 10.48)
-    .to(midnightRevealTarget, { clipPath: "circle(150% at 50% 52%)", duration: 1.02 }, 10.48)
+    .to(circleRevealTarget("s8"), { clipPath: "circle(150% at 50% 52%)", duration: 1.02 }, 10.48)
     .to(".midnight-title", { x: 0, opacity: 1, duration: .8 }, 10.58)
     .to(".sun", { scale: 1, opacity: 1, duration: .88 }, 10.55)
     .to(".midnight-sun-asset", { scale: 1.04, duration: .88 }, 10.55)
@@ -329,8 +355,8 @@ window.addEventListener("load", () => {
     .to(".sun", { scale: 1.24, x: -20, duration: .62 }, 11.38)
     .to(".midnight-word", { xPercent: -5, duration: .62 }, 11.38);
 
-  if (desktopMidnightReveal) {
-    master.to(".midnight-content", { opacity: 1, duration: .34 }, 11.12);
+  if (circleRevealDefinitions.s8.active) {
+    master.to(circleRevealDefinitions.s8.content, { opacity: 1, duration: .34 }, 11.12);
   }
 
   /* 08 -> 09: the gold disc becomes a sheet/formula field rising from below. */
@@ -362,7 +388,7 @@ window.addEventListener("load", () => {
     .to(".final-atmosphere-a", { x: 28, y: -18, scale: 1.12, opacity: .96, duration: .90 }, 13.5)
     .to(".final-atmosphere-b", { x: -24, y: 10, scale: 1.10, opacity: .70, duration: .90 }, 13.5)
     .to(".atelier-product", { x: 65, y: -30, scale: 1.08, duration: .68 }, 13.32)
-    .to("#s10", { clipPath: "circle(150% at 68% 50%)", duration: 1.05 }, 13.5)
+    .to(circleRevealTarget("s10"), { clipPath: "circle(150% at 68% 50%)", duration: 1.05 }, 13.5)
     .to(".final-product", { x: 0, y: 0, scale: 1, opacity: 1, duration: .92 }, 13.52)
     .to(".final-bottle-asset", { scale: 1.035, duration: .92 }, 13.52)
     .to(".final-copy", { x: 0, opacity: 1, duration: .82 }, 13.68)
@@ -372,6 +398,10 @@ window.addEventListener("load", () => {
     .addLabel("s10", 14.36)
     .to(".final-product", { y: -16, scale: 1.025, duration: .55 }, 14.4)
     .to(".final-glow", { scale: 1.16, duration: .55 }, 14.4);
+
+  if (circleRevealDefinitions.s10.active) {
+    master.to(circleRevealDefinitions.s10.content, { opacity: 1, duration: .34 }, 14.17);
+  }
 
   const scrollDistance = () => Math.max(window.innerHeight * 14.8, 9800);
   const masterTrigger = ScrollTrigger.create({
