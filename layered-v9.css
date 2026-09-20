@@ -265,7 +265,6 @@ body {
   content: "";
   position: absolute;
   inset: 0;
-  background: url("assets/noir-hero.webp") center / contain no-repeat;
   filter: saturate(.94) contrast(1.04) drop-shadow(0 42px 45px rgba(0,0,0,.38));
   -webkit-mask-image: radial-gradient(ellipse 60% 62% at 50% 50%, #000 58%, rgba(0,0,0,.94) 72%, transparent 100%);
   mask-image: radial-gradient(ellipse 60% 62% at 50% 50%, #000 58%, rgba(0,0,0,.94) 72%, transparent 100%);
