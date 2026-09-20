@@ -9,6 +9,38 @@
   background-image: none !important;
 }
 
+.midnight-transition-disc { display: none; }
+
+@media (min-width: 651px) {
+  .midnight.disc-transition-active {
+    background: transparent !important;
+    backface-visibility: visible !important;
+    will-change: auto !important;
+  }
+
+  .disc-transition-active .midnight-transition-disc {
+    position: absolute;
+    z-index: 1;
+    inset: 0;
+    display: block;
+    pointer-events: none;
+    background:
+      radial-gradient(circle at 74% 44%, rgba(244,178,63,.54), transparent 22%),
+      radial-gradient(circle at 11% 78%, rgba(39,16,2,.62), transparent 34%),
+      linear-gradient(126deg, #2c1503 0%, #a15e10 47%, #3c1c03 100%);
+    clip-path: circle(0% at 50% 52%);
+    will-change: clip-path;
+  }
+
+  .disc-transition-active .midnight-content {
+    position: absolute;
+    z-index: 2;
+    inset: 0;
+    overflow: hidden;
+    will-change: opacity;
+  }
+}
+
 .midnight-background-layer {
   position: absolute;
   z-index: 0;
