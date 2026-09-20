@@ -1,0 +1,69 @@
+/* NOIR V26 — artifact-free desktop circle reveals.
+   Only a flat, isolated layer receives clip-path. Complex scene content is
+   revealed after the disc covers the viewport, avoiding Chromium tile seams. */
+
+.scene-transition-disc {
+  display: none;
+}
+
+@media (min-width: 651px) {
+  .circle-reveal-active {
+    background: transparent !important;
+    background-image: none !important;
+    backface-visibility: visible !important;
+    will-change: auto !important;
+  }
+
+  .circle-reveal-active > .scene-transition-disc {
+    position: absolute;
+    z-index: 1;
+    inset: 0;
+    display: block;
+    pointer-events: none;
+    will-change: clip-path;
+  }
+
+  .circle-reveal-active > .scene-transition-content {
+    position: absolute;
+    z-index: 2;
+    inset: 0;
+    overflow: hidden;
+    will-change: opacity;
+  }
+
+  .night-transition-disc {
+    background:
+      linear-gradient(90deg, rgba(18,2,3,.48), rgba(18,2,3,.08) 50%, rgba(8,1,2,.34)),
+      radial-gradient(circle at 62% 36%, rgba(147,39,28,.82), transparent 35%),
+      linear-gradient(128deg, #180305 0%, #691416 52%, #210306 100%);
+  }
+
+  .object-transition-disc {
+    background:
+      radial-gradient(circle at 56% 46%, rgba(111,74,42,.34), transparent 24%),
+      radial-gradient(circle at 80% 72%, rgba(72,24,11,.28), transparent 28%),
+      linear-gradient(118deg, #050505 0%, #17110e 46%, #030303 100%);
+  }
+
+  .manifest-transition-disc {
+    background:
+      radial-gradient(circle at 53% 44%, rgba(182,61,42,.80), transparent 24%),
+      radial-gradient(circle at 16% 70%, rgba(92,11,16,.72), transparent 32%),
+      radial-gradient(circle at 87% 24%, rgba(40,2,7,.72), transparent 34%),
+      linear-gradient(132deg, #250307 0%, #691218 46%, #1b0205 100%);
+  }
+
+  .final-transition-disc {
+    background:
+      radial-gradient(circle at 68% 43%, rgba(128,32,24,.72), transparent 23%),
+      radial-gradient(circle at 26% 81%, rgba(71,8,15,.42), transparent 30%),
+      linear-gradient(128deg, #050203 0%, #2b080b 50%, #090204 100%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .scene-transition-disc,
+  .scene-transition-content {
+    will-change: auto;
+  }
+}
