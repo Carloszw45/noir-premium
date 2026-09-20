@@ -8,6 +8,34 @@ window.addEventListener("load", () => {
   const mobileDevice = window.matchMedia("(max-width: 650px)").matches;
   const stage = document.querySelector(".experience-stage");
   const scenes = gsap.utils.toArray(".experience-stage .scene");
+  const sceneLabels = ["s1", "s2", "s3", "s4", "s5", "s6", "s7", "s8", "s9", "s10"];
+
+  /* Mobile scenes beyond the opening pair use dormant picture sources. They
+     are activated a few scenes ahead of the scrub, keeping the first render
+     light without allowing a transition to arrive before its artwork. */
+  const activateMobileSceneImages = sceneIndex => {
+    if (!mobileDevice) return;
+    const scene = scenes[sceneIndex];
+    if (!scene) return;
+
+    scene.querySelectorAll("picture").forEach(picture => {
+      const source = picture.querySelector("source[data-srcset]");
+      if (source && !source.srcset) source.srcset = source.dataset.srcset;
+
+      const image = picture.querySelector("img[data-src]");
+      if (!image || image.dataset.mobileLoaded === "true") return;
+      image.dataset.mobileLoaded = "true";
+      image.loading = "eager";
+      image.src = image.dataset.src;
+    });
+  };
+
+  const preloadMobileSceneWindow = activeIndex => {
+    if (!mobileDevice) return;
+    const first = Math.max(0, activeIndex - 1);
+    const last = Math.min(scenes.length - 1, activeIndex + 3);
+    for (let index = first; index <= last; index += 1) activateMobileSceneImages(index);
+  };
 
   const nativeLinks = () => {
     document.querySelectorAll('a[href^="#"]').forEach(link => {
@@ -21,6 +49,7 @@ window.addEventListener("load", () => {
   };
 
   if (!stage || scenes.length !== 10 || reduceMotion) {
+    if (mobileDevice) scenes.forEach((_, index) => activateMobileSceneImages(index));
     nativeLinks();
     return;
   }
@@ -29,10 +58,12 @@ window.addEventListener("load", () => {
   scenes.forEach((scene, index) => {
     gsap.set(scene, {
       zIndex: 20 + index,
-      visibility: "visible",
+      visibility: mobileDevice ? (index < 2 ? "visible" : "hidden") : "visible",
       opacity: 1
     });
   });
+
+  preloadMobileSceneWindow(0);
 
   gsap.set("#s1", { clipPath: "inset(0% 0% 0% 0%)" });
   gsap.set("#s2", { clipPath: "circle(0% at 50% 78%)" });
@@ -349,6 +380,35 @@ window.addEventListener("load", () => {
         tween.kill();
       }
     });
+
+    /* Keep only the current scene and its immediate neighbours composited.
+       The complete film remains in one reversible master timeline; distant
+       scenes simply stop painting until the scrub reaches them. */
+    let visibleStart = -1;
+    let visibleEnd = -1;
+    const syncMobileSceneWindow = () => {
+      const time = master.time();
+      let activeIndex = 0;
+
+      sceneLabels.forEach((label, index) => {
+        if (master.labels[label] <= time + 0.001) activeIndex = index;
+      });
+
+      const nextStart = Math.max(0, activeIndex - 1);
+      const nextEnd = Math.min(scenes.length - 1, activeIndex + 1);
+      preloadMobileSceneWindow(activeIndex);
+      if (nextStart === visibleStart && nextEnd === visibleEnd) return;
+
+      visibleStart = nextStart;
+      visibleEnd = nextEnd;
+      scenes.forEach((scene, index) => {
+        const visibility = index >= visibleStart && index <= visibleEnd ? "visible" : "hidden";
+        if (scene.style.visibility !== visibility) scene.style.visibility = visibility;
+      });
+    };
+
+    master.eventCallback("onUpdate", syncMobileSceneWindow);
+    syncMobileSceneWindow();
   }
 
   const sceneLabel = {
