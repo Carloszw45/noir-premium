@@ -5,6 +5,7 @@ window.addEventListener("load", () => {
   gsap.config({ nullTargetWarn: false });
 
   const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const mobileDevice = window.matchMedia("(max-width: 650px)").matches;
   const stage = document.querySelector(".experience-stage");
   const scenes = gsap.utils.toArray(".experience-stage .scene");
 
@@ -334,6 +335,21 @@ window.addEventListener("load", () => {
   /* The hero progress line belongs to the master timeline, not a competing trigger. */
   gsap.set(".progress-line i", { scaleX: 0 });
   master.to(".progress-line i", { scaleX: 1, duration: 1.2 }, .25);
+
+  /* Mobile CSS intentionally hides atmospheric decoration. Remove its timeline
+     work too, so hidden blur/orbit layers do not consume scroll-frame updates. */
+  if (mobileDevice) {
+    master.getChildren(true, true, false).forEach(tween => {
+      const targets = typeof tween.targets === "function" ? tween.targets() : [];
+      const hiddenOnly = targets.length > 0 && targets.every(target =>
+        target && target.nodeType === 1 && getComputedStyle(target).display === "none"
+      );
+      if (hiddenOnly) {
+        master.remove(tween);
+        tween.kill();
+      }
+    });
+  }
 
   const sceneLabel = {
     s1: "s1", s2: "s2", s3: "s3", s4: "s4", s5: "s5",
