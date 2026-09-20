@@ -240,6 +240,21 @@
   .collection-label-overlay strong { font-size: 7.2vw; }
 }
 
+/* Keep the desktop circular handoff on the same amber field as ABSOLU.
+   This covers the scene underneath the animated clip-path, so no light
+   collection base can flash through at the viewport corners. */
+@media (min-width: 651px) {
+  .collection {
+    background-color: #2d1505 !important;
+  }
+
+  .collection-background-layer {
+    background:
+      radial-gradient(circle at 62% 42%, rgba(218,147,58,.50), transparent 25%),
+      linear-gradient(135deg, #211207 0%, #8a4d12 49%, #2d1505 100%);
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .collection-background-layer,
   .collection-atmosphere,
