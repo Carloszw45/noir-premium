@@ -60,6 +60,13 @@ window.addEventListener("load", () => {
     return;
   }
 
+  const midnightScene = document.querySelector("#s8");
+  const midnightTransitionDisc = document.querySelector(".midnight-transition-disc");
+  const midnightContent = document.querySelector(".midnight-content");
+  const desktopMidnightReveal = !mobileDevice && Boolean(midnightTransitionDisc && midnightContent);
+  const midnightRevealTarget = desktopMidnightReveal ? ".midnight-transition-disc" : "#s8";
+  if (desktopMidnightReveal) midnightScene?.classList.add("disc-transition-active");
+
   /* One viewport, ten stacked scenes. Scroll controls one timeline in both directions. */
   scenes.forEach((scene, index) => {
     gsap.set(scene, {
@@ -78,7 +85,13 @@ window.addEventListener("load", () => {
   gsap.set("#s5", { clipPath: "inset(50% 0% 50% 0%)" });
   gsap.set("#s6", { clipPath: "circle(0% at 70% 55%)" });
   gsap.set("#s7", { clipPath: "inset(0% 0% 0% 100%)" });
-  gsap.set("#s8", { clipPath: "circle(0% at 50% 52%)" });
+  if (desktopMidnightReveal) {
+    gsap.set("#s8", { clipPath: "none" });
+    gsap.set(".midnight-transition-disc", { clipPath: "circle(0% at 50% 52%)" });
+    gsap.set(".midnight-content", { opacity: 0 });
+  } else {
+    gsap.set("#s8", { clipPath: "circle(0% at 50% 52%)" });
+  }
   gsap.set("#s9", { clipPath: "inset(100% 0% 0% 0%)" });
   gsap.set("#s10", { clipPath: "circle(0% at 68% 50%)" });
 
@@ -306,7 +319,7 @@ window.addEventListener("load", () => {
     .to(".midnight-background-layer", { x: -14, y: -8, scale: 1.08, opacity: 1, duration: .88 }, 10.48)
     .to(".midnight-atmosphere-a", { x: 28, y: -18, scale: 1.12, opacity: .96, duration: .88 }, 10.48)
     .to(".midnight-atmosphere-b", { x: -22, y: 10, scale: 1.10, opacity: .70, duration: .88 }, 10.48)
-    .to("#s8", { clipPath: "circle(150% at 50% 52%)", duration: 1.02 }, 10.48)
+    .to(midnightRevealTarget, { clipPath: "circle(150% at 50% 52%)", duration: 1.02 }, 10.48)
     .to(".midnight-title", { x: 0, opacity: 1, duration: .8 }, 10.58)
     .to(".sun", { scale: 1, opacity: 1, duration: .88 }, 10.55)
     .to(".midnight-sun-asset", { scale: 1.04, duration: .88 }, 10.55)
@@ -315,6 +328,10 @@ window.addEventListener("load", () => {
     .addLabel("s8", 11.34)
     .to(".sun", { scale: 1.24, x: -20, duration: .62 }, 11.38)
     .to(".midnight-word", { xPercent: -5, duration: .62 }, 11.38);
+
+  if (desktopMidnightReveal) {
+    master.to(".midnight-content", { opacity: 1, duration: .34 }, 11.12);
+  }
 
   /* 08 -> 09: the gold disc becomes a sheet/formula field rising from below. */
   master
