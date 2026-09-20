@@ -40,7 +40,8 @@
             "assets-v19.css?v=25",
             "assets-v20.css?v=20",
             "assets-v21.css?v=21",
-            "assets-v22.css?v=22"
+            "assets-v22.css?v=22",
+            "transitions-v26.css?v=26"
           ]
         : ["assets-mobile-v23.css?v=23"];
       stylesheets.forEach(href => {
@@ -98,6 +99,8 @@
   </section>
 
   <section class="scene night" id="s2">
+    <div class="scene-transition-disc night-transition-disc" aria-hidden="true"></div>
+    <div class="scene-transition-content night-transition-content">
     <span class="chapter light">02 / LA NUIT</span>
     <picture class="night-background-layer" aria-hidden="true"><source media="(max-width: 650px)" srcset="assets/backgrounds/night-mobile-v22.webp"><img src="assets/backgrounds/night-v12.webp" alt="" loading="eager" fetchpriority="low" decoding="async"></picture>
     <div class="night-atmosphere night-atmosphere-a" aria-hidden="true"></div>
@@ -118,6 +121,7 @@
     <div class="night-small"><span>OMBRE</span><span>BOIS</span><span>PEAU</span></div>
     <div class="number light-number" aria-hidden="true">02</div>
     <div class="bottom-wipe wipe-cream" aria-hidden="true"></div>
+    </div>
   </section>
 
   <section class="scene materials" id="s3">
@@ -144,6 +148,8 @@
   </section>
 
   <section class="scene object-scene" id="s4">
+    <div class="scene-transition-disc object-transition-disc" aria-hidden="true"></div>
+    <div class="scene-transition-content object-transition-content">
     <div class="object-background-layer" aria-hidden="true"></div>
     <div class="object-atmosphere object-atmosphere-a" aria-hidden="true"></div>
     <div class="object-atmosphere object-atmosphere-b" aria-hidden="true"></div>
@@ -162,6 +168,7 @@
     <div class="scale-line" aria-hidden="true"><span>000</span><span>025</span><span>050</span><span>075</span><span>100</span></div>
     <div class="number light-number object-number" aria-hidden="true">04</div>
     <div class="bottom-wipe wipe-stone" aria-hidden="true"></div>
+    </div>
   </section>
 
   <section class="scene presence" id="s5">
@@ -178,6 +185,8 @@
   </section>
 
   <section class="scene manifesto" id="s6">
+    <div class="scene-transition-disc manifest-transition-disc" aria-hidden="true"></div>
+    <div class="scene-transition-content manifest-transition-content">
     <div class="manifest-background-layer" aria-hidden="true"></div>
     <div class="manifest-atmosphere manifest-atmosphere-a" aria-hidden="true"></div>
     <div class="manifest-atmosphere manifest-atmosphere-b" aria-hidden="true"></div>
@@ -187,6 +196,7 @@
     <div class="manifest-noir" aria-hidden="true">NOIR</div>
     <div class="manifest-bottom"><span>SILLAGE / LONG</span><span>CONCENTRATION / 28%</span><span>TENUE / 8H+</span></div>
     <div class="bottom-wipe wipe-collection" aria-hidden="true"></div>
+    </div>
   </section>
 
   <section class="scene collection" id="s7">
@@ -214,8 +224,8 @@
   </section>
 
   <section class="scene midnight" id="s8">
-    <div class="midnight-transition-disc" aria-hidden="true"></div>
-    <div class="midnight-content">
+    <div class="scene-transition-disc midnight-transition-disc" aria-hidden="true"></div>
+    <div class="scene-transition-content midnight-content">
     <div class="midnight-background-layer" aria-hidden="true"></div>
     <div class="midnight-atmosphere midnight-atmosphere-a" aria-hidden="true"></div>
     <div class="midnight-atmosphere midnight-atmosphere-b" aria-hidden="true"></div>
@@ -247,6 +257,8 @@
   </section>
 
   <section class="scene finale" id="s10">
+    <div class="scene-transition-disc final-transition-disc" aria-hidden="true"></div>
+    <div class="scene-transition-content final-transition-content">
     <div class="final-background-layer" aria-hidden="true"></div>
     <div class="final-atmosphere final-atmosphere-a" aria-hidden="true"></div>
     <div class="final-atmosphere final-atmosphere-b" aria-hidden="true"></div>
@@ -255,6 +267,7 @@
     <div class="final-copy"><h2>LAISSEZ<br>UNE TRACE.</h2><a href="#s1" class="final-cta"><span>DÉCOUVRIR NOIR</span><i aria-hidden="true">↗</i></a></div>
     <div class="final-product"><div class="final-art"><picture class="responsive-asset"><source media="(min-width: 651px)" srcset="assets/objects/noir-v12.webp"><source media="(max-width: 650px)" data-srcset="assets/objects/noir-mobile-v22.webp"><img class="final-bottle-asset" src="data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=" data-src="assets/objects/noir-mobile-v22.webp" alt="Flacon NOIR, eau de parfum, 75 ml" loading="eager" fetchpriority="low" decoding="async"></picture><div class="final-label-overlay" aria-hidden="true"><small>MAISON</small><strong>NOIR</strong><span>EAU DE PARFUM</span><em>PARIS</em></div></div><div class="bottle black-bottle" aria-hidden="true"><div class="cap"></div><div class="metal"></div><div class="neck"></div><div class="body"><div class="shine"></div><div class="bottle-label"><small>MAISON</small><strong>NOIR</strong><span>EAU DE PARFUM</span><em>PARIS</em></div></div></div></div>
     <footer><span>NOIR PARFUMS · PARIS</span><span>MMXXVI</span><a href="#s1">RETOUR AU DÉBUT</a></footer>
+    </div>
   </section>
   </div><!-- /experience-stage -->
 
@@ -262,6 +275,6 @@
 
 <script src="vendor/gsap.min.js"></script>
 <script src="vendor/ScrollTrigger.min.js"></script>
-<script src="script.js?v=14"></script>
+<script src="script.js?v=15"></script>
 </body>
 </html>
